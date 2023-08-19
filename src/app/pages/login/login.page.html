@@ -1,0 +1,33 @@
+<ion-app>
+
+<ion-card>
+  <ion-img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png"/>
+  <ion-card-header>
+    <ion-card-title>Ingrese sus datos</ion-card-title>
+    <ion-card-subtitle>SUBTITULO</ion-card-subtitle>
+  </ion-card-header>
+
+  <ion-card-content>
+    <form>
+      <ion-item class="input" color="warning">
+        <ion-label position="stacked">Correo</ion-label>
+        <ion-input type="email" placeholder="Ingrese su correo" class="correo"></ion-input>
+      </ion-item>
+
+      <ion-item-divider color="gray"></ion-item-divider>
+
+      <ion-item class="input" color="warning">
+        <ion-label position="stacked">Contraseña</ion-label>
+        <ion-input type="password" placeholder="Ingrese su contraseña" shape="round" class="contraseña"></ion-input>
+      </ion-item>
+
+      <ion-item class="buttonitem" color="rgba(0, 0, 0, 0)">
+        <ion-button href="http://localhost:8100/home" fill="outline" color="success" size="default" class="entrar">Entrar</ion-button>
+      </ion-item>
+
+      <ion-text class="link">¿No tienes una cuenta? </ion-text><a class="linkazul" href="http://localhost:8100/registro">Registrate aqui</a>
+    </form>
+  </ion-card-content>
+</ion-card>
+</ion-app>
+
