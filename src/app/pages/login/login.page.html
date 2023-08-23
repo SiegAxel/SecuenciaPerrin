@@ -1,4 +1,10 @@
-<ion-content>
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title> Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
 
   <ion-card>
     <ion-img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
@@ -29,11 +35,11 @@
 
         <hr color="black">
 
-        <ion-button href="http://localhost:8100/home" fill="solid" color="primary" size="default"
+        <ion-button routerLink="/home/" fill="solid" color="primary" size="default"
           class="entrar">Entrar</ion-button>
 
         <b><ion-text class="link">¿No tienes una cuenta? </ion-text><a class="linkazul"
-          href="http://localhost:8100/registro">Registrate aqui</a></b>
+          routerLink="/registro/" routerDirection="forward">Registrate aqui</a></b>
         <b><ion-text class="link">¿Olvidaste tu contraseña? </ion-text><a class="linkazul"
           href="http://localhost:8100/restcon">Reestablecer aqui</a></b>
       </form>
