@@ -1,8 +1,72 @@
+* {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+ion-content {
+    background: var(--ion-color-dark);
+}
 
 ion-card {
-    overflow: auto;
-    background: #012C56;
-    
+    //     background: linear-gradient(to left top, #260063,75%, rgba(255, 255, 255, 0.642)) ;
+    background: white;
+    background: linear-gradient(
+            #4B0000,
+            #0c0c1e9c 70%);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
+    border-radius: .8em !important;;
+    z-index: 1;
+
+}
+
+.circulo1 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.379)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    transform: translate(-10%, -10%);
+}
+
+.circulo2 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #4B0000,
+        rgba(255, 255, 255, 0.404)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 70%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.circulo3 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.378)
+    );
+    backdrop-filter: blur(1rem);
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 90%;
+    left: 10%;
+    transform: translate(-50%, -50%);
 }
 
 ion-card-title {
@@ -10,7 +74,9 @@ ion-card-title {
 }
 
 .input {
+    text-align: center;
     border-radius: 15px;
+    background-color: #f3e3e285;
 }
 
 .entrar {
@@ -35,6 +101,3 @@ ion-card-title {
 .linkazul:hover {
     color: white;
 }
-
-
-
