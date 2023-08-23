@@ -26,9 +26,13 @@ ion-card-title {
 }
 
 .linkazul {
-    display: flex;
-    justify-content: center;
     text-decoration: none;
+    width: fit-content;
+    margin-left: 47.5%;
+}
+
+.linkazul:hover {
+    color: white;
 }
 
 
