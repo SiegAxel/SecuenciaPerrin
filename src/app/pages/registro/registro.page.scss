@@ -1,0 +1,58 @@
+*{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+ion-content {
+    --background: var(--ion-color-dark);
+}
+
+ion-card {
+    background: #012C56;
+    
+}
+
+ion-card-title {
+    color: white;
+}
+
+
+.input {
+    border-radius: 15px;
+}
+
+.entrar {
+    width: 20%;
+    margin-left: 40%;
+    margin-top: 3%;
+    margin-bottom: 2%;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+}
+
+.linkazul {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+a{
+    width: fit-content;
+    margin-left: 48%;
+}
+
+a:hover {
+    color: white;
+}
+
+@media only screen and (min-width: 1300px) {
+    ion-img {
+        height: 35% !important ;
+        max-height :75%!important;
+        max-width: 100%!important;
+        width: 100%!important;
+    }
+    
+}
