@@ -1,13 +1,55 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>registro</ion-title>
-  </ion-toolbar>
-</ion-header>
+  
+<ion-content>
+  <ion-card>
+     <ion-img alt="Silhouette of mountains" src="https://ionicframework.com/docs/img/demos/card-media.png" />
+    <ion-card-header>
+      <ion-card-title><b>Registro de Usuario</b></ion-card-title>
+      <ion-card-subtitle><b>RegistrApp</b></ion-card-subtitle>
+    </ion-card-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">registro</ion-title>
-    </ion-toolbar>
-  </ion-header>
+    <hr color="black">
+  
+    <ion-card-content>
+      <form>
+        <ion-item class="input" color="warning">
+          <ion-label position="stacked">Usuario</ion-label>
+          <ion-input type="text" placeholder="Ingrese su usuario" class="usuario"></ion-input>
+        </ion-item>
+
+        <ion-item-divider color="gray"></ion-item-divider>
+        
+        <ion-item class="input" color="warning">
+          <ion-label position="stacked">Nombre</ion-label>
+          <ion-input type="text" placeholder="Ingrese su nombre" class="nombre"></ion-input>
+        </ion-item>
+
+        <ion-item-divider color="gray"></ion-item-divider>
+
+        <ion-item class="input" color="warning">
+          <ion-label position="stacked">Email</ion-label>
+          <ion-input type="email" placeholder="Ingrese su correo" class="correo"></ion-input>
+        </ion-item>
+
+        <ion-item-divider color="gray"></ion-item-divider>
+        
+        <ion-item class="input" color="warning">
+          <ion-label position="stacked">Contraseña</ion-label>
+          <ion-input type="password" placeholder="Ingrese su contraseña" shape="round" class="contraseña"></ion-input>
+        </ion-item>
+        
+        <ion-item-divider color="gray"></ion-item-divider>
+
+        <ion-item class="input" color="warning">
+          <ion-label position="stacked">Confirme Contraseña</ion-label>
+          <ion-input type="password" placeholder="Confirmar contraseña" shape="round" class="contraseña"></ion-input>
+        </ion-item>
+          
+        <ion-button href="http://localhost:8100/home" fill="solid" color="primary" size="default" class="entrar">Entrar</ion-button>
+        
+        <ion-text class="link"><b>¿Ya tienes una cuenta?</b></ion-text><a class="linkazul" href="http://localhost:8100/login">Ingresa aqui</a>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
+  
+  
