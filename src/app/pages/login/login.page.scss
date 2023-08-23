@@ -28,7 +28,8 @@ ion-card-title {
 .linkazul {
     text-decoration: none;
     width: fit-content;
-    margin-left: 47.5%;
+    display: flex;
+    margin: auto;
 }
 
 .linkazul:hover {
