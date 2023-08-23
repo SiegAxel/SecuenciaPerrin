@@ -1,8 +1,14 @@
+*{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+ion-content {
+    --background: var(--ion-color-dark);
+}
 
 ion-card {
     overflow: auto;
     background: #012C56;
-    
 }
 
 ion-card-title {

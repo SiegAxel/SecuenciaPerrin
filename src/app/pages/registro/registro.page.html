@@ -7,7 +7,10 @@
       <ion-card-subtitle><b>RegistrApp</b></ion-card-subtitle>
     </ion-card-header>
 
-    <hr color="black">
+    <ion-card-content> 
+      <hr color="black">
+    </ion-card-content>
+
   
     <ion-card-content>
       <form>
@@ -40,13 +43,17 @@
         <ion-item-divider color="gray"></ion-item-divider>
 
         <ion-item class="input" color="warning">
-          <ion-label position="stacked">Confirme Contraseña</ion-label>
+          <ion-label position="stacked">Reingrese su contraseña</ion-label>
           <ion-input type="password" placeholder="Confirmar contraseña" shape="round" class="contraseña"></ion-input>
         </ion-item>
+
+        <ion-item-divider color="gray"></ion-item-divider>
+
+        <hr color="black" >
           
-        <ion-button href="http://localhost:8100/home" fill="solid" color="primary" size="default" class="entrar">Entrar</ion-button>
-        
-        <ion-text class="link"><b>¿Ya tienes una cuenta?</b></ion-text><a class="linkazul" href="http://localhost:8100/login">Ingresa aqui</a>
+        <ion-button href="http://localhost:8100/login" fill="solid" color="primary" size="default" class="entrar">Registrarse</ion-button>
+      
+        <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" href="http://localhost:8100/login">Ingresa aqui</a></b>
       </form>
     </ion-card-content>
   </ion-card>
