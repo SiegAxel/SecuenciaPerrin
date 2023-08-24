@@ -1,6 +1,7 @@
 
 <ion-header [translucent]="true">
   <ion-toolbar>
+    <ion-back-button slot="start">Back</ion-back-button>
     <ion-title> Registro</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -19,7 +20,6 @@
       <hr color="gray">
     </ion-card-content>
 
-  
     <ion-card-content>
       <form>
         <ion-item class="inputReg" color="#F3E3E2">
@@ -59,7 +59,7 @@
 
         <hr color="gray" >
           
-        <ion-button href="http://localhost:8100/login" fill="solid" color="primary" size="default" class="entrar">Registrarse</ion-button>
+        <ion-button href="http://localhost:8100/login" fill="solid" size="default" class="entrar">Registrarse</ion-button>
       
         <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" routerLink="/login/" routerDirection="back">Ingresa aqui</a></b>
       </form>
