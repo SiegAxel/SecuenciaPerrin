@@ -90,6 +90,7 @@ ion-card-subtitle {
 .entrar {
     display: flex;
     margin: auto;
+    --border-radius: 0;
     width: -moz-fit-content;
     width: fit-content;
     margin-top: 2%;

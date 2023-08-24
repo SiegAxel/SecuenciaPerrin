@@ -87,10 +87,13 @@ ion-card-title {
 }
 
 .entrar {
-    width: 20%;
-    margin-left: 40%;
+    width: fit-content;
+    display: flex;
+    margin: auto;
+    --border-radius: 0;
     margin-top: 3%;
     margin-bottom: 2%;
+    
 }
 
 .ripple-parent {
@@ -128,3 +131,4 @@ ion-title {
     justify-content: center;
     align-items: center;
 }
+
