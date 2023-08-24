@@ -15,7 +15,6 @@ ion-card {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;;
     z-index: 1;
-
 }
 
 .circulo1 {
@@ -73,6 +72,14 @@ ion-card-title {
     color: white;
 }
 
+.input ion-label {
+    margin: auto;
+    display:flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+}
+
 .input {
     text-align: center;
     border-radius: 15px;
@@ -86,18 +93,32 @@ ion-card-title {
     margin-bottom: 2%;
 }
 
+.ripple-parent {
+    position: relative;
+  }
+
+  .rounded-rectangle {
+    border-radius: 5px;
+    overflow: hidden;
+    color: #210dbc;
+  }
+
+
+  
 .link {
     display: flex;
     justify-content: center;
+    color: gray;
 }
 
 .linkazul {
     text-decoration: none;
+    width: -moz-fit-content;
     width: fit-content;
     display: flex;
     margin: auto;
 }
 
 .linkazul:hover {
-    color: white;
+    color: rgb(255, 255, 255);
 }

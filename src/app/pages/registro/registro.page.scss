@@ -71,6 +71,10 @@ ion-card-title {
     color: white;
 }
 
+ion-card-subtitle {
+    color: white;
+}
+
 .inputReg ion-label {
     margin: auto;
     display:flex;
@@ -86,6 +90,7 @@ ion-card-title {
 .entrar {
     display: flex;
     margin: auto;
+    width: -moz-fit-content;
     width: fit-content;
     margin-top: 2%;
     margin-bottom: 2%;
@@ -94,6 +99,7 @@ ion-card-title {
 .link {
     display: flex;
     justify-content: center;
+    color: gray;
 }
 
 .linkazul {
@@ -102,7 +108,8 @@ ion-card-title {
     text-decoration: none;
 }
 
-a{
+a {
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
 }
