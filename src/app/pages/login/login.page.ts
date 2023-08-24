@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+
+import { Router } from '@angular/router';
+
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
@@ -8,7 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private router: Router) { }
 
   usuario = new FormGroup({
       correo: new FormControl([Validators.required,
@@ -20,4 +23,8 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
+
+  redireccionar(){
+    this.router.navigate(['/registro'])
+  }
 }
