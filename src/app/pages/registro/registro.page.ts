@@ -55,6 +55,10 @@ export class RegistroPage implements OnInit {
    return this.usuarioService.listar();
   }
 
+  public eliminar(u_eliminar: string){
+    
+  }
+
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
     message: string,
     duration: number) {
