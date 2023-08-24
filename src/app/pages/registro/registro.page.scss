@@ -1,0 +1,129 @@
+*{
+    font-family: 'Fira Sans', sans-serif;
+}
+
+ion-content {
+    background: var(--ion-color-dark);
+}
+
+ion-card {
+    background: white;
+    background: linear-gradient(
+            #4B0000,
+            #0c0c1e9c 70%);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
+    border-radius: .8em !important;;
+    z-index: 1;
+}
+
+.circulo1 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.379)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    transform: translate(-10%, -10%);
+}
+
+.circulo2 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #4B0000,
+        rgba(255, 255, 255, 0.404)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 70%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.circulo3 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.378)
+    );
+    backdrop-filter: blur(1rem);
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 90%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+}
+
+ion-card-title {
+    color: white;
+}
+
+ion-card-subtitle {
+    color: white;
+}
+
+.inputReg ion-label {
+    margin: auto;
+    display:flex;
+    text-align: center;
+}
+
+.inputReg {
+    text-align: center;
+    border-radius: 15px;
+    background-color: #f3e3e285;
+}
+
+.entrar {
+    display: flex;
+    margin: auto;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin-top: 2%;
+    margin-bottom: 2%;
+}
+
+.link {
+    display: flex;
+    justify-content: center;
+    color: gray;
+}
+
+.linkazul {
+    display: flex;
+    justify-content: center;
+    text-decoration: none;
+}
+
+a {
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: auto;
+}
+
+a:hover {
+    color: white;
+}
+
+@media only screen and (min-width: 1300px) {
+    ion-img {
+        height: 35% !important ;
+        max-height :75%!important;
+        max-width: 100%!important;
+        width: 100%!important;
+    }
+    
+}
