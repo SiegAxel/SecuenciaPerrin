@@ -11,11 +11,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router) { }
-
-  usuario = new FormGroup({
-      
-  })
+  constructor() { }
 
   ngOnInit() {
   }
