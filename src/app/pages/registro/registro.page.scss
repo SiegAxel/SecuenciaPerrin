@@ -72,7 +72,7 @@ ion-card-title {
 }
 
 ion-card-subtitle {
-    color: white;
+    color: gray;
 }
 
 .inputReg ion-label {
@@ -90,15 +90,21 @@ ion-card-subtitle {
 .entrar {
     display: flex;
     margin: auto;
+    width: -moz-fit-content;
     width: fit-content;
     margin-top: 2%;
     margin-bottom: 2%;
 }
 
+ion-button {
+    --background: tomato;
+    --border-radius: 0;
+}
+
 .link {
     display: flex;
     justify-content: center;
-    color: black;
+    color: gray;
 }
 
 .linkazul {
@@ -108,6 +114,7 @@ ion-card-subtitle {
 }
 
 a {
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
 }
@@ -115,6 +122,12 @@ a {
 a:hover {
     color: white;
 }
+
+ion-button {
+    --background: tomato;
+}
+
+
 
 @media only screen and (min-width: 1300px) {
     ion-img {

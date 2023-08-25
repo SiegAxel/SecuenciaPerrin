@@ -1,5 +1,7 @@
+
 <ion-header [translucent]="true">
     <ion-toolbar>
+      <ion-back-button slot="start"></ion-back-button>
       <ion-title>Login page</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -15,18 +17,19 @@
         </ion-card-header>
 
         <ion-card-content>
-          <hr color="black">
+          <hr color="gray">
         </ion-card-content>
 
         <ion-card-content>
 
-          <form>
+          <form [formGroup]="usuario">
             <div class="ion-activatable ripple-parent rounded-rectangle">
               <ion-ripple-effect></ion-ripple-effect>
               <ion-item class="input" color="#F3E3E2">
                 <ion-label position="stacked">Correo</ion-label>
                 <ion-input type="email" placeholder="Ingrese su correo"
-                  class="correo"></ion-input>
+                  class="correo"
+                  formControlName="correo"></ion-input>
               </ion-item>
             </div>
 
@@ -37,21 +40,22 @@
               <ion-item class="input" color="#F3E3E2">
                 <ion-label position="stacked">Contraseña</ion-label>
                 <ion-input type="password" placeholder="Ingrese su contraseña"
-                  class="contraseña"></ion-input>
+                  class="contraseña"
+                  formControlName="contraseña"></ion-input>
               </ion-item>
             </div>
 
             <ion-item-divider color="gray"></ion-item-divider>
 
-            <hr color="black">
+            <hr color="gray">
 
-            <ion-button routerLink="/home/" fill="solid" color="primary"
+            <ion-button routerLink="/home/" fill="solid"
               size="default"
               class="entrar">Entrar</ion-button>
 
             <b><ion-text class="link">¿No tienes una cuenta? </ion-text><a
                 class="linkazul"
-                routerLink="/registro/">Registrate aqui</a></b>
+                (click)="redireccionar()">Registrate aqui</a></b>
             <b><ion-text class="link">¿Olvidaste tu contraseña? </ion-text><a
                 class="linkazul"
                 routerLink="/restcon/">Reestablecer aqui</a></b>
