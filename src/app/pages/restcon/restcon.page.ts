@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+
 
 @Component({
   selector: 'app-restcon',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RestconPage implements OnInit {
 
+
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  isModalOpen = false;
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
+  }
+  
 }
