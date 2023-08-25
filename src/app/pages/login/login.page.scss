@@ -3,11 +3,10 @@
 }
 
 ion-content {
-    background: var(--ion-color-dark);
+    --background: var(--ion-color-dark);
 }
 
 ion-card {
-    //     background: linear-gradient(to left top, #260063,75%, rgba(255, 255, 255, 0.642)) ;
     background: white;
     background: linear-gradient(
             #4B0000,
@@ -82,6 +81,10 @@ ion-card-subtitle {
     text-align: center;
     justify-content: center;
     align-items: center;
+}
+
+#id {
+    
 }
 
 .input {

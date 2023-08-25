@@ -3,7 +3,7 @@
 }
 
 ion-content {
-    background: var(--ion-color-dark);
+    --background: var(--ion-color-dark);
 }
 
 ion-card {
@@ -99,6 +99,7 @@ ion-card-subtitle {
 ion-button {
     --background: tomato;
     --border-radius: 0;
+    --background: hover;
 }
 
 .link {

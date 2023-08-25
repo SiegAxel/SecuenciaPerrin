@@ -1,7 +1,5 @@
-
 <ion-header [translucent]="true">
     <ion-toolbar>
-      <ion-back-button slot="start"></ion-back-button>
       <ion-title>Login page</ion-title>
     </ion-toolbar>
   </ion-header>
@@ -23,7 +21,7 @@
         <ion-card-content>
 
           <form [formGroup]="usuario">
-            <div class="ion-activatable ripple-parent rounded-rectangle">
+            <div class="ion-activatable ripple-parent rounded-rectangle" id="input">
               <ion-ripple-effect></ion-ripple-effect>
               <ion-item class="input" color="#F3E3E2">
                 <ion-label position="stacked">Correo</ion-label>
@@ -35,7 +33,7 @@
 
             <ion-item-divider color="gray"></ion-item-divider>
 
-            <div class="ion-activatable ripple-parent rounded-rectangle">
+            <div class="ion-activatable ripple-parent rounded-rectangle" id="input">
               <ion-ripple-effect></ion-ripple-effect>
               <ion-item class="input" color="#F3E3E2">
                 <ion-label position="stacked">Contraseña</ion-label>
