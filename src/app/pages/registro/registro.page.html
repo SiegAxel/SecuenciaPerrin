@@ -3,8 +3,6 @@
 
     <ion-back-button slot="start"></ion-back-button>
 
-    <ion-back-button slot="start">Back</ion-back-button>
-
     <ion-title> Registro</ion-title>
   </ion-toolbar>
 </ion-header>
@@ -60,7 +58,7 @@
 
         <ion-item-divider color="gray"></ion-item-divider>
 
-        <hr color="black">
+        <hr color="gray">
 
         <ion-button (click)="redireccionar()" fill="solid" size="default" class="entrar"
           type="submit">Registrarse</ion-button>
@@ -68,12 +66,6 @@
         <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" routerLink="/login/"
             routerDirection="back">Ingresa aqui</a></b>
 
-        <hr color="gray" >
-          
-        <ion-button href="http://localhost:8100/login" fill="solid" size="default" class="entrar">Registrarse</ion-button>
-      
-        <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" routerLink="/login/" routerDirection="back">Ingresa aqui</a></b>
-        
       </form>
     </ion-card-content>
   </ion-card>
