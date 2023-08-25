@@ -72,7 +72,7 @@ ion-card-title {
 }
 
 ion-card-subtitle {
-    color: white;
+    color: gray;
 }
 
 .inputReg ion-label {
@@ -96,6 +96,11 @@ ion-card-subtitle {
     margin-bottom: 2%;
 }
 
+ion-button {
+    --background: tomato;
+    --border-radius: 0;
+}
+
 .link {
     display: flex;
     justify-content: center;
@@ -117,6 +122,12 @@ a {
 a:hover {
     color: white;
 }
+
+ion-button {
+    --background: tomato;
+}
+
+
 
 @media only screen and (min-width: 1300px) {
     ion-img {
