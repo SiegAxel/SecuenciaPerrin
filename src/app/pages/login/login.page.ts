@@ -23,8 +23,4 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-
-  redireccionar(){
-    this.router.navigate(['/registro'])
-  }
 }
