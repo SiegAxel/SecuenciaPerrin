@@ -13,16 +13,16 @@ export class UsuarioService {
   //SERVICIO DE CONTROL DE INFORMACIÓN:
   //CRUD DE USUARIOS:
   agregar(usuario: any): boolean{
-    if( this.buscar(usuario.rut) == undefined ){
+    if( this.buscar(usuario.u) == undefined ){
       this.usuarios.push(usuario);
       return true;
     }
     return false;
   }
 
-  eliminar(rut: string){
+  eliminar(u: string){
     this.usuarios.forEach( (usu,index) => {
-      if(usu.rut == rut){
+      if(usu.u == u){
         this.usuarios.splice(index,1);
       }
     });
@@ -32,12 +32,12 @@ export class UsuarioService {
     return this.usuarios;
   }
 
-  buscar(rut: string){
-    return this.usuarios.find( usu => usu.rut == rut );
+  buscar(u: string){
+    return this.usuarios.find( usu => usu.u == u );
   }
 
-  modificar(rut: string, usuario: any){
-    var posicion = this.usuarios.findIndex( usu => usu.rut == rut );
+  modificar(u: string, usuario: any){
+    var posicion = this.usuarios.findIndex( usu => usu.u == u );
     this.usuarios[posicion] = usuario;
   }
 
