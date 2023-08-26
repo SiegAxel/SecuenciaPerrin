@@ -18,6 +18,19 @@ ion-card {
 
 }
 
+ion-toolbar {
+    --background:#1b2e3c4e;
+}
+
+@media (max-width: 450px) {
+    ion-card {
+      max-width: 500px; // Ajustar el maximo de ancho
+      margin: 0 auto;
+      position: relative;
+      top: 50px; // Ajustar posicion (espacio) desde arriba.
+    }
+}
+
 @media (min-width: 650px) {
     ion-card {
       max-width: 500px; // Adjust the max-width to your preference
