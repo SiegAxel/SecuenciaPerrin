@@ -155,7 +155,44 @@ i {
     justify-content: center;
 }
 
+.ion-padding {
+    --background: linear-gradient(#4B0000,
+            #0c0c1e9c 70%);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
+}
 
+ion-label {
+    justify-content: center;
+}
+
+.ion-text {
+    margin-left: 15%;
+}
+
+.ion-pass {
+    text-align: center;
+    border-radius: 15px;
+    background-color: #f3e3e285;
+}
+
+.ion-pass-label {
+    margin-left: 32%;
+    color: white;
+}
+
+.ion-toolbar {
+    --background: black;
+}
+
+.ion-middle-text {
+    margin-left: 50%;
+
+}
+
+.ion-button-modal {
+    margin-left: 44%;
+    margin-top: 6%;
+}
 
 @media (min-width: 650px) {
     ion-card {
