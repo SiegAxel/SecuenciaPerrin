@@ -7,7 +7,6 @@ ion-content {
 }
 
 ion-card {
-    //     background: linear-gradient(to left top, #260063,75%, rgba(255, 255, 255, 0.642)) ;
     background: white;
     background: linear-gradient(
             #4B0000,
@@ -15,7 +14,28 @@ ion-card {
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;;
     z-index: 1;
+
+
 }
+
+@media (min-width: 650px) {
+    ion-card {
+      max-width: 500px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
+    }
+}
+
+@media (min-width: 1200px) {
+    ion-card {
+      max-width: 450px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
+    }
+}
+
 
 .circulo1 {
     background: white;
