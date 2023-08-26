@@ -9,21 +9,19 @@ ion-content {
 ion-card {
     //     background: linear-gradient(to left top, #260063,75%, rgba(255, 255, 255, 0.642)) ;
     background: white;
-    background: linear-gradient(
-            #4B0000,
+    background: linear-gradient(#4B0000,
             #0c0c1e9c 70%);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
-    border-radius: .8em !important;;
+    border-radius: .8em !important;
+    ;
     z-index: 1;
 }
 
 .circulo1 {
     background: white;
-    background: linear-gradient(
-        to right bottom,
-        #1B2E3C,
-        rgba(255, 255, 255, 0.379)
-    );
+    background: linear-gradient(to right bottom,
+            #1B2E3C,
+            rgba(255, 255, 255, 0.379));
     backdrop-filter: blur(1rem);
     height: 20rem;
     width: 20rem;
@@ -36,11 +34,9 @@ ion-card {
 
 .circulo2 {
     background: white;
-    background: linear-gradient(
-        to right bottom,
-        #4B0000,
-        rgba(255, 255, 255, 0.404)
-    );
+    background: linear-gradient(to right bottom,
+            #4B0000,
+            rgba(255, 255, 255, 0.404));
     backdrop-filter: blur(1rem);
     height: 20rem;
     width: 20rem;
@@ -53,11 +49,9 @@ ion-card {
 
 .circulo3 {
     background: white;
-    background: linear-gradient(
-        to right bottom,
-        #1B2E3C,
-        rgba(255, 255, 255, 0.378)
-    );
+    background: linear-gradient(to right bottom,
+            #1B2E3C,
+            rgba(255, 255, 255, 0.378));
     backdrop-filter: blur(1rem);
     height: 10rem;
     width: 10rem;
@@ -78,7 +72,7 @@ ion-card-subtitle {
 
 .input ion-label {
     margin: auto;
-    display:flex;
+    display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -106,16 +100,16 @@ ion-button {
 
 .ripple-parent {
     position: relative;
-  }
+}
 
-  .rounded-rectangle {
+.rounded-rectangle {
     border-radius: 5px;
     overflow: hidden;
     color: #210dbc;
-  }
+}
 
 
-  
+
 .link {
     display: flex;
     justify-content: center;
@@ -153,4 +147,43 @@ i {
 .passTel {
     display: flex;
     justify-content: center;
+}
+
+.ion-padding {
+    --background: linear-gradient(#4B0000,
+            #0c0c1e9c 70%);
+    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
+}
+
+ion-label {
+    justify-content: center;
+}
+
+.ion-text {
+    margin-left: 15%;
+}
+
+.ion-pass {
+    text-align: center;
+    border-radius: 15px;
+    background-color: #f3e3e285;
+}
+
+.ion-pass-label {
+    margin-left: 32%;
+    color: white;
+}
+
+.ion-toolbar {
+    --background: black;
+}
+
+.ion-middle-text {
+    margin-left: 50%;
+
+}
+
+.ion-button-modal {
+    margin-left: 44%;
+    margin-top: 6%;
 }
