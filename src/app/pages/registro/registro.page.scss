@@ -124,18 +124,20 @@ a:hover {
     color: white;
 }
 
-ion-button {
-    --background: tomato;
+@media (min-width: 650px) {
+    ion-card {
+      max-width: 500px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
+    }
 }
 
-
-
-@media only screen and (min-width: 1300px) {
-    ion-img {
-        height: 35% !important ;
-        max-height :75%!important;
-        max-width: 100%!important;
-        width: 100%!important;
+@media (min-width: 1200px) {
+    ion-card {
+      max-width: 450px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
     }
-    
 }
