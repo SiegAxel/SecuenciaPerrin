@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { LoaderService } from 'src/app/services/loader.service';
 
 import { Router } from '@angular/router';
 
@@ -11,9 +12,48 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  constructor() { }
+  constructor(private loaderService: LoaderService, private router:Router) { }
+
+  async login() {
+    try {
+      await this.loaderService.presentLoader();
+      await this.simulateLogin();
+    } finally {
+      await this.loaderService.hideLoader();
+    }
+  }
+
+  async recoverPassword() {
+    try {
+      await this.loaderService.presentLoader();
+    } finally {
+      await this.loaderService.hideLoader();
+      this.router.navigate(['/restcon'])
+    }
+  }
+
+  async register() {
+    try {
+      await this.loaderService.presentLoader();
+    } finally {
+      await this.loaderService.hideLoader();
+      this.router.navigate(['/registro'])
+    }
+  }
 
   ngOnInit() {
+  }
+
+
+
+  //Simulaciones
+
+  private simulateLogin() {
+    return new Promise<void>((resolve) => {
+      setTimeout(() => {
+        resolve();
+      }, 3000); 
+    });
   }
 
 }
