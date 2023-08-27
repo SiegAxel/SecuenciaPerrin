@@ -1,68 +1,71 @@
 <ion-header [translucent]="true">
-    <ion-toolbar>
-      <ion-title>Login page</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-toolbar>
+    <ion-title>Login page</ion-title>
+  </ion-toolbar>
+</ion-header>
 
-  <ion-content [fullscreen]="true">
-    <div>
-      <ion-card>
-        <ion-img alt="Banner estudiantil"
-          src="assets/images/fondo-cifras.jpg" />
-        <ion-card-header>
-          <ion-card-title><b>Ingreso de Usuario.</b></ion-card-title>
-          <ion-card-subtitle><b>RegistrApp</b></ion-card-subtitle>
-        </ion-card-header>
+<ion-content [fullscreen]="true">
+  <div>
+    <ion-card>
+      <ion-img alt="Banner estudiantil"
+        src="assets/images/fondo-cifras.jpg" />
+      <ion-card-header>
+        <ion-card-title><b>Ingreso de Usuario.</b></ion-card-title>
+        <ion-card-subtitle>
+          <span class="icon-container">
+            <ion-img src="assets/images/favicon-16x16.png" class="icon-class"></ion-img>
+            <b>VerifyU</b>
+          </span>
+        </ion-card-subtitle>
+      </ion-card-header>
 
-        <ion-card-content>
+      <ion-card-content>
+        <hr color="gray">
+      </ion-card-content>
+
+      <ion-card-content>
+
+        <form>
+          <div class="ion-activatable ripple-parent rounded-rectangle">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-item class="input" color="#F3E3E2">
+              <ion-label position="stacked">Correo</ion-label>
+              <ion-input type="email" placeholder="Ingrese su correo"
+                class="correo"></ion-input>
+            </ion-item>
+          </div>
+
+          <ion-item-divider color="gray"></ion-item-divider>
+
+          <div class="ion-activatable ripple-parent rounded-rectangle">
+            <ion-ripple-effect></ion-ripple-effect>
+            <ion-item class="input" color="#F3E3E2">
+              <ion-label position="stacked">Contraseña</ion-label>
+              <ion-input type="password" placeholder="Ingrese su contraseña"
+                class="contraseña"></ion-input>
+            </ion-item>
+          </div>
+
+          <ion-item-divider color="gray"></ion-item-divider>
+
           <hr color="gray">
-        </ion-card-content>
 
-        <ion-card-content>
+          <ion-button (click)="login()" fill="solid"
+            size="default"
+            class="entrar">Entrar</ion-button>
 
-          <form>
-            <div class="ion-activatable ripple-parent rounded-rectangle">
-              <ion-ripple-effect></ion-ripple-effect>
-              <ion-item class="input" color="#F3E3E2">
-                <ion-label position="stacked">Correo</ion-label>
-                <ion-input type="email" placeholder="Ingrese su correo"
-                  class="correo"
-                  ></ion-input>
-              </ion-item>
-            </div>
+          <b><ion-text class="link">¿No tienes una cuenta? </ion-text><a
+              class="linkazul"
+              (click)="register()">Registrate aqui</a></b>
+          <b><ion-text class="link">¿Olvidaste tu contraseña? </ion-text><a
+              class="linkazul"
+              (click)="recoverPassword()">Reestablecer aqui</a></b>
+        </form>
+      </ion-card-content>
 
-            <ion-item-divider color="gray"></ion-item-divider>
-
-            <div class="ion-activatable ripple-parent rounded-rectangle" id="input">
-              <ion-ripple-effect></ion-ripple-effect>
-              <ion-item class="input" color="#F3E3E2">
-                <ion-label position="stacked">Contraseña</ion-label>
-                <ion-input type="password" placeholder="Ingrese su contraseña"
-                  class="contraseña"
-                  ></ion-input>
-              </ion-item>
-            </div>
-
-            <ion-item-divider color="gray"></ion-item-divider>
-
-            <hr color="gray">
-
-            <ion-button routerLink="/home/" fill="solid"
-              size="default"
-              class="entrar">Entrar</ion-button>
-
-            <b><ion-text class="link">¿No tienes una cuenta? </ion-text><a
-                class="linkazul"
-                routerLink="/registro/">Registrate aqui</a></b>
-            <b><ion-text class="link">¿Olvidaste tu contraseña? </ion-text><a
-                class="linkazul"
-                routerLink="/restcon/">Reestablecer aqui</a></b>
-          </form>
-        </ion-card-content>
-
-      </ion-card>
-    </div>
-    <div class="circulo1"></div>
-    <div class="circulo2"></div>
-    <div class="circulo3"></div>
-  </ion-content>
+    </ion-card>
+  </div>
+  <div class="circulo1"></div>
+  <div class="circulo2"></div>
+  <div class="circulo3"></div>
+</ion-content>
