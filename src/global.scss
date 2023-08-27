@@ -24,3 +24,66 @@
 @import "@ionic/angular/css/text-alignment.css";
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
+
+* {
+    font-family: 'Fira Sans', sans-serif;
+}
+
+ion-content {
+    background: var(--ion-color-dark);
+}
+
+ion-toolbar {
+    --background:#1b2e3c4e;
+}
+
+.circulo1 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.379)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 10%;
+    left: 10%;
+    transform: translate(-10%, -10%);
+}
+
+.circulo2 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #4B0000,
+        rgba(255, 255, 255, 0.404)
+    );
+    backdrop-filter: blur(1rem);
+    height: 20rem;
+    width: 20rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 70%;
+    left: 80%;
+    transform: translate(-50%, -50%);
+}
+
+.circulo3 {
+    background: white;
+    background: linear-gradient(
+        to right bottom,
+        #1B2E3C,
+        rgba(255, 255, 255, 0.378)
+    );
+    backdrop-filter: blur(1rem);
+    height: 10rem;
+    width: 10rem;
+    position: absolute;
+    border-radius: 50%;
+    top: 90%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+}
