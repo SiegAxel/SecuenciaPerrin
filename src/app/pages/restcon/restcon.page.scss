@@ -184,5 +184,21 @@ ion-modal ion-button, ion-text {
     margin-top: 5%;
 }
 
+@media (min-width: 650px) {
+    ion-card {
+      max-width: 500px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
+    }
+}
 
+@media (min-width: 1200px) {
+    ion-card {
+      max-width: 450px; // Adjust the max-width to your preference
+      margin: 0 auto;
+      position: relative;
+      top: 25px; // You can adjust the positioning as needed
+    }
 
+}
