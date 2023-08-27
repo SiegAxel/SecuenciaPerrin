@@ -1,0 +1,56 @@
+ion-content{
+    --background: black;
+}
+
+@-webkit-keyframes puff-in-center{0%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}}@keyframes puff-in-center{0%{-webkit-transform:scale(2);transform:scale(2);-webkit-filter:blur(4px);filter:blur(4px);opacity:0}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-filter:blur(0);filter:blur(0);opacity:1}}
+
+.container{
+    -webkit-animation:puff-in-center .9s cubic-bezier(.47,0.000,.745,.715) both;animation:puff-in-center .9s cubic-bezier(.47,0.000,.745,.715) both;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    ion-img {
+        height: 200px;
+        width: 200px;
+    }
+    .splash-text {
+        margin-top: 10px;
+        color: transparent;
+        text-align: center;
+        font-family: 'Fira Sans', sans-serif;
+        font-style: oblique;
+        position: relative;
+        font-weight: bold;
+    }
+    .splash-text::before{
+        content: attr(data-text);
+        position: absolute;
+        top: 50%;
+        left: 0;
+        transform: translateY(-50%);
+        width: 100%; 
+        height: 100%;
+        background: linear-gradient(to right, transparent, rgba(255, 255, 255, 0), transparent);
+        animation: shine 2.5s infinite;
+        opacity: 0;
+    }
+    
+    @keyframes shine {
+        0% {
+            opacity: 0; 
+            transform: translateY(-50%) scale(0.9); 
+        }
+        20%, 80% {
+            opacity: 1; 
+            color: white;
+            transform: translateY(-50%) scale(1.1); 
+        }
+        100% {
+            opacity: 0;
+            transform: translateY(-50%) scale(0.9);
+        }
+      }
+}
+

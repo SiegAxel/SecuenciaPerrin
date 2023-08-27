@@ -160,6 +160,7 @@ ion-modal .ion-padding {
 }
 
 .ion-toolbar-title {
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
 }
@@ -169,6 +170,7 @@ ion-modal ion-label, ion-input {
 }
 
 .ion-buttons {
+    width: -moz-fit-content;
     width: fit-content;
     margin: auto;
     margin-top: 3%;
@@ -183,6 +185,7 @@ ion-modal ion-text {
 ion-modal ion-button, ion-text {
     margin-top: 5%;
 }
+
 
 @media (min-width: 650px) {
     ion-card {
