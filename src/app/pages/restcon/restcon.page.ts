@@ -15,6 +15,8 @@ export class RestconPage implements OnInit {
   ngOnInit() {
   }
 
+  
+
   isModalOpen = false;
 
   setOpen(isOpen: boolean) {
