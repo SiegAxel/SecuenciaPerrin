@@ -30,11 +30,17 @@
 }
 
 ion-content {
-    background: var(--ion-color-dark);
+    --background: black;
 }
 
 ion-toolbar {
     --background:#1b2e3c4e;
+}
+
+ion-card {
+    background: white;
+    background: linear-gradient(#4B0000,
+            rgba(255, 255, 255, 0.245) 90%);
 }
 
 .circulo1 {
@@ -86,4 +92,8 @@ ion-toolbar {
     top: 90%;
     left: 10%;
     transform: translate(-50%, -50%);
+}
+
+.icon-container {
+    margin-top: 2%;
 }
