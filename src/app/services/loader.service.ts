@@ -13,7 +13,7 @@ export class LoaderService {
       message: "Espere un momento...",
       spinner: "crescent",
       keyboardClose: true,
-      translucent: true,
+      translucent: true
     });
     await this.loader.present();
   }
