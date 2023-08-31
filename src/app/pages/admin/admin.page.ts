@@ -14,17 +14,14 @@ export class AdminPage implements OnInit {
   constructor(private aRoute: ActivatedRoute, private uService: UsuarioService) { }
 
   nombre_usuario: string = "";
-  lista_usuario: any[] = [this.uService.listar()];
-  rut: string ="";
-  email: string ="";
-  nombre: string="";
-  perfil: string="";
+
+  lista_usuario: any[] = [];
 
   ngOnInit() {
-    
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
-  }
+    this.lista_usuario = this.uService.listar();
 
+  }
 
   mostrarSidebar(){
     this.showSidebar = !this.showSidebar;

@@ -95,12 +95,12 @@
                                         <td>Perfil</td>
                                     </tr>
                                 </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>11.111.111-1</td>
-                                        <td>Ariel</td>
-                                        <td>ariel@gmail.com</td>
-                                        <td>No Aprobado</td>
+                                <tbody *ngFor="let usu of lista_usuario">
+                                    <tr >
+                                        <td>{{usu.rut}}</td>
+                                        <td>{{usu.nombre}}</td>
+                                        <td>{{usu.email}}</td>
+                                        <td>{{usu.perfil}}</td>
                                     </tr>
                                 </tbody>
                             </table>
