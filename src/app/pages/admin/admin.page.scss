@@ -31,8 +31,17 @@ ion-content {
 
 .sidebar-brand {
     height: 90px;
+    margin: 0;
     padding: 1rem 0rem 1rem 2rem;
     color: #fff;
+    display: flex;
+    justify-content: center;
+    font-size: xx-large;
+    
+}
+
+.sidebar-button {
+    
 }
 
 .sidebar-brand span {
@@ -77,6 +86,7 @@ ion-content {
     transition: margin-left 0.3s ease;
     margin-left: 345px;
 }
+
 .main-content.sidebar-hidden {
     margin-left: 0;
 }
@@ -166,6 +176,7 @@ main {
     display: flex;
     justify-content: space-between;
     background: #fff;
+    color: black;
     padding: 2rem;
     border-radius: 2px;
     font-size: 2rem;
@@ -214,6 +225,7 @@ main {
 .card-header {
     display: flex;
     justify-content: space-between;
+    color: black;
     align-items: center;
     border-bottom: 1px solid #f0f0f0;
 }
