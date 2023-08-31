@@ -7,9 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AdminPage implements OnInit {
 
+  showSidebar = true;
+
   constructor() { }
 
   ngOnInit() {
+  }
+
+
+  mostrarSidebar(){
+    this.showSidebar = !this.showSidebar;
   }
 
 }

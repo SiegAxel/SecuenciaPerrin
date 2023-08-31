@@ -12,7 +12,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private loaderService: LoaderService, private router:Router) { }
+  constructor(private loaderService: LoaderService, private router: Router) { }
 
   async login() {
     try {
@@ -22,6 +22,15 @@ export class LoginPage implements OnInit {
       await this.loaderService.hideLoader();
     }
   }
+
+  usuario = new FormGroup({
+    email: new FormControl('', [Validators.email,
+    Validators.required]),
+    pass: new FormControl('', [Validators.required,
+    Validators.minLength(6),
+    Validators.maxLength(20),
+    Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+  })
 
   async recoverPassword() {
     try {
@@ -52,7 +61,7 @@ export class LoginPage implements OnInit {
     return new Promise<void>((resolve) => {
       setTimeout(() => {
         resolve();
-      }, 3000); 
+      }, 3000);
     });
   }
 

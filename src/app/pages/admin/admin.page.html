@@ -1,13 +1,121 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>admin</ion-title>
-  </ion-toolbar>
-</ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">admin</ion-title>
-    </ion-toolbar>
-  </ion-header>
-</ion-content>
+<ion-content [fullscreen]="true"> 
+  
+
+  <ion-input type="checkbox" id="nav-toggle"> </ion-input>
+  <div class="sidebar" *ngIf="showSidebar" [class.hidden]="!showSidebar">
+    <div class="sidebar-brand">
+        <span>VerifyU</span>
+    </div>
+
+    <div class="sidebar-menu">
+        <ul>
+            <li>
+                <a href="" class="active"><span class="las la-igloo"></span>
+                    <span>Inicio</span></a>
+            </li>
+            <li>
+                <a href=""><span class="las la-clipboard-list"></span>
+                    <span>Trabajos</span></a>
+            </li>
+            <li>
+                <a href=""><span class="las la-images"></span>
+                    <span>Galeria</span></a>
+            </li>
+        </ul>
+    </div>
+  </div>
+
+<div class="main-content" [class.sidebar-hidden]="!showSidebar">
+    <header>
+        <ion-button (click)="mostrarSidebar()" color="danger"><ion-icon name="menu-outline"></ion-icon></ion-button>
+        <h2>
+            <label for="nav-toggle">
+                <span class="las la-bars"></span>
+            </label>
+            <span class="empName">VerifyU</span>
+        </h2>
+        <div class="user-wrapper">
+            <img src="assets/images/favicon.png" width="40px" height="40px" alt="" >
+            <div>
+                <h4>VerifyU</h4>
+                <small>Tu huella digital</small>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="cards">
+            <div class="card-single">
+                <div>
+                    <h1>54</h1>
+                    <span>Alumnos</span>
+                </div>
+                <div>
+                    <span class="las la-users"></span>
+                </div>
+            </div>
+            <div class="card-single" id="trabajos-card">
+                <div>
+                    <h1>39</h1>
+                    <span>Profesores</span>
+                </div>
+                <div>
+                    <span class="las la-clipboard-list"></span>
+                </div>
+            </div>
+            <div class="card-single">
+                <div>
+                    <h1>23</h1>
+                    <span>Clases</span>
+                </div>
+                <div>
+                    <span class="las la-user-tie"></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="recientes-grid">
+            <div class="trabajos">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Usuarios Recientes</h3>
+                        <a href="">
+                            <button>Ver todos <span class="las la-arrow-right"></span></button>
+                        </a>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="tabla-responsiva">
+                            <table width="100%" id="tbtrabajos">
+                                <thead>
+                                    <tr>
+                                        <td>RUT</td>
+                                        <td>Nombre</td>
+                                        <td>Correo</td>
+                                        <td>Perfil</td>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Cambio de pintura - Toyota</td>
+                                        <td>Cambio de pintura</td>
+                                        <td>
+                                            <span class="status yellow"></span>
+                                            En espera
+                                        </td>
+                                        <td>No Aprobado</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+
+
+  </ion-content>

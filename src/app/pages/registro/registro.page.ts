@@ -12,12 +12,13 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 export class RegistroPage implements OnInit {
 
   usuario = new FormGroup({
-    u: new FormControl('', [Validators.required, Validators.minLength(3),
-    Validators.maxLength(20)]),
+    rut: new FormControl('', [Validators.required,
+    Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
     Validators.required]),
+    perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
@@ -38,21 +39,27 @@ export class RegistroPage implements OnInit {
     this.usuarios = this.listar_usuarios();
   }
 
-  redireccionar() {
+  async redireccionar() {
+    await new Promise(f => setTimeout(f, 1000));
     this.router.navigate(['/login'])
   }
+  
 
   public registrar() {
     var respuesta: boolean = this.usuarioService.agregar(this.usuario.value);
     if (respuesta) {
-      this.mostrarToast("top", "Usuario Registrado!", 3000);
+      this.mostrarToast("top", "Usuario Registrado!", 1000);
       this.usuario.reset();
+      this.listar_usuarios();
+      this.redireccionar();
+    } else {
+      console.log('Error al registrar')
     }
-    console.table(this.usuarioService.listar());
+
   }
 
   listar_usuarios() {
-   return this.usuarioService.listar();
+    return this.usuarioService.listar();
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
