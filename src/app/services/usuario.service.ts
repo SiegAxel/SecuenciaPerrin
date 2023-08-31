@@ -6,7 +6,14 @@ import { Injectable } from '@angular/core';
 export class UsuarioService {
 
   //LISTA DE USUARIOS:
-  usuarios: any[] = [];
+  usuarios: any[] = [{
+    rut: '11.111.111-1',
+    nombre: 'ariel',
+    email: 'ariel@gmail.com',
+    perfil: 'Alumno',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  }];
 
   constructor() { }
 

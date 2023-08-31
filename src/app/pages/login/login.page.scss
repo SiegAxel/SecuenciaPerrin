@@ -1,44 +1,40 @@
-
 ion-card {
     background: white;
-    background: linear-gradient(
-            #4B0000,
+    background: linear-gradient(#4B0000,
             #0c0c1e9c 70%);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
-    border-radius: .8em !important;;
+    border-radius: .8em !important;
     z-index: 1;
-
-
 }
 
 ion-toolbar {
-    --background:#1b2e3c4e;
+    --background: #1b2e3c4e;
 }
 
 @media (max-width: 450px) {
     ion-card {
-      max-width: 500px; // Ajustar el maximo de ancho
-      margin: 0 auto;
-      position: relative;
-      top: 50px; // Ajustar posicion (espacio) desde arriba.
+        max-width: 500px; // Ajustar el maximo de ancho
+        margin: 0 auto;
+        position: relative;
+        top: 50px; // Ajustar posicion (espacio) desde arriba.
     }
 }
 
 @media (min-width: 650px) {
     ion-card {
-      max-width: 500px; // Ajustar el maximo de ancho
-      margin: 0 auto;
-      position: relative;
-      top: 25px; // Ajustar posicion (espacio) desde arriba.
+        max-width: 500px; // Ajustar el maximo de ancho
+        margin: 0 auto;
+        position: relative;
+        top: 25px; // Ajustar posicion (espacio) desde arriba.
     }
 }
 
 @media (min-width: 1200px) {
     ion-card {
-      max-width: 450px; // Ajustar el maximo de ancho
-      margin: 0 auto;
-      position: relative;
-      top: 25px; // Ajustar posicion (espacio) desde arriba.
+        max-width: 450px; // Ajustar el maximo de ancho
+        margin: 0 auto;
+        position: relative;
+        top: 25px; // Ajustar posicion (espacio) desde arriba.
     }
 }
 
@@ -52,7 +48,7 @@ ion-card-subtitle {
 
 .input ion-label {
     margin: auto;
-    display:flex;
+    display: flex;
     text-align: center;
     justify-content: center;
     align-items: center;
@@ -80,16 +76,16 @@ ion-button {
 
 .ripple-parent {
     position: relative;
-  }
+}
 
-  .rounded-rectangle {
+.rounded-rectangle {
     border-radius: 5px;
     overflow: hidden;
     color: #210dbc;
-  }
+}
 
 
-  
+
 .link {
     display: flex;
     justify-content: center;
@@ -113,6 +109,7 @@ ion-title {
     justify-content: center;
     align-items: center;
 }
+
 ion-button {
     --background: tomato;
 }
@@ -120,10 +117,10 @@ ion-button {
 .icon-container {
     display: flex;
     align-items: center;
-  }
+}
 
-  .icon-class {
+.icon-class {
     width: 20px;
     height: 20px;
     margin-right: 8px;
-  }
+}
