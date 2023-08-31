@@ -139,10 +139,21 @@ ion-input {
     margin-top: 3%;
 }
 
-ion-modal ion-text {
+.icon-container {
+    display: flex;
+    align-items: center;
+  }
+
+.icon-class {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+  }
+
+ion-modal ion-text, .ion-button-modal {
     display: flex;
     justify-content: center;
-
+    --color: white;
 }
 
 ion-modal ion-button,
@@ -180,3 +191,5 @@ ion-text {
     height: 20px;
     margin-right: 8px;
 }
+
+
