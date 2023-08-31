@@ -1,8 +1,4 @@
-
 ion-card {
-    background: white;
-    background: linear-gradient(#4B0000,
-            #0c0c1e9c 70%);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;
     ;
@@ -96,10 +92,29 @@ i {
     justify-content: center;
 }
 
+.passTel:hover {
+    color: white;
+    cursor: default;
+}
+
+.reco {
+    margin-bottom: 2%;
+}
+
+ion-modal {
+    background: white;
+    background: linear-gradient(#350000,
+    rgba(255, 255, 255, 0.245) 90%);
+    transition-property: background;
+    transition-timing-function: ease-in-out;
+    transition-duration: 1s;
+    transition-delay: 0.1s;
+
+}
+
 ion-modal .ion-padding {
-    --background: linear-gradient(#4B0000,
-        #000000 70%);
-    box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
+    --background: linear-gradient(#4b0000d8 55%,
+            rgba(255, 255, 255, 0.129))!important;
 }
 
 .ion-toolbar {
@@ -112,7 +127,8 @@ ion-modal .ion-padding {
     margin: auto;
 }
 
-ion-modal ion-label, ion-input {
+ion-modal ion-label,
+ion-input {
     --color: white;
 }
 
@@ -138,30 +154,42 @@ ion-modal ion-text, .ion-button-modal {
     display: flex;
     justify-content: center;
     --color: white;
-    
 }
 
-ion-modal ion-button, ion-text {
+ion-modal ion-button,
+ion-text {
     margin-top: 5%;
 }
 
 
 @media (min-width: 650px) {
     ion-card {
-      max-width: 500px;
-      margin: 0 auto;
-      position: relative;
-      top: 25px;
+        max-width: 500px;
+        margin: 0 auto;
+        position: relative;
+        top: 25px;
     }
 }
 
 @media (min-width: 1200px) {
     ion-card {
-      max-width: 450px;
-      margin: 0 auto;
-      position: relative;
-      top: 25px;
+        max-width: 450px;
+        margin: 0 auto;
+        position: relative;
+        top: 25px;
     }
 
 }
+
+.icon-container {
+    display: flex;
+    align-items: center;
+}
+
+.icon-class {
+    width: 20px;
+    height: 20px;
+    margin-right: 8px;
+}
+
 
