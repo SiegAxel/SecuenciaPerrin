@@ -47,5 +47,4 @@ export class UsuarioService {
     var posicion = this.usuarios.findIndex( usu => usu.rut == rut );
     this.usuarios[posicion] = usuario;
   }
-
 }

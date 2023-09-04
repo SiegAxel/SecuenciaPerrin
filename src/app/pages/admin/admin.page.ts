@@ -17,10 +17,28 @@ export class AdminPage implements OnInit {
 
   lista_usuario: any[] = [];
 
+  cantidad_usuarios: any = 0
+
+  alumnos: number = 0;
+
+  profesores: number = 0;
+
   ngOnInit() {
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.lista_usuario = this.uService.listar();
+    this.cantidad_usuarios = this.lista_usuario.length;
+    this.buscar();
+  }
 
+  buscar(){
+      for(let usu of this.lista_usuario){
+        if(usu.perfil == "Alumno"){
+          this.alumnos++;
+        } else {
+          this.profesores++;
+        }
+    }
+    
   }
 
   mostrarSidebar(){
