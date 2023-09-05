@@ -5,15 +5,32 @@ import { Injectable } from '@angular/core';
 })
 export class UsuarioService {
 
-  //LISTA DE USUARIOS:
-  usuarios: any[] = [{
+   //LISTA DE USUARIOS:
+   usuarios: any[] = [{
     rut: '11.111.111-1',
     nombre: 'ariel',
-    email: 'ariel@gmail.com',
+    email: 'ariel@duoc.cl',
+    perfil: 'admin',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  },
+  {
+    rut: '20.111.111-1',
+    nombre: 'felipe',
+    email: 'felipe@profesor.duoc.cl',
+    perfil: 'Profesor',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  },
+  {
+    rut: '21.111.111-1',
+    nombre: 'manuel',
+    email: 'manuel@duocuc.cl',
     perfil: 'Alumno',
     pass1: 'Judas123',
     pass2: 'Judas123'
-  }];
+  },];
+
 
   constructor() { }
 

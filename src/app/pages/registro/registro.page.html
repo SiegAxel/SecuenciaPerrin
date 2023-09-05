@@ -34,15 +34,14 @@
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Nombre</ion-label>
-          <ion-input type="text" placeholder="Ingrese su nombre" class="nombre"
-            formControlName="nombre"></ion-input>
+          <ion-input type="text" placeholder="Ingrese su nombre" class="nombre" formControlName="nombre"></ion-input>
         </ion-item>
 
         <ion-item-divider color="gray"></ion-item-divider>
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Email</ion-label>
-          <ion-input  type="email" placeholder="Ingrese su correo" class="correo" formControlName="email"></ion-input>
+          <ion-input type="email" placeholder="Ingrese su correo" class="correo" formControlName="email"></ion-input>
         </ion-item>
 
         <ion-item-divider color="gray"></ion-item-divider>
@@ -65,11 +64,8 @@
 
         <hr color="gray">
 
-        <ion-button [disabled]="usuario.invalid" (click)="registrar()" fill="solid" size="default" class="entrar"
-          type="submit">Registrarse</ion-button>
-
-        <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" (click)="redireccionar()"
-            >Ingresa aqui</a></b>
+        <b><ion-button [disabled]="usuario.controls.pass1.value != usuario.controls.pass2.value || usuario.invalid"
+            (click)="registrar()" fill="solid" size="default" class="entrar" type="submit">Registrarse</ion-button></b>
 
       </form>
     </ion-card-content>

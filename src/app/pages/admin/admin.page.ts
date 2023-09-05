@@ -31,15 +31,15 @@ export class AdminPage implements OnInit {
   }
 
   buscar(){
-      for(let usu of this.lista_usuario){
-        if(usu.perfil == "Alumno"){
-          this.alumnos++;
-        } else {
-          this.profesores++;
-        }
-    }
-    
+    for(let usu of this.lista_usuario){
+      if(usu.perfil == "Alumno"){
+        this.alumnos++;
+      } else if(usu.perfil == "Profesor") {
+        this.profesores++;
+      }
   }
+}
+
 
   mostrarSidebar(){
     this.showSidebar = !this.showSidebar;

@@ -17,7 +17,8 @@ export class RegistroPage implements OnInit {
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
-    Validators.required]),
+    Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
+    ),
     perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required,
     Validators.minLength(6),
@@ -43,6 +44,7 @@ export class RegistroPage implements OnInit {
     await new Promise(f => setTimeout(f, 1000));
     this.router.navigate(['/login'])
   }
+  
   
 
   public registrar() {

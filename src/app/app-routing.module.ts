@@ -33,9 +33,18 @@ const routes: Routes = [
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
+    path: 'profe/:nombre',
+    loadChildren: () => import('./pages/profe/profe.module').then( m => m.ProfePageModule)
+  },
+  {
+    path: 'alumno/:nombre',
+    loadChildren: () => import('./pages/alumno/alumno.module').then( m => m.AlumnoPageModule)
+  },
+  {
     path: 'error',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
-  }
+  },
+
 ];
 
 @NgModule({
