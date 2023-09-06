@@ -80,7 +80,7 @@
 
                         <div class="card-body">
                             <div class="tabla-responsiva">
-                                <table width="100%">
+                                <table width="100%" id="tabla">
                                     <thead>
                                         <tr>
                                             <td>RUT</td>
@@ -91,27 +91,31 @@
                                     </thead>
 
                                     <tbody *ngFor="let usu of lista_usuario">
-                                                <tr>
+                                        <tr>
 
-                                                    <td>{{usu.rut}}</td>
-                                                    <td>{{usu.nombre |
-                                                        titlecase}}</td>
-                                                    <td>{{usu.email}}</td>
-                                                    <td>{{usu.perfil |
-                                                        titlecase}}</td>
-                                                        <td>
-                                                            <ion-item-sliding>
-                                                                <ion-item>
-                                                                  <ion-label>Actions</ion-label>
-                                                                </ion-item>
-                                                                <ion-item-options side="end">
-                                                                  <ion-item-option color="favorite">Favorite</ion-item-option>
-                                                                  <ion-item-option color="danger">Delete</ion-item-option>
-                                                                </ion-item-options>
-                                                              </ion-item-sliding>
-                                                            </td>
-                                                </tr>
-                                            </tbody>
+                                            <td>{{usu.rut}}</td>
+                                            <td>{{usu.nombre |
+                                                titlecase}}</td>
+                                            <td>{{usu.email}}</td>
+                                            <td>{{usu.perfil |
+                                                titlecase}}</td>
+                                            <td>
+                                                <ion-item-sliding>
+                                                    <ion-item color="success">
+                                                        <ion-icon
+                                                            name="arrow-back-outline"></ion-icon>
+                                                    </ion-item>
+                                                    <ion-item-options side="end">
+                                                        <ion-item-option
+                                                            color="favorite">Modificar</ion-item-option>
+                                                        <ion-item-option
+                                                            color="danger"
+                                                            (click)="eliminar(usu.rut)" [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
+                                                    </ion-item-options>
+                                                </ion-item-sliding>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                         </div>

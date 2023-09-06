@@ -278,7 +278,6 @@ tr td:last-child {
 }
 
 ion-menu {
-
     ion-title {
         color: rgb(255, 255, 255);
         font: 3rem;
@@ -289,8 +288,6 @@ ion-menu {
         text-align: center;
     }
 }
-
-
 
 .sidebar-menu li {
     width: 100%;
@@ -315,4 +312,10 @@ ion-menu {
 .sidebar-menu span:first-child {
     font-size: 1.5rem;
     padding-right: 1rem;
+}
+
+ion-item-sliding {
+    ion-item {
+        min-width: 200px;
+    }
 }

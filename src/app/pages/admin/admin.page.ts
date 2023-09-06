@@ -17,6 +17,8 @@ export class AdminPage implements OnInit {
 
   nombre_usuario: string = "";
 
+  rut_usuario: string = "";
+
   lista_usuario: any[] = [];
 
   cantidad_usuarios: any = 0
@@ -30,6 +32,7 @@ export class AdminPage implements OnInit {
   usuarios: any[] = [];
 
   ngOnInit() {
+    this.rut_usuario = this.aRoute.snapshot.paramMap.get('rut') || "";
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.lista_usuario = this.uService.listar();
     this.cantidad_usuarios = this.lista_usuario.length;
@@ -79,6 +82,7 @@ async mostrarToast(position: 'top' | 'middle' | 'bottom',
 
     await toast.present();
   }
+
 
 
 }
