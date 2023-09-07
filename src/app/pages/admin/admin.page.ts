@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { MenuController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { ModalController } from '@ionic/angular';
+
 
 @Component({
   selector: 'app-admin',
@@ -11,9 +13,9 @@ import { ToastController } from '@ionic/angular';
 })
 export class AdminPage implements OnInit {
 
+  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController, private modalCtrl: ModalController) { }
+ 
   boton_modificar: boolean = true;
-
-  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController) { }
 
   nombre_usuario: string = "";
 
@@ -30,13 +32,20 @@ export class AdminPage implements OnInit {
   clases: number = 0;
 
   usuarios: any[] = [];
-
+  
+  isModalOpen = false;
+  
   ngOnInit() {
     this.rut_usuario = this.aRoute.snapshot.paramMap.get('rut') || "";
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.lista_usuario = this.uService.listar();
     this.cantidad_usuarios = this.lista_usuario.length;
     this.buscar();
+  }
+
+
+  setOpen(isOpen: boolean) {
+    this.isModalOpen = isOpen;
   }
 
   buscar(){

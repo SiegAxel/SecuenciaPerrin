@@ -26,12 +26,11 @@
     <div class="main-content" class="ion-page" id="main-content">
         <header>
             <h2 class="sidebar-title">
-                <ion-button slot="start" fill="clear" color="light"
-                    (click)="openMenu()"><ion-icon name="menu"></ion-icon></ion-button>
+                <ion-button slot="start" fill="clear" color="light" (click)="openMenu()"><ion-icon
+                        name="menu"></ion-icon></ion-button>
             </h2>
             <div class="user-wrapper">
-                <img src="assets/images/favicon.png" width="40px" height="40px"
-                    alt>
+                <img src="assets/images/favicon.png" width="40px" height="40px" alt>
                 <div>
                     <h4>VerifyU</h4>
                     <small>¡Bienvenido {{nombre_usuario}}!</small>
@@ -102,21 +101,20 @@
                                             <td>
                                                 <ion-item-sliding>
                                                     <ion-item color="success">
-                                                        <ion-icon
-                                                            name="arrow-back-outline"></ion-icon>
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
                                                     </ion-item>
                                                     <ion-item-options side="end">
-                                                        <ion-item-option
-                                                            color="favorite">Modificar</ion-item-option>
-                                                        <ion-item-option
-                                                            color="danger"
-                                                            (click)="eliminar(usu.rut)" [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
+                                                        <ion-item-option color="favorite"
+                                                            (click)="setOpen(true)">Modificar</ion-item-option>
+                                                        <ion-item-option color="danger" (click)="eliminar(usu.rut)"
+                                                            [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
                                                     </ion-item-options>
                                                 </ion-item-sliding>
                                             </td>
                                         </tr>
                                     </tbody>
                                 </table>
+
                             </div>
                         </div>
                     </div>
@@ -125,5 +123,44 @@
 
         </main>
     </div>
+
+
+    <ion-modal [isOpen]="isModalOpen" class="modalModi">
+        <ng-template class="modiTemplate">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title class="modiTitle">MODIFICAR USUARIO</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                        <ion-button>Confirmar</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <ion-item>
+                    <ion-label position="stacked">Nombre</ion-label>
+                    <ion-input type="text" placeholder="Ingrese nuevo nombre"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label position="stacked">Correo</ion-label>
+                    <ion-input type="text" placeholder="Ingrese nuevo nombre"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-list>
+                        <ion-item>
+                          <ion-select placeholder="Perfil de Usuario" class="perfilSelect">
+                            <div slot="label">Seleccione un Perfil></div>
+                            <ion-select-option value="apple">Alumno</ion-select-option>
+                            <ion-select-option value="banana">Profesor</ion-select-option>
+                            <ion-select-option value="orange">Admin</ion-select-option>
+                          </ion-select>
+                        </ion-item>
+                      </ion-list>
+                </ion-item>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
 
 </ion-content>
