@@ -1,6 +1,11 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>Login page</ion-title>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt class="fade-in-animation">
+      <div>
+          <h4 style="margin-top: 15%;" class="fade-in-animation"><strong>erifyU</strong></h4>
+      </div>
+  </div>
   </ion-toolbar>
 </ion-header>
 
@@ -31,7 +36,6 @@
             </ion-item>
           </div>
 
-          <ion-item-divider color="gray"></ion-item-divider>
 
           <div class="ion-activatable ripple-parent rounded-rectangle">
             <ion-ripple-effect></ion-ripple-effect>
@@ -40,8 +44,6 @@
               <ion-input [(ngModel)]="clave" type="password" placeholder="Ingrese su contraseña" class="contraseña"></ion-input>
             </ion-item>
           </div>
-
-          <ion-item-divider color="gray"></ion-item-divider>
 
           <hr color="gray">
 
@@ -56,6 +58,12 @@
 
     </ion-card>
   </div>
+  <div class="circulo1"></div>
+  <div class="circulo2"></div>
+  <div class="circulo3"></div>
+  <div class="circulo1"></div>
+  <div class="circulo2"></div>
+  <div class="circulo3"></div>
   <div class="circulo1"></div>
   <div class="circulo2"></div>
   <div class="circulo3"></div>

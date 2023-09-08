@@ -1,7 +1,12 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start" text></ion-back-button>
-    <ion-title> Registro</ion-title>
+    <ion-back-button class="fade-in-animation" slot="start" text=""></ion-back-button>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt class="fade-in-animation">
+      <div>
+          <h4 style="margin-top: 15%;" class="fade-in-animation"><strong>erifyU</strong></h4>
+      </div>
+  </div>
   </ion-toolbar>
 </ion-header>
 
@@ -28,15 +33,11 @@
             formControlName="rut"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
-
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Nombre</ion-label>
           <ion-input type="text" placeholder="Ingrese su nombre" class="nombre"
             formControlName="nombre"></ion-input>
         </ion-item>
-
-        <ion-item-divider color="gray"></ion-item-divider>
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Email</ion-label>
@@ -44,7 +45,7 @@
             formControlName="email"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Fecha Nacimiento</ion-label>
@@ -52,7 +53,7 @@
             formControlName="fechanac"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Contraseña</ion-label>
@@ -61,7 +62,7 @@
             formControlName="pass1"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Confirmar contraseña</ion-label>
@@ -70,7 +71,7 @@
             formControlName="pass2"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <hr color="gray">
 

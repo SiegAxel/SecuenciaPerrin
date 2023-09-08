@@ -1,15 +1,51 @@
 ion-card {
     background: white;
-    background: linear-gradient(#4B0000,
-            #0c0c1e9c 70%);
+    background: linear-gradient(
+            #a30000,
+            #a40000,
+            rgba(255, 255, 255, 0.566),
+            #ffffff00);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;
     z-index: 1;
 }
 
-ion-toolbar {
-    --background: #1b2e3c4e;
+
+
+ion-header ion-toolbar {
+    --background: white;
+    border-bottom: 1px solid red;
 }
+
+ion-item {
+    margin-bottom: 15px;
+}
+
+ion-header h4 {
+    color: red;
+}
+
+.user-wrapper {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+
+.fade-in-animation {
+    animation: fadeIn ease-in 1.5s;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+        
+      opacity: 0;
+    }
+    to {
+
+      opacity: 1;
+    }
+  }
 
 @media (max-width: 450px) {
     ion-card {
@@ -117,6 +153,9 @@ ion-button {
 .icon-container {
     display: flex;
     align-items: center;
+    b{
+        color: white; 
+     }
 }
 
 .icon-class {

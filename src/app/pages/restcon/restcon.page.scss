@@ -1,9 +1,50 @@
 ion-card {
+    background: white;
+    background: linear-gradient(
+            #a30000,
+            #a40000,
+            #a30000,
+            rgba(255, 255, 255, 0.566),
+            #ffffff00);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;
     ;
     z-index: 1;
 }
+ion-header ion-toolbar {
+    --background: white;
+    border-bottom: 1px solid red;
+}
+
+ion-item {
+    margin-bottom: 15px;
+}
+
+ion-header h4 {
+    color: red;
+}
+
+.user-wrapper {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+
+.fade-in-animation {
+    animation: fadeIn ease-in 1.5s;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+        
+      opacity: 0;
+    }
+    to {
+
+      opacity: 1;
+    }
+  }
 
 ion-card-title {
     color: white;
@@ -46,9 +87,10 @@ ion-button {
 }
 
 .rounded-rectangle {
-    border-radius: 5px;
+    border-radius: 1px;
+    border-bottom: 0px ;
     overflow: hidden;
-    color: #210dbc;
+    color: #e407077b;
 }
 
 
@@ -84,7 +126,7 @@ ion-button {
 i {
     padding-left: 5px;
     font-size: .7rem;
-    color: gray;
+    color: rgb(255, 255, 255);
 }
 
 .passTel {
@@ -184,6 +226,9 @@ ion-text {
 .icon-container {
     display: flex;
     align-items: center;
+    b{
+        color: white; 
+     }
 }
 
 .icon-class {
@@ -192,4 +237,6 @@ ion-text {
     margin-right: 8px;
 }
 
-
+ion-back-button{
+    color: red;
+}
