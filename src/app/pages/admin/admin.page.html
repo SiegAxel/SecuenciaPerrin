@@ -73,7 +73,7 @@
                     <div class="card">
                         <div class="card-header">
                             <h3>Usuarios Recientes</h3>
-                            <ion-button fill="clear" color="danger"><ion-icon
+                            <ion-button (click)="setOpen(true, '')" fill="clear" color="danger"><ion-icon
                                     name="add-outline"></ion-icon></ion-button>
                         </div>
 
@@ -85,7 +85,9 @@
                                             <td>RUT</td>
                                             <td>Nombre</td>
                                             <td>Correo</td>
+                                            <td>Fecha Nacimiento</td>
                                             <td>Perfil</td>
+
                                         </tr>
                                     </thead>
 
@@ -96,6 +98,7 @@
                                             <td>{{usu.nombre |
                                                 titlecase}}</td>
                                             <td>{{usu.email}}</td>
+                                            <td>{{usu.fechanac}}</td>
                                             <td>{{usu.perfil |
                                                 titlecase}}</td>
                                             <td>
@@ -105,7 +108,7 @@
                                                     </ion-item>
                                                     <ion-item-options side="end">
                                                         <ion-item-option color="favorite"
-                                                            (click)="setOpen(true)">Modificar</ion-item-option>
+                                                            (click)="setOpen(true, usu.rut )">Modificar</ion-item-option>
                                                         <ion-item-option color="danger" (click)="eliminar(usu.rut)"
                                                             [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
                                                     </ion-item-options>
@@ -124,41 +127,112 @@
         </main>
     </div>
 
+    /* MODAL AGREGAR */
 
-    <ion-modal [isOpen]="isModalOpen" class="modalModi">
+    <ion-modal [isOpen]="agreOpen" class="modalModi">
+        <ng-template class="modiTemplate">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title class="modiTitle">AGREGAR USUARIO</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="setOpen(false, '')">Cerrar</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                        <ion-button [disabled]="usuario.controls.pass1.value != usuario.controls.pass2.value || usuario.invalid"
+                            (click)="registrar()" type="submit">Confirmar</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <form [formGroup]="usuario">
+                    <ion-item>
+                        <ion-label position="stacked">RUT</ion-label>
+                        <ion-input type="text" formControlName="rut"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nombre</ion-label>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Correo</ion-label>
+                        <ion-input type="text" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Fecha Nacimiento</ion-label>
+                        <ion-input type="date" formControlName="fechanac"></ion-input>
+                    </ion-item>
+                        <ion-item class="inputReg">
+                            <ion-label position="stacked">Contraseña</ion-label>
+                            <ion-input type="password" placeholder="Ingrese su contraseña" 
+                                class="contraseña" formControlName="pass1"></ion-input>
+                        </ion-item>
+
+                        <ion-item class="inputReg">
+                            <ion-label position="stacked">Confirmar contraseña</ion-label>
+                            <ion-input type="password" placeholder="Reingrese su contraseña" 
+                                class="contraseña" formControlName="pass2"></ion-input>
+                        </ion-item>
+                        <ion-list class="perfilSelect">
+                            <ion-item>
+                                <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                                    <div slot="label">Seleccione un Perfil</div>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                </form>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+    /* MODAL MODIFICAR */
+
+    <ion-modal [isOpen]="isModalOpen" class="modalModi" *ngFor="let usu of lista_usuario">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
                     <ion-title class="modiTitle">MODIFICAR USUARIO</ion-title>
                     <ion-buttons slot="start">
-                        <ion-button (click)="setOpen(false)">Cerrar</ion-button>
+                        <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button>Confirmar</ion-button>
+                        <ion-button (click)="modificar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
-                <ion-item>
-                    <ion-label position="stacked">Nombre</ion-label>
-                    <ion-input type="text" placeholder="Ingrese nuevo nombre"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-label position="stacked">Correo</ion-label>
-                    <ion-input type="text" placeholder="Ingrese nuevo nombre"></ion-input>
-                </ion-item>
-                <ion-item>
-                    <ion-list>
-                        <ion-item>
-                          <ion-select placeholder="Perfil de Usuario" class="perfilSelect">
-                            <div slot="label">Seleccione un Perfil></div>
-                            <ion-select-option value="apple">Alumno</ion-select-option>
-                            <ion-select-option value="banana">Profesor</ion-select-option>
-                            <ion-select-option value="orange">Admin</ion-select-option>
-                          </ion-select>
-                        </ion-item>
-                      </ion-list>
-                </ion-item>
+                <form [formGroup]="usuario">
+                    <ion-item>
+                        <ion-label position="stacked">RUT</ion-label>
+                        <ion-input type="text" formControlName="rut"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nombre</ion-label>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Correo</ion-label>
+                        <ion-input type="text" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Fecha Nacimiento</ion-label>
+                        <ion-input type="date" formControlName="fechanac"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-list class="perfilSelect">
+                            <ion-item>
+                                <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                                    <div slot="label">Seleccione un Perfil</div>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-item>
+                </form>
             </ion-content>
         </ng-template>
     </ion-modal>

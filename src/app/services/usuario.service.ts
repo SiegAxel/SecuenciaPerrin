@@ -10,6 +10,7 @@ export class UsuarioService {
     rut: '11.111.111-1',
     nombre: 'ariel',
     email: 'ariel@duoc.cl',
+    fechanac: '2003-05-09',
     perfil: 'admin',
     pass1: 'Judas123',
     pass2: 'Judas123'
@@ -18,6 +19,7 @@ export class UsuarioService {
     rut: '20.111.111-1',
     nombre: 'felipe',
     email: 'felipe@profesor.duoc.cl',
+    fechanac: '1999-03-06',
     perfil: 'Profesor',
     pass1: 'Judas123',
     pass2: 'Judas123'
@@ -26,10 +28,12 @@ export class UsuarioService {
     rut: '21.111.111-1',
     nombre: 'manuel',
     email: 'manuel@duocuc.cl',
+    fechanac: '2000-06-06',
     perfil: 'Alumno',
     pass1: 'Judas123',
     pass2: 'Judas123'
-  },];
+  },
+];
 
 
   constructor() { }

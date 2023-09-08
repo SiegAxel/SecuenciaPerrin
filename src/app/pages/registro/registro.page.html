@@ -21,8 +21,7 @@
     </ion-card-content>
 
     <ion-card-content>
-      <form [formGroup]="usuario" (ngSubmit)="registrar()"
-        (keyup.enter)="registrar()">
+      <form [formGroup]="usuario" (ngSubmit)="registrar()">
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">RUT</ion-label>
           <ion-input type="text" placeholder="Ingrese su RUT" class="rut"

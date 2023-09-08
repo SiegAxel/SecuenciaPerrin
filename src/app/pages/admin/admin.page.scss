@@ -337,7 +337,9 @@ ion-item-sliding {
 }
 
 .modalModi .perfilSelect {
-    margin-left: 50%;
+    width: fit-content;
+    display: flex;
+    margin: auto;
 }
 
 

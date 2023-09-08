@@ -41,7 +41,7 @@ const routes: Routes = [
     loadChildren: () => import('./pages/alumno/alumno.module').then( m => m.AlumnoPageModule)
   },
   {
-    path: 'error',
+    path: '**',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
 
