@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { LoaderService } from 'src/app/services/loader.service';
-
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
-
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
@@ -12,32 +12,70 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private loaderService: LoaderService, private router: Router) { }
-
-  async login() {
-    try {
-      await this.loaderService.presentLoader();
-      await this.simulateLogin();
-    } finally {
-      await this.loaderService.hideLoader();
-    }
-  }
 
   usuario = new FormGroup({
     email: new FormControl('', [Validators.email,
-    Validators.required]),
-    pass: new FormControl('', [Validators.required,
-    Validators.minLength(6),
-    Validators.maxLength(20),
-    Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+    Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
+    ),
+    clave: new FormControl('', [Validators.required,
+      Validators.minLength(6),
+      Validators.maxLength(20),
+      Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
   })
+
+  email: string = "";
+  clave: string = "";
+
+  
+
+  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioService, private toastController: ToastController) { }
+
+  async login() {
+    var lista_usuario: any[] = this.uService.listar();
+    var usu_encontrado = lista_usuario.find(usu => usu.email == this.email && usu.pass1 == this.clave);
+
+
+    console.log(usu_encontrado);
+    if (usu_encontrado == undefined) {
+      this.mostrarToast("top", "Datos Incorrectos", 3000);
+    }
+    else {
+      if (usu_encontrado.perfil == 'admin') {
+        try {
+          await this.loaderService.presentLoader();
+        } finally {
+          this.router.navigate(['/admin', usu_encontrado.nombre]);
+          await this.loaderService.hideLoader();
+          this.clear();
+        }
+      } else if (usu_encontrado.perfil == 'Profesor') {
+        this.router.navigate(['/profe', usu_encontrado.nombre]);
+        await this.loaderService.hideLoader();
+        this.clear();
+      }
+      else if (usu_encontrado.perfil == 'Alumno') {
+        this.router.navigate(['/alumno', usu_encontrado.nombre]);
+        await this.loaderService.hideLoader();
+        this.clear();
+      } else {
+        this.router.navigate(['/error']);
+        await this.loaderService.hideLoader();
+      }
+    }
+  }
+
+  clear() {
+    this.email = '';
+    this.clave = '';
+  }
+
 
   async recoverPassword() {
     try {
       await this.loaderService.presentLoader();
     } finally {
-      await this.loaderService.hideLoader();
       this.router.navigate(['/restcon'])
+      await this.loaderService.hideLoader();
     }
   }
 
@@ -45,24 +83,26 @@ export class LoginPage implements OnInit {
     try {
       await this.loaderService.presentLoader();
     } finally {
-      await this.loaderService.hideLoader();
       this.router.navigate(['/registro'])
+      await this.loaderService.hideLoader();
     }
   }
+
+  async mostrarToast(position: 'top' | 'middle' | 'bottom',
+    message: string,
+    duration: number) {
+    const toast = await this.toastController.create({
+      message,
+      duration,
+      position,
+    })
+    await toast.present();
+  };
+
 
   ngOnInit() {
   }
 
 
-
-  //Simulaciones
-
-  private simulateLogin() {
-    return new Promise<void>((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 3000);
-    });
-  }
 
 }

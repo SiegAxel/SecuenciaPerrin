@@ -1,9 +1,43 @@
+ion-header ion-toolbar {
+    --background: white;
+    border-bottom: 1px solid red;
+}
+
+ion-header h4 {
+    color: red;
+}
+
+.user-wrapper {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+
+.fade-in-animation {
+    animation: fadeIn ease-in 1.5s;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+        
+      opacity: 0;
+    }
+    to {
+
+      opacity: 1;
+    }
+  }
+
+
 
 ion-card {
     background: white;
     background: linear-gradient(
-            #4B0000,
-            #0c0c1e9c 70%);
+            #a30000,
+            #a40000,
+            rgba(255, 255, 255, 0.566),
+            #ffffff00);
     box-shadow: 0 0 1rem rgba(0, 0, 0, 0.555);
     border-radius: .8em !important;;
     z-index: 1;
@@ -14,7 +48,7 @@ ion-card-title {
 }
 
 ion-card-subtitle {
-    color: gray;
+    color: rgb(255, 254, 254);
 }
 
 .inputReg ion-label {
@@ -37,6 +71,11 @@ ion-card-subtitle {
     margin-top: 2%;
     margin-bottom: 2%;
 }
+
+ion-item {
+    margin-bottom: 15px;
+}
+
 
 ion-button {
     --background: tomato;
@@ -87,6 +126,9 @@ a:hover {
 .icon-container {
     display: flex;
     align-items: center;
+    b{
+       color: white; 
+    }
   }
 
   .icon-class {
@@ -94,3 +136,7 @@ a:hover {
     height: 20px;
     margin-right: 8px;
   }
+
+  ion-back-button{
+    color: red;
+}

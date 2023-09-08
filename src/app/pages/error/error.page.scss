@@ -1,0 +1,64 @@
+ion-header ion-toolbar {
+    --background: white;
+    border-bottom: 1px solid red;
+}
+
+ion-header h4 {
+    color: red;
+}
+
+.user-wrapper {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+
+.fade-in-animation {
+    animation: fadeIn ease-in 2s;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+        
+      opacity: 0;
+    }
+    to {
+
+      opacity: 1;
+    }
+  }
+
+
+  
+/*======================
+          404
+=======================*/
+
+ion-content{
+    --background: white;
+}
+
+.page_404{ 
+
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: url('/../assets/images/Glitched404.gif') no-repeat center center;
+    background-size: cover;
+}
+
+
+ion-col {
+    text-align: center;
+    color: red;
+}
+
+			 
+.link_404{		
+   	color: #fff!important;
+}
+
+.contant_box_404{ 
+    text-align: center;
+}

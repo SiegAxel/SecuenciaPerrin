@@ -1,11 +1,14 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start" text=""></ion-back-button>
-    <ion-title> Registro</ion-title>
+    <ion-back-button class="fade-in-animation" slot="start" text=""></ion-back-button>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt class="fade-in-animation">
+      <div>
+          <h4 style="margin-top: 15%;" class="fade-in-animation"><strong>erifyU</strong></h4>
+      </div>
+  </div>
   </ion-toolbar>
 </ion-header>
-
-
 
 <ion-content [fullscreen]="true">
   <ion-card>
@@ -22,15 +25,13 @@
       <hr color="gray">
     </ion-card-content>
 
-
     <ion-card-content>
-      <form [formGroup]="usuario" (ngSubmit)="registrar()" (keyup.enter)="registrar()">
+      <form [formGroup]="usuario" (ngSubmit)="registrar()">
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">RUT</ion-label>
-          <ion-input type="text" placeholder="Ingrese su RUT" class="rut" formControlName="rut"></ion-input>
+          <ion-input type="text" placeholder="Ingrese su RUT" class="rut"
+            formControlName="rut"></ion-input>
         </ion-item>
-
-        <ion-item-divider color="gray"></ion-item-divider>
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Nombre</ion-label>
@@ -38,38 +39,46 @@
             formControlName="nombre"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
-
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Email</ion-label>
-          <ion-input  type="email" placeholder="Ingrese su correo" class="correo" formControlName="email"></ion-input>
+          <ion-input type="email" placeholder="Ingrese su correo" class="correo"
+            formControlName="email"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
+
+        <ion-item class="inputReg" color="#F3E3E2">
+          <ion-label position="stacked">Fecha Nacimiento</ion-label>
+          <ion-input type="date" class="fecha"
+            formControlName="fechanac"></ion-input>
+        </ion-item>
+
+        
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Contraseña</ion-label>
-          <ion-input type="password" placeholder="Ingrese su contraseña" shape="round" class="contraseña"
+          <ion-input type="password" placeholder="Ingrese su contraseña"
+            shape="round" class="contraseña"
             formControlName="pass1"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <ion-item class="inputReg" color="#F3E3E2">
           <ion-label position="stacked">Confirmar contraseña</ion-label>
-          <ion-input type="password" placeholder="Reingrese su contraseña" shape="round" class="contraseña"
+          <ion-input type="password" placeholder="Reingrese su contraseña"
+            shape="round" class="contraseña"
             formControlName="pass2"></ion-input>
         </ion-item>
 
-        <ion-item-divider color="gray"></ion-item-divider>
+        
 
         <hr color="gray">
 
-        <ion-button [disabled]="usuario.invalid" (click)="registrar()" fill="solid" size="default" class="entrar"
-          type="submit">Registrarse</ion-button>
-
-        <b><ion-text class="link">¿Ya tienes una cuenta?</ion-text><a class="linkazul" (click)="redireccionar()"
-            >Ingresa aqui</a></b>
+        <b><ion-button
+            [disabled]="usuario.controls.pass1.value != usuario.controls.pass2.value || usuario.invalid"
+            (click)="registrar()" fill="solid" size="default" class="entrar"
+            type="submit">Registrarse</ion-button></b>
 
       </form>
     </ion-card-content>

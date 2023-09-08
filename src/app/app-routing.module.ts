@@ -27,16 +27,23 @@ const routes: Routes = [
   {
     path: 'splash',
     loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
-  },  {
-    path: 'admin',
+  },
+  {
+    path: 'admin/:nombre',
     loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
   },
   {
-    path: 'error',
+    path: 'profe/:nombre',
+    loadChildren: () => import('./pages/profe/profe.module').then( m => m.ProfePageModule)
+  },
+  {
+    path: 'alumno/:nombre',
+    loadChildren: () => import('./pages/alumno/alumno.module').then( m => m.AlumnoPageModule)
+  },
+  {
+    path: '**',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
-
-
 
 ];
 

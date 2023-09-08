@@ -1,7 +1,13 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-back-button slot="start" text=""></ion-back-button>
-    <ion-title>Recuperar Contraseña</ion-title>
+    <ion-back-button class="fade-in-animation" slot="start" text></ion-back-button>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt
+        class="fade-in-animation">
+      <div>
+        <h4 style="margin-top: 15%;" class="fade-in-animation"><strong>erifyU</strong></h4>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
@@ -32,8 +38,8 @@
               <ion-input type="email" placeholder="Ingrese su correo"
                 class="correo"></ion-input>
             </ion-item>
-            <ion-text class="reco"><sub><i>Revisar bandeja de Spam.</i></sub></ion-text>
           </div>
+            <ion-text class="reco"><sub><i>*Revisar bandeja de Spam.</i></sub></ion-text>
 
           <hr color="gray">
 
@@ -46,15 +52,19 @@
         <ion-modal [isOpen]="isModalOpen">
           <ng-template>
             <ion-header>
-
               <ion-toolbar class="ion-toolbar">
                 <div class="ion-toolbar-title">
-                  <ion-title class="ion-text">Recuperación
-                    Alternativa</ion-title>
+                  <div class="user-wrapper">
+                    <img src="assets/images/favicon.png" width="40px" height="40px" alt
+                      class="fade-in-animation">
+                    <div>
+                      <h4 style="margin-top: 15%;" class="fade-in-animation"><strong>erifyU</strong></h4>
+                    </div>
+                  </div>
                 </div>
                 <ion-buttons slot="end">
-                  <ion-button class="ion-button-modal" (click)="setOpen(false)"
-                    >X</ion-button>
+                  <ion-button color="danger" class="ion-button-modal"
+                    (click)="setOpen(false)"><ion-icon name="close-outline"></ion-icon></ion-button>
                 </ion-buttons>
               </ion-toolbar>
             </ion-header>

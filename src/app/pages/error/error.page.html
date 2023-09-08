@@ -1,13 +1,24 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>error</ion-title>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt class="fade-in-animation">
+      <div>
+        <h4 style="margin-top: 15%;" class="fade-in-animation">erifyU</h4>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">error</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card class="page_404">
+    <ion-grid>
+      <ion-row justify-content-center align-items-center>
+        <ion-col text-center>
+          <h1 class="h2"><strong>Error 404</strong></h1>
+          <p><strong>La pagina que buscas no esta disponible!</strong></p>
+          <ion-button (click)="goBack()" color="danger" class="link_404">Ir atras</ion-button>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
 </ion-content>

@@ -1,121 +1,240 @@
+<ion-menu menuId="menu" contentId="main-content">
+    <ion-header>
+        <ion-toolbar>
+            <ion-title>VerifyU</ion-title>
+        </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+        <div class="sidebar-menu">
+            <ul>
+                <li>
 
-<ion-content [fullscreen]="true"> 
-  
+                    <span><ion-icon name="home"></ion-icon> Inicio</span>
+                </li>
+                <li>
 
-  <ion-input type="checkbox" id="nav-toggle"> </ion-input>
-  <div class="sidebar" *ngIf="showSidebar" [class.hidden]="!showSidebar">
-    <div class="sidebar-brand">
-        <span>VerifyU</span>
-    </div>
+                    <span><ion-icon name="book-outline"></ion-icon> Clases</span>
+                </li>
+            </ul>
 
-    <div class="sidebar-menu">
-        <ul>
-            <li>
-                <a href="" class="active"><span class="las la-igloo"></span>
-                    <span>Inicio</span></a>
-            </li>
-            <li>
-                <a href=""><span class="las la-clipboard-list"></span>
-                    <span>Trabajos</span></a>
-            </li>
-            <li>
-                <a href=""><span class="las la-images"></span>
-                    <span>Galeria</span></a>
-            </li>
-        </ul>
-    </div>
-  </div>
-
-<div class="main-content" [class.sidebar-hidden]="!showSidebar">
-    <header>
-        <ion-button class="sidebar-button" (click)="mostrarSidebar()" fill="clear" color="light"><ion-icon name="menu-outline"></ion-icon></ion-button>
-        <h2 class="sidebar-title">
-            <label for="nav-toggle">
-                <span class="las la-bars"></span>
-            </label>
-            <span class="empName">VerifyU</span>
-        </h2>
-        <div class="user-wrapper">
-            <img src="assets/images/favicon.png" width="40px" height="40px" alt="" >
-            <div>
-                <h4>VerifyU</h4>
-                <small>Tu huella digital</small>
-            </div>
         </div>
-    </header>
-    <main>
-        <div class="cards">
-            <div class="card-single">
-                <div>
-                    <h1>54</h1>
-                    <span>Alumnos</span>
-                </div>
-                <div>
-                    <span class="las la-users"></span>
-                </div>
-            </div>
-            <div class="card-single" id="trabajos-card">
-                <div>
-                    <h1>39</h1>
-                    <span>Profesores</span>
-                </div>
-                <div>
-                    <span class="las la-clipboard-list"></span>
-                </div>
-            </div>
-            <div class="card-single">
-                <div>
-                    <h1>23</h1>
-                    <span>Clases</span>
-                </div>
-                <div>
-                    <span class="las la-user-tie"></span>
-                </div>
-            </div>
-        </div>
+    </ion-content>
+</ion-menu>
 
-        <div class="recientes-grid">
-            <div class="trabajos">
-                <div class="card">
-                    <div class="card-header">
-                        <h3>Usuarios Recientes</h3>
-                        <a href="">
-                            <button>Ver todos <span class="las la-arrow-right"></span></button>
-                        </a>
+<ion-content [fullscreen]="true">
+
+    <div class="main-content" class="ion-page" id="main-content">
+        <header>
+            <h2 class="sidebar-title">
+                <ion-button slot="start" fill="clear" color="light" (click)="openMenu()"><ion-icon
+                        name="menu"></ion-icon></ion-button>
+            </h2>
+            <div class="user-wrapper">
+                <img src="assets/images/favicon.png" width="40px" height="40px" alt>
+                <div>
+                    <h4>VerifyU</h4>
+                    <small>¡Bienvenido {{nombre_usuario}}!</small>
+                </div>
+            </div>
+        </header>
+        <main>
+            <div class="cards">
+                <div class="card-single">
+                    <div>
+                        <h1>{{alumnos}}</h1>
+                        <span>Alumnos</span>
                     </div>
+                    <div>
+                        <span class="las la-users"></span>
+                    </div>
+                </div>
+                <div class="card-single" id="trabajos-card">
+                    <div>
+                        <h1>{{profesores}}</h1>
+                        <span>Profesores</span>
+                    </div>
+                    <div>
+                        <span class="las la-clipboard-list"></span>
+                    </div>
+                </div>
+                <div class="card-single">
+                    <div>
+                        <h1>{{clases}}</h1>
+                        <span>Clases</span>
+                    </div>
+                    <div>
+                        <span class="las la-user-tie"></span>
+                    </div>
+                </div>
+            </div>
 
-                    <div class="card-body">
-                        <div class="tabla-responsiva">
-                            <table width="100%" id="tbtrabajos">
-                                <thead>
-                                    <tr>
-                                        <td>RUT</td>
-                                        <td>Nombre</td>
-                                        <td>Correo</td>
-                                        <td>Perfil</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Cambio de pintura - Toyota</td>
-                                        <td>Cambio de pintura</td>
-                                        <td>
-                                            <span class="status yellow"></span>
-                                            En espera
-                                        </td>
-                                        <td>No Aprobado</td>
-                                    </tr>
-                                </tbody>
-                            </table>
+            <div class="recientes-grid">
+                <div class="trabajos">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3>Usuarios Recientes</h3>
+                            <ion-button (click)="setOpen(true, '')" fill="clear" color="danger"><ion-icon
+                                    name="add-outline"></ion-icon></ion-button>
+                        </div>
+
+                        <div class="card-body">
+                            <div class="tabla-responsiva">
+                                <table width="100%" id="tabla">
+                                    <thead>
+                                        <tr>
+                                            <td>RUT</td>
+                                            <td>Nombre</td>
+                                            <td>Correo</td>
+                                            <td>Fecha Nacimiento</td>
+                                            <td>Perfil</td>
+
+                                        </tr>
+                                    </thead>
+
+                                    <tbody *ngFor="let usu of lista_usuario">
+                                        <tr>
+
+                                            <td>{{usu.rut}}</td>
+                                            <td>{{usu.nombre |
+                                                titlecase}}</td>
+                                            <td>{{usu.email}}</td>
+                                            <td>{{usu.fechanac}}</td>
+                                            <td>{{usu.perfil |
+                                                titlecase}}</td>
+                                            <td>
+                                                <ion-item-sliding>
+                                                    <ion-item color="success">
+                                                        <ion-icon name="arrow-back-outline"></ion-icon>
+                                                    </ion-item>
+                                                    <ion-item-options side="end">
+                                                        <ion-item-option color="favorite"
+                                                            (click)="setOpen(true, usu.rut )">Modificar</ion-item-option>
+                                                        <ion-item-option color="danger" (click)="eliminar(usu.rut)"
+                                                            [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
+                                                    </ion-item-options>
+                                                </ion-item-sliding>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-    </main>
-</div>
+        </main>
+    </div>
 
+    /* MODAL AGREGAR */
 
+    <ion-modal [isOpen]="agreOpen" class="modalModi">
+        <ng-template class="modiTemplate">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title class="modiTitle">AGREGAR USUARIO</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="setOpen(false, '')">Cerrar</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                        <ion-button [disabled]="usuario.controls.pass1.value != usuario.controls.pass2.value || usuario.invalid"
+                            (click)="registrar()" type="submit">Confirmar</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <form [formGroup]="usuario">
+                    <ion-item>
+                        <ion-label position="stacked">RUT</ion-label>
+                        <ion-input type="text" formControlName="rut"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nombre</ion-label>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Correo</ion-label>
+                        <ion-input type="text" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Fecha Nacimiento</ion-label>
+                        <ion-input type="date" formControlName="fechanac"></ion-input>
+                    </ion-item>
+                        <ion-item class="inputReg">
+                            <ion-label position="stacked">Contraseña</ion-label>
+                            <ion-input type="password" placeholder="Ingrese su contraseña" 
+                                class="contraseña" formControlName="pass1"></ion-input>
+                        </ion-item>
 
-  </ion-content>
+                        <ion-item class="inputReg">
+                            <ion-label position="stacked">Confirmar contraseña</ion-label>
+                            <ion-input type="password" placeholder="Reingrese su contraseña" 
+                                class="contraseña" formControlName="pass2"></ion-input>
+                        </ion-item>
+                        <ion-list class="perfilSelect">
+                            <ion-item>
+                                <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                                    <div slot="label">Seleccione un Perfil</div>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                </form>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+    /* MODAL MODIFICAR */
+
+    <ion-modal [isOpen]="isModalOpen" class="modalModi" *ngFor="let usu of lista_usuario">
+        <ng-template class="modiTemplate">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title class="modiTitle">MODIFICAR USUARIO</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="modificar()" type="submit">Confirmar</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-padding">
+                <form [formGroup]="usuario">
+                    <ion-item>
+                        <ion-label position="stacked">RUT</ion-label>
+                        <ion-input type="text" formControlName="rut"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nombre</ion-label>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Correo</ion-label>
+                        <ion-input type="text" formControlName="email"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Fecha Nacimiento</ion-label>
+                        <ion-input type="date" formControlName="fechanac"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-list class="perfilSelect">
+                            <ion-item>
+                                <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                                    <div slot="label">Seleccione un Perfil</div>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
+                                </ion-select>
+                            </ion-item>
+                        </ion-list>
+                    </ion-item>
+                </form>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+</ion-content>
