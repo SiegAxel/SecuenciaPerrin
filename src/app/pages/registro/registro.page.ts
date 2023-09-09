@@ -2,8 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { FormControl, FormGroup, Validators , ValidationErrors} from '@angular/forms';
-
+import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-registro',
@@ -11,15 +10,14 @@ import { FormControl, FormGroup, Validators , ValidationErrors} from '@angular/f
   styleUrls: ['./registro.page.scss'],
 })
 export class RegistroPage implements OnInit {
-  
+
   constructor(private usuarioService: UsuarioService,
     private toastController: ToastController,
-    private router: Router) { }
-
-
+    private router: Router,
+  ) { }
 
   usuario = new FormGroup({
-    rut: new FormControl('', [Validators.required,Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'),validarRutChileno]),
+    rut: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
@@ -39,7 +37,6 @@ export class RegistroPage implements OnInit {
 
   usuarios: any[] = [];
 
-
   ngOnInit() {
     this.usuarios = this.listar_usuarios();
   }
@@ -49,20 +46,40 @@ export class RegistroPage implements OnInit {
     await new Promise(f => setTimeout(f, 1000));
     this.router.navigate(['/login'])
   }
-  
-  
+
+
 
   public registrar() {
     var respuesta: boolean = this.usuarioService.agregar(this.usuario.value);
-    if (respuesta) {
+    const fechaNacimiento = this.usuario.get('fechanac')?.value;
+    let res = 0;
+
+    // Dividir la cadena de fecha en partes
+    const partesFecha = fechaNacimiento?.split('-');
+  
+    if (partesFecha?.length === 3) {
+      // Obtener el año como la primera parte de la cadena dividida
+      const añoNacimiento = parseInt(partesFecha[0], 10); // Convertir a número
+  
+      // Obtener el año actual
+      const añoActual = new Date().getFullYear();
+  
+      // Realizar el calculo
+      res = añoActual - añoNacimiento;
+      console.log(res);
+    }
+
+    if (respuesta && res >= 17) {
       this.mostrarToast("top", "Usuario Registrado!", 1000);
+      console.log('Fecha de Nacimiento:', fechaNacimiento);
       this.usuario.reset();
       this.listar_usuarios();
       this.redireccionar();
+    } else if (res < 17) {
+      this.mostrarToast("middle", "El usuario debe ser mayor de 17 años.", 3000);
     } else {
-      console.log('Error al registrar')
+      this.mostrarToast("top", "Error al registrar.", 1000);
     }
-
   }
 
   listar_usuarios() {
