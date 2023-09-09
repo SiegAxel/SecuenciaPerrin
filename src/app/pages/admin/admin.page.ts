@@ -4,7 +4,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { MenuController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-admin',
@@ -15,7 +17,7 @@ export class AdminPage implements OnInit {
 
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required,
-    Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
+    Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'),validarRutChileno]),
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
@@ -131,7 +133,6 @@ export class AdminPage implements OnInit {
   }
 
   openMenu() {
-    // Open the menu by menu-id
     this.menuCtrl.enable(true, 'menu');
     this.menuCtrl.open('menu');
   }
@@ -151,3 +152,39 @@ export class AdminPage implements OnInit {
 
 
 }
+
+
+function validarRut(rut: string): boolean {
+  // Limpia el RUT de puntos y guión
+  rut = rut.replace(/\./g, '').replace(/-/g, '').trim();
+
+  // Extrae el dígito verificador
+  const dv = rut.slice(-1).toUpperCase();
+  let rutNumerico = parseInt(rut.slice(0, -1), 10);
+
+  // Calcula el dígito verificador esperado
+  let suma = 0;
+  let multiplicador = 2;
+
+  while (rutNumerico > 0) {
+    suma += (rutNumerico % 10) * multiplicador;
+    rutNumerico = Math.floor(rutNumerico / 10);
+    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+  }
+
+  const dvEsperado = 11 - (suma % 11);
+  const dvCalculado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  return dv === dvCalculado;
+}
+
+function validarRutChileno(control: FormControl): ValidationErrors | null {
+  if (!control.value) {
+    return null;
+  }
+
+  const esValido = validarRut(control.value);
+
+  return esValido ? null : { rutInvalido: true };
+}
+
