@@ -104,15 +104,23 @@ export class AdminPage implements OnInit {
 
 
   public registrar() {
-    var respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
-    if (respuesta) {
-      this.mostrarToast("top", "Usuario Registrado!", 1000);
-      this.registroUsuario.reset();
-      this.agreOpen = false;
+    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+    const today = new Date();
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+  
+    if (age < 17) {
+      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
     } else {
-      this.mostrarToast("bottom", "Error al registrar.", 3000);
+      const respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
+      if (respuesta) {
+        this.mostrarToast("top", "Usuario Registrado!", 1000);
+        this.registroUsuario.reset();
+        this.agreOpen = false;
+      } else {
+        this.mostrarToast("bottom", "Error al registrar.", 3000);
+      }
     }
-
   }
 
 
