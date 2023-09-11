@@ -40,12 +40,21 @@ ion-header ion-toolbar {
     text-align: center;
     background: white;
     border: 1px red solid;
+
+
   }
   
   .card1 {
+    display: flex;
       ion-title{
         font-weight: bold;
         color: black;
+      }
+      ion-img{
+        width :550px;
+        align-items: center;
+        justify-content: center;
+        display: flex;
       }
   }
   
@@ -54,3 +63,38 @@ ion-header ion-toolbar {
       color: black;
     }
   }
+
+
+  @media only screen and (max-width: 980px) {
+    .card1, .card2 {
+      justify-content: center;
+      align-items: center;
+      padding: 0;
+      margin: 0;
+      width: 350px;
+      height: 350px;
+      text-align: center;
+      background: white;
+      border: 1px red solid;
+    }
+    
+    .card1 {
+      display: flex;
+        ion-title{
+          font-weight: bold;
+          color: black;
+        }
+        ion-img{
+          width :100%;
+          align-items: center;
+          justify-content: center;
+        }
+    }
+    
+    .card2 {
+      b{
+        color: black;
+      }
+    }
+  
+}

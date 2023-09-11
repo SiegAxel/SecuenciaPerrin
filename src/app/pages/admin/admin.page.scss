@@ -271,6 +271,19 @@ tr td:last-child {
     }
 }
 
+form ion-item {
+    --background: rgba(0, 0, 0, 0.132);
+    ion-label {
+        font-weight: bold;
+        text-shadow: 
+        -1px -1px 0 #000, 
+        1px -1px 0 #000,  
+        -1px 1px 0 #000, 
+        1px 1px 0 #000;   
+        color: rgb(255, 255, 255)
+    }
+}
+
 @media only screen and (max-width: 560px) {
     .cards {
         grid-template-columns: 100%;
@@ -278,6 +291,11 @@ tr td:last-child {
 }
 
 ion-menu {
+
+    ion-header{
+        background: red;
+    }
+
     ion-title {
         color: rgb(255, 255, 255);
         font: 3rem;
@@ -298,14 +316,15 @@ ion-menu {
 .sidebar-menu span {
     padding-left: 1rem;
     display: block;
-    color: #fff;
+    color: #ff0000;
     font-size: 1.1rem;
+    font-weight: bold;
     text-decoration: none;
 }
 
 .sidebar-menu span:hover {
-    background: #fff;
-    color: red;
+    background: #ff0000;
+    color: rgb(255, 255, 255);
     border-radius: 30px 0px 0px 30px;
 }
 
@@ -323,7 +342,23 @@ ion-item-sliding {
 /* Modal de Modificar Usuario */
 
 .ion-padding {
-    --background: gray;
+    --background: linear-gradient(white,white,rgb(172, 0, 0));
+    ion-item {
+        margin-bottom: 5%;
+    }
+    ion-list {
+        background: rgba(255, 255, 255, 0);
+    }
+}
+
+.ion-paddinga {
+    --background: linear-gradient(white,white,rgb(55, 0, 0));
+    ion-item {
+        margin-bottom: 5%;
+    }
+    ion-list {
+        background: rgba(255, 255, 255, 0);
+    }
 }
 
 .modalModi ion-title {
@@ -332,9 +367,6 @@ ion-item-sliding {
     margin: auto;
 }
 
-.ion-padding ion-item {
-    margin-bottom: 5%;
-}
 
 .modalModi .perfilSelect {
     width: fit-content;

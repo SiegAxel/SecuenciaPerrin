@@ -15,16 +15,27 @@ import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/f
 })
 export class AdminPage implements OnInit {
 
+  registroUsuario = new FormGroup({
+    rut: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.email, Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")]),
+    fechanac: new FormControl('', Validators.required),
+    perfil: new FormControl('Alumno', Validators.required),
+    pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+  });
+
+
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required,
-    Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'),validarRutChileno]),
+    Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
     ),
     fechanac: new FormControl('', Validators.required),
-    perfil: new FormControl('Alumno', Validators.required),
+    perfil: new FormControl('', Validators.required),
     pass1: new FormControl('', [Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
@@ -62,13 +73,23 @@ export class AdminPage implements OnInit {
   agreOpen = false;
 
   ngOnInit() {
-    this.rut_usuario = this.aRoute.snapshot.paramMap.get('rut') || "";
+
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.lista_usuario = this.uService.listar();
     this.cantidad_usuarios = this.lista_usuario.length;
     this.usuarios = this.lista_usuario;
     this.contar();
+
+    const loggedInUser = this.lista_usuario.find(user => user.nombre === this.nombre_usuario);
+    if (loggedInUser) {
+      this.rut_usuario = loggedInUser.rut;
+      console.log('rut usuario logged-in:', this.rut_usuario);
+    } else {
+      console.error('Usuario no encontrado con nombre:', this.nombre_usuario);
+    }
   }
+
+
 
   public modificar() {
     var rut: string = this.usuario.controls.rut.value || '';
@@ -83,11 +104,10 @@ export class AdminPage implements OnInit {
 
 
   public registrar() {
-    var respuesta: boolean = this.uService.agregar(this.usuario.value);
+    var respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
     if (respuesta) {
       this.mostrarToast("top", "Usuario Registrado!", 1000);
-      this.usuario.reset();
-      this.usuarios;
+      this.registroUsuario.reset();
       this.agreOpen = false;
     } else {
       this.mostrarToast("bottom", "Error al registrar.", 3000);
@@ -112,18 +132,14 @@ export class AdminPage implements OnInit {
       this.isModalOpen = isOpen;
       this.buscar(rut_modificar);
     }
+
   }
 
 
 
   contar() {
-    for (let usu of this.lista_usuario) {
-      if (usu.perfil == "Alumno") {
-        this.alumnos++;
-      } else if (usu.perfil == "Profesor") {
-        this.profesores++;
-      }
-    }
+    this.alumnos = this.lista_usuario.filter(usu => usu.perfil === "Alumno").length;
+    this.profesores = this.lista_usuario.filter(usu => usu.perfil === "Profesor").length;
   }
 
   public eliminar(rut_eliminar: string) {
@@ -135,6 +151,7 @@ export class AdminPage implements OnInit {
   openMenu() {
     this.menuCtrl.enable(true, 'menu');
     this.menuCtrl.open('menu');
+
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
