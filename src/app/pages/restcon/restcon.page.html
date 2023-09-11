@@ -69,19 +69,14 @@
               </ion-toolbar>
             </ion-header>
             <ion-content class="ion-padding">
-              <form>
-                <ion-item color="#808080">
-                  <ion-label position="stacked" class="ion-pass-label">Ingrese
-                    su numero Telefónico</ion-label>
-                  <ion-input type="number" placeholder="Numero" class="ion-pass"></ion-input>
-                </ion-item>
+              <form [formGroup]="usuario">
                 <br>
                 <ion-text class="ion-middle-text" color="light">O</ion-text><br>
                 <br>
                 <ion-item color="#808080">
                   <ion-label position="stacked" class="ion-pass-label">Ingrese
                     un correo alternativo</ion-label>
-                  <ion-input type="email" placeholder="Ingrese su correo"
+                  <ion-input formControlName="email" type="email" placeholder="Ingrese su correo"
                     class="ion-pass"></ion-input>
                 </ion-item>
                 <div class="ion-buttons">

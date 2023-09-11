@@ -11,13 +11,13 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-grid [fixed]="true">
+  <ion-grid>
     <ion-row>
-      <ion-col size="10" size-md="10">
+      <ion-col>
         <ion-card class="card1">
           <ion-card-header>
             <ion-title>
-              QR Generado
+              Escanea tu QR de clases!
             </ion-title>
           </ion-card-header>
           <ion-card-content>
@@ -25,17 +25,30 @@
           </ion-card-content>
         </ion-card>
       </ion-col>
-      <ion-col size="10" size-md="10">
+      <ion-col>
         <ion-card class="card2">
           <ion-card-header>
-            <p><b><strong>¿Qué es VerifyU?</strong></b></p>
+            <p><b><strong>Historial de Clases</strong></b></p>
           </ion-card-header>
           <ion-card-content>
-            <br />
-            <ion-img src="assets/images/cbimage.png"></ion-img>
-            <p>Es una aplicación que permite a los estudiantes y profesores
-              verificar la asistencia en las clases.</p>
-            <br />
+            <table width="100%" id="tabla">
+              <thead>
+                <tr>
+
+                  <td>Clase</td>
+                  <td>Horario</td>
+
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+
+                  <td>APY2012</td>
+                  <td>16:00 AM</td>
+                </tr>
+              </tbody>
+            </table>
           </ion-card-content>
         </ion-card>
       </ion-col>
