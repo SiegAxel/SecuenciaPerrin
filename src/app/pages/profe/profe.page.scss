@@ -1,0 +1,63 @@
+ion-header ion-toolbar {
+  --background: white;
+  border-bottom: 1px solid red;
+  h4{
+    color: red;
+    font-weight: bold;
+  }
+}
+
+ion-content {
+  --background: rgb(224, 224, 224);
+}
+
+.user-wrapper {
+  width: fit-content;
+  display: flex;
+  margin: auto;
+}
+
+.fade-in-animation {
+  animation: fadeIn ease-in 1.5s;
+}
+
+
+@keyframes fadeIn {
+  from {
+
+    opacity: 0;
+  }
+
+  to {
+
+    opacity: 1;
+  }
+}
+
+.card1, .card2 {
+  text-align: center;
+  background: white;
+  border: 1px red solid;
+}
+
+.card1 {
+  ion-title{
+    font-weight: bold;
+    color: black;
+  }
+}
+
+.card2 {
+  b{
+    color: black;
+  }
+
+  thead{
+
+    td {
+      color: black;
+      font-weight: bold;
+    }
+  }
+}
+

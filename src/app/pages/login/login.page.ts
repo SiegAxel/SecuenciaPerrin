@@ -18,15 +18,15 @@ export class LoginPage implements OnInit {
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
     ),
     clave: new FormControl('', [Validators.required,
-      Validators.minLength(6),
-      Validators.maxLength(20),
-      Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    Validators.minLength(6),
+    Validators.maxLength(20),
+    Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
   })
 
   email: string = "";
   clave: string = "";
 
-  
+
 
   constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioService, private toastController: ToastController) { }
 

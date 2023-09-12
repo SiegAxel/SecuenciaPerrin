@@ -1,13 +1,57 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>profe</ion-title>
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" alt
+        class="fade-in-animation">
+      <div>
+        <h4 style="margin-top: 15%;" class="fade-in-animation">erifyU</h4>
+      </div>
+    </div>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">profe</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card class="card1">
+          <ion-card-header>
+            <ion-title>
+              Escanea tu QR de clases!
+            </ion-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-img src="assets/images/frame.png"></ion-img>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+      <ion-col>
+        <ion-card class="card2">
+          <ion-card-header>
+            <p><b><strong>Historial de Clases</strong></b></p>
+          </ion-card-header>
+          <ion-card-content>
+            <table width="100%" id="tabla">
+              <thead>
+                <tr>
+
+                  <td>Clase</td>
+                  <td>Horario</td>
+
+                </tr>
+              </thead>
+
+              <tbody>
+                <tr>
+
+                  <td>APY2012</td>
+                  <td>16:00 AM</td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

@@ -4,7 +4,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { MenuController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+
+
 
 @Component({
   selector: 'app-admin',
@@ -13,16 +15,27 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class AdminPage implements OnInit {
 
+  registroUsuario = new FormGroup({
+    rut: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new FormControl('', [Validators.email, Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")]),
+    fechanac: new FormControl('', Validators.required),
+    perfil: new FormControl('Alumno', Validators.required),
+    pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+  });
+
+
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required,
-    Validators.pattern('[0-9]{1,2}.[0-9]{3}.[0-9]{3}-[0-9kK]{1}')]),
+    Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
     ),
     fechanac: new FormControl('', Validators.required),
-    perfil: new FormControl('Alumno', Validators.required),
+    perfil: new FormControl('', Validators.required),
     pass1: new FormControl('', [Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
@@ -60,13 +73,23 @@ export class AdminPage implements OnInit {
   agreOpen = false;
 
   ngOnInit() {
-    this.rut_usuario = this.aRoute.snapshot.paramMap.get('rut') || "";
+
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.lista_usuario = this.uService.listar();
     this.cantidad_usuarios = this.lista_usuario.length;
     this.usuarios = this.lista_usuario;
     this.contar();
+
+    const loggedInUser = this.lista_usuario.find(user => user.nombre === this.nombre_usuario);
+    if (loggedInUser) {
+      this.rut_usuario = loggedInUser.rut;
+      console.log('rut usuario logged-in:', this.rut_usuario);
+    } else {
+      console.error('Usuario no encontrado con nombre:', this.nombre_usuario);
+    }
   }
+
+
 
   public modificar() {
     var rut: string = this.usuario.controls.rut.value || '';
@@ -81,16 +104,23 @@ export class AdminPage implements OnInit {
 
 
   public registrar() {
-    var respuesta: boolean = this.uService.agregar(this.usuario.value);
-    if (respuesta) {
-      this.mostrarToast("top", "Usuario Registrado!", 1000);
-      this.usuario.reset();
-      this.usuarios;
-      this.agreOpen = false;
+    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+    const today = new Date();
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+  
+    if (age < 17) {
+      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
     } else {
-      this.mostrarToast("bottom", "Error al registrar.", 3000);
+      const respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
+      if (respuesta) {
+        this.mostrarToast("top", "Usuario Registrado!", 1000);
+        this.registroUsuario.reset();
+        this.agreOpen = false;
+      } else {
+        this.mostrarToast("bottom", "Error al registrar.", 3000);
+      }
     }
-
   }
 
 
@@ -110,18 +140,14 @@ export class AdminPage implements OnInit {
       this.isModalOpen = isOpen;
       this.buscar(rut_modificar);
     }
+
   }
 
 
 
   contar() {
-    for (let usu of this.lista_usuario) {
-      if (usu.perfil == "Alumno") {
-        this.alumnos++;
-      } else if (usu.perfil == "Profesor") {
-        this.profesores++;
-      }
-    }
+    this.alumnos = this.lista_usuario.filter(usu => usu.perfil === "Alumno").length;
+    this.profesores = this.lista_usuario.filter(usu => usu.perfil === "Profesor").length;
   }
 
   public eliminar(rut_eliminar: string) {
@@ -131,9 +157,9 @@ export class AdminPage implements OnInit {
   }
 
   openMenu() {
-    // Open the menu by menu-id
     this.menuCtrl.enable(true, 'menu');
     this.menuCtrl.open('menu');
+
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
@@ -151,3 +177,39 @@ export class AdminPage implements OnInit {
 
 
 }
+
+
+function validarRut(rut: string): boolean {
+  // Limpia el RUT de puntos y guión
+  rut = rut.replace(/\./g, '').replace(/-/g, '').trim();
+
+  // Extrae el dígito verificador
+  const dv = rut.slice(-1).toUpperCase();
+  let rutNumerico = parseInt(rut.slice(0, -1), 10);
+
+  // Calcula el dígito verificador esperado
+  let suma = 0;
+  let multiplicador = 2;
+
+  while (rutNumerico > 0) {
+    suma += (rutNumerico % 10) * multiplicador;
+    rutNumerico = Math.floor(rutNumerico / 10);
+    multiplicador = multiplicador === 7 ? 2 : multiplicador + 1;
+  }
+
+  const dvEsperado = 11 - (suma % 11);
+  const dvCalculado = dvEsperado === 11 ? '0' : dvEsperado === 10 ? 'K' : dvEsperado.toString();
+
+  return dv === dvCalculado;
+}
+
+function validarRutChileno(control: FormControl): ValidationErrors | null {
+  if (!control.value) {
+    return null;
+  }
+
+  const esValido = validarRut(control.value);
+
+  return esValido ? null : { rutInvalido: true };
+}
+

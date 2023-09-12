@@ -138,13 +138,13 @@
                         <ion-button (click)="setOpen(false, '')">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button [disabled]="usuario.controls.pass1.value != usuario.controls.pass2.value || usuario.invalid"
+                        <ion-button [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
                             (click)="registrar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding">
-                <form [formGroup]="usuario">
+            <ion-content class="ion-paddinga">
+                <form [formGroup]="registroUsuario">
                     <ion-item>
                         <ion-label position="stacked">RUT</ion-label>
                         <ion-input type="text" formControlName="rut"></ion-input>
@@ -202,7 +202,7 @@
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
-            <ion-content class="ion-padding">
+            <ion-content class="ion-paddinga">
                 <form [formGroup]="usuario">
                     <ion-item>
                         <ion-label position="stacked">RUT</ion-label>
