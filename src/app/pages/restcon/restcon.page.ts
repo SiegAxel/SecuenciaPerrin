@@ -20,15 +20,15 @@ export class RestconPage implements OnInit {
   ngOnInit() {
   }
 
-
   async recuperarContrasena() {
     const correo = this.usuario.get('email')?.value; 
     if (correo != null) {
       if (this.uService.correoExiste(correo)) {
-        this.mostrarToast("top", "Recuperacion enviada al correo", 3000);
+        this.usuario.reset();
+        this.toastValid("middle", "Recuperacion enviada al correo", 3000);
         this.setOpen(false);
       } else {
-        this.mostrarToast("middle", "Correo vacio o no existe en la lista de usuarios", 3000);
+        this.toastInvalid("middle", "Correo vacio o no existe en la lista de usuarios", 3000);
       }
     }
   }
@@ -40,16 +40,28 @@ export class RestconPage implements OnInit {
     this.isModalOpen = isOpen;
   }
 
-  async mostrarToast(position: 'top' | 'middle' | 'bottom',
+  async toastValid(position: 'top' | 'middle' | 'bottom',
     message: string,
     duration: number) {
     const toast = await this.toastController.create({
       message,
       duration,
       position,
-      color: 'danger',
+      color: 'success',
     })
     await toast.present();
   };
+
+  async toastInvalid(position: 'top' | 'middle' | 'bottom',
+  message: string,
+  duration: number) {
+  const toast = await this.toastController.create({
+    message,
+    duration,
+    position,
+    color: 'danger',
+  })
+  await toast.present();
+};
   
 }

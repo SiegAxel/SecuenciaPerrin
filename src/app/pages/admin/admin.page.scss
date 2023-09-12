@@ -343,6 +343,14 @@ ion-item-sliding {
 
 .ion-padding {
     --background: linear-gradient(white,white,rgb(172, 0, 0));
+    --color: white;
+    ion-item {
+        margin-bottom: 5%;
+    }
+}
+
+.ion-paddinga {
+    --background: rgb(170, 170, 170);
     ion-item {
         margin-bottom: 5%;
     }
@@ -351,15 +359,10 @@ ion-item-sliding {
     }
 }
 
-.ion-paddinga {
-    --background: linear-gradient(white,white,rgb(55, 0, 0));
-    ion-item {
-        margin-bottom: 5%;
-    }
-    ion-list {
-        background: rgba(255, 255, 255, 0);
-    }
+.modalModi ion-toolbar {
+    --background: white;
 }
+
 
 .modalModi ion-title {
     width: fit-content;
@@ -367,11 +370,11 @@ ion-item-sliding {
     margin: auto;
 }
 
-
 .modalModi .perfilSelect {
     width: fit-content;
     display: flex;
     margin: auto;
+    margin-top: 3%;
 }
 
 

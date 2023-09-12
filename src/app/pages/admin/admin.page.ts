@@ -5,6 +5,7 @@ import { MenuController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 
 
@@ -24,7 +25,6 @@ export class AdminPage implements OnInit {
     pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
     pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
   });
-
 
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required,
@@ -48,7 +48,7 @@ export class AdminPage implements OnInit {
 
 
 
-  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController, private modalCtrl: ModalController) { }
+  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController, private modalCtrl: ModalController, private router: Router) { }
 
   boton_modificar: boolean = true;
 
@@ -89,10 +89,23 @@ export class AdminPage implements OnInit {
     }
   }
 
-
-
   public modificar() {
     var rut: string = this.usuario.controls.rut.value || '';
+    var perfil = this.usuario.controls.perfil.value || '';
+    var usuName = this.usuario.controls.nombre.value || '';
+    var correoNew = "";
+    
+    if(perfil == "Alumno"){
+      correoNew = usuName + "@duocuc.cl"
+      this.usuario.controls.email.setValue(correoNew);
+    } else if(perfil == "Profesor"){
+      correoNew = usuName + "@duoc.profesor.cl"
+      this.usuario.controls.email.setValue(correoNew);
+    } else {
+      correoNew = usuName + "@duoc.cl";
+      this.usuario.controls.email.setValue(correoNew);
+    }
+
     this.uService.modificar(rut, this.usuario.value);
     this.mostrarToast("bottom", "Usuario modificado!", 3000);
     //vamos a habilitar el rut:
@@ -100,8 +113,8 @@ export class AdminPage implements OnInit {
     document.getElementById("rut")?.removeAttribute("disabled");
     this.boton_modificar = true;
     this.isModalOpen = false;
+    
   }
-
 
   public registrar() {
     const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
@@ -123,9 +136,7 @@ export class AdminPage implements OnInit {
     }
   }
 
-
   public buscar(rut_buscar: string) {
-    //console.log(this.usuarioService.buscar(rut_buscar));
     var usuario_encontrado: any = this.uService.buscar(rut_buscar);
     this.usuario.setValue(usuario_encontrado);
     this.boton_modificar = false;
@@ -143,7 +154,9 @@ export class AdminPage implements OnInit {
 
   }
 
-
+  back(){
+    this.router.navigate(['/login'])
+  }
 
   contar() {
     this.alumnos = this.lista_usuario.filter(usu => usu.perfil === "Alumno").length;
@@ -173,11 +186,7 @@ export class AdminPage implements OnInit {
 
     await toast.present();
   }
-
-
-
 }
-
 
 function validarRut(rut: string): boolean {
   // Limpia el RUT de puntos y guión

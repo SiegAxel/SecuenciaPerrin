@@ -8,11 +8,9 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-
                     <span><ion-icon name="home"></ion-icon> Inicio</span>
                 </li>
                 <li>
-
                     <span><ion-icon name="book-outline"></ion-icon> Clases</span>
                 </li>
             </ul>
@@ -30,7 +28,7 @@
                         name="menu"></ion-icon></ion-button>
             </h2>
             <div class="user-wrapper">
-                <img src="assets/images/favicon.png" width="40px" height="40px" alt>
+                <img src="assets/images/favicon.png" width="40px" height="40px" (click)="back()">
                 <div>
                     <h4>VerifyU</h4>
                     <small>¡Bienvenido {{nombre_usuario}}!</small>
@@ -204,7 +202,7 @@
             </ion-header>
             <ion-content class="ion-paddinga">
                 <form [formGroup]="usuario">
-                    <ion-item>
+                    <ion-item disabled="true">
                         <ion-label position="stacked">RUT</ion-label>
                         <ion-input type="text" formControlName="rut"></ion-input>
                     </ion-item>
@@ -225,9 +223,9 @@
                             <ion-item>
                                 <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
                                     <div slot="label">Seleccione un Perfil</div>
-                                    <ion-select-option value="alumno">Alumno</ion-select-option>
-                                    <ion-select-option value="profesor">Profesor</ion-select-option>
-                                    <ion-select-option value="admin">Admin</ion-select-option>
+                                    <ion-select-option value="Alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="Profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="Admin">Admin</ion-select-option>
                                 </ion-select>
                             </ion-item>
                         </ion-list>
