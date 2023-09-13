@@ -12,20 +12,21 @@ ion-content {
 }
 
 ion-item-sliding {
-    ion-item{
-    background: white;}
+    ion-item {
+        background: white;
+    }
 }
 
 ion-menu::part(backdrop) {
     background-color: rgb(0, 0, 0);
-  }
-  
-  ion-menu::part(container) {
+}
+
+ion-menu::part(container) {
     border-radius: 0 20px 20px 0;
-  
+
     box-shadow: 8px 0px 32px rgba(255, 255, 255, 0.751);
-  }
-  
+}
+
 .main-content header .user-wrapper h4 {
     color: rgb(50, 50, 50);
     margin: 0;
@@ -80,7 +81,7 @@ main {
     margin-top: 75px;
     padding: 2rem 1.5rem;
     background: #f1f5f9;
-    background: linear-gradient(to left bottom, gray,white);
+    background: linear-gradient(to left bottom, gray, white);
     min-height: calc(100vh - 80px);
 }
 
@@ -110,7 +111,7 @@ header h4 {
 }
 
 .card-single:hover div span {
-    
+
     color: #d62626;
 }
 
@@ -273,13 +274,14 @@ tr td:last-child {
 
 form ion-item {
     --background: rgba(0, 0, 0, 0.132);
+
     ion-label {
         font-weight: bold;
-        text-shadow: 
-        -1px -1px 0 #000, 
-        1px -1px 0 #000,  
-        -1px 1px 0 #000, 
-        1px 1px 0 #000;   
+        text-shadow:
+            -1px -1px 0 #000,
+            1px -1px 0 #000,
+            -1px 1px 0 #000,
+            1px 1px 0 #000;
         color: rgb(255, 255, 255)
     }
 }
@@ -292,7 +294,7 @@ form ion-item {
 
 ion-menu {
 
-    ion-header{
+    ion-header {
         background: red;
     }
 
@@ -342,25 +344,45 @@ ion-item-sliding {
 /* Modal de Modificar Usuario */
 
 .ion-padding {
-    --background: linear-gradient(white,white,rgb(172, 0, 0));
+    --background: linear-gradient(white, white, rgb(172, 0, 0));
     --color: white;
+
     ion-item {
         margin-bottom: 5%;
     }
 }
 
+
+
+
 .ion-paddinga {
     --background: rgb(170, 170, 170);
+
     ion-item {
         margin-bottom: 5%;
     }
+
     ion-list {
         background: rgba(255, 255, 255, 0);
     }
 }
 
-.modalModi ion-toolbar {
-    --background: white;
+.modalModi {
+
+    ion-content {
+        height: 100%;
+        margin: 0;
+        padding: 0;
+        --background: url('/../assets/images/DottedRed.png');
+        --background-size: cover;
+    }
+
+
+    ion-toolbar {
+        --background: white;
+        --color: black;
+        --font-weigth: bold;
+    }
 }
 
 
