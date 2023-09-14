@@ -21,7 +21,7 @@ export class RegistroPage implements OnInit {
     nombre: new FormControl('', [Validators.required,
     Validators.minLength(3)]),
     email: new FormControl('', [Validators.email,
-    Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
+    Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl)$")],
     ),
     fechanac: new FormControl('', Validators.required),
     perfil: new FormControl('Alumno', Validators.required),

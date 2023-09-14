@@ -93,8 +93,6 @@ ion-button {
     color: #e407077b;
 }
 
-
-
 .link {
     display: flex;
     justify-content: center;
@@ -111,6 +109,7 @@ ion-button {
 
 .linkazul:hover {
     color: rgb(255, 255, 255);
+    cursor: default;
 }
 
 ion-title {
@@ -155,7 +154,7 @@ ion-modal {
 }
 
 ion-modal .ion-padding {
-    --background: linear-gradient(#4b0000d8 55%,
+    --background: linear-gradient(#4b0000eb 50%,
             rgba(255, 255, 255, 0.129))!important;
 }
 
