@@ -399,8 +399,12 @@ ion-item-sliding {
     margin-top: 3%;
 }
 
-
-
-
-
 /* Termina Modal de Modificar Usuario */
+
+/* Input de busqueda */
+
+#inputBuscar {
+    width: 30%;
+    height: fit-content;
+    border-bottom: 1px solid black;
+}

@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 // IMPORTAR STORAGE //
 
 import { Storage } from '@ionic/storage-angular';
-import { promises } from 'dns';
+
 
 @Injectable({
   providedIn: 'root'
@@ -63,4 +63,28 @@ export class UsuarioStorageService {
     await this.storage.set(key, this.usuarios);
     return true;
   }
+
+
+  //Eliminar:
+
+  async eliminar(rut: string, key: string): Promise<boolean>{
+    var resp: boolean = false;
+    this.usuarios = await this.storage.get(key) || [];
+    this.usuarios.forEach((usuario, index) => {
+      if(usuario.rut == rut){
+        this.usuarios.splice(index, 1);
+        resp = true;
+      }
+    });
+    await this.storage.set(key, this.usuarios);
+    return resp;
+  }
+
+  //Listar:
+
+  async listar(key: string): Promise<any[]>{
+    this.usuarios = await this.storage.get(key) || [];
+    return this.usuarios;
+  }
+
 }

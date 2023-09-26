@@ -17,6 +17,10 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule)
+  },
+  {
     path: 'restcon',
     loadChildren: () => import('./pages/restcon/restcon.module').then( m => m.RestconPageModule)
   },
@@ -28,10 +32,7 @@ const routes: Routes = [
     path: 'splash',
     loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   },
-  {
-    path: 'admin/:nombre',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
-  },
+ 
   {
     path: 'profe/:nombre',
     loadChildren: () => import('./pages/profe/profe.module').then( m => m.ProfePageModule)
@@ -44,6 +45,7 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
+
 
 ];
 

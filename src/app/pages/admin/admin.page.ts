@@ -6,6 +6,7 @@ import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
 
 
@@ -46,21 +47,24 @@ export class AdminPage implements OnInit {
     Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
   });
 
-
-
-  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController, private modalCtrl: ModalController, private router: Router) { }
+  constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,
+    private uService: UsuarioService,
+    private menuCtrl: MenuController, private toastController: ToastController,
+    private modalCtrl: ModalController, private router: Router) { }
 
   boton_modificar: boolean = true;
 
   nombre_usuario: string = "";
 
-  rut_usuario: string = "";
+  nomBuscar: string = "";
 
-  lista_usuario: any[] = [];
+  rut_usuario: string = "";
 
   cantidad_usuarios: any = 0
 
   alumnos: number = 0;
+
+  lista_usuarios: any[] = [];
 
   profesores: number = 0;
 
@@ -68,19 +72,20 @@ export class AdminPage implements OnInit {
 
   usuarios: any[] = [];
 
+  KEY: string = 'usuarios';
+
   isModalOpen = false;
 
   agreOpen = false;
 
-  ngOnInit() {
-
+  async ngOnInit() {
+    await this.listar();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
-    this.lista_usuario = this.uService.listar();
-    this.cantidad_usuarios = this.lista_usuario.length;
-    this.usuarios = this.lista_usuario;
+    this.cantidad_usuarios = this.usuarios.length;
+    this.lista_usuarios = this.usuarios;
     this.contar();
 
-    const loggedInUser = this.lista_usuario.find(user => user.nombre === this.nombre_usuario);
+    const loggedInUser = this.usuarios.find(user => user.nombre === this.nombre_usuario);
     if (loggedInUser) {
       this.rut_usuario = loggedInUser.rut;
       console.log('rut usuario logged-in:', this.rut_usuario);
@@ -89,85 +94,102 @@ export class AdminPage implements OnInit {
     }
   }
 
-  public modificar() {
+  // Metodos Unidad 2:
+
+  async listar() {
+    this.usuarios = await this.uStorage.listar(this.KEY);
+  }
+
+  async guardar() {
+    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+    const today = new Date();
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+
+    if (age < 17) {
+      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
+    } else {
+      var resp: boolean = await this.uStorage.agregar(this.registroUsuario.value, this.KEY);
+      if (resp) {
+        this.mostrarToast("middle", "Usuario agregado!", 3000);
+        this.registroUsuario.reset();
+        await this.listar();
+        this.agreOpen = false;
+      } else {
+        this.mostrarToast("middle", "Error al agregar usuario.", 3000);
+      }
+    }
+  }
+
+  async eliminar(rut_eliminar: string){
+    await this.uStorage.eliminar(rut_eliminar, this.KEY);
+    await this.listar();
+    this.mostrarToast('middle', "USUARIO ELIMINADO CON ÉXITO!", 3000);
+  }
+
+
+  async modificar(){
     var rut: string = this.usuario.controls.rut.value || '';
     var perfil = this.usuario.controls.perfil.value || '';
     var usuName = this.usuario.controls.nombre.value || '';
     var correoNew = "";
-    
-    if(perfil == "Alumno"){
+
+    if (perfil == "Alumno") {
       correoNew = usuName + "@duocuc.cl"
       this.usuario.controls.email.setValue(correoNew);
-    } else if(perfil == "Profesor"){
-      correoNew = usuName + "@duoc.profesor.cl"
+    } else if (perfil == "Profesor") {
+      correoNew = usuName + "@profesor.duoc.cl"
       this.usuario.controls.email.setValue(correoNew);
     } else {
       correoNew = usuName + "@duoc.cl";
       this.usuario.controls.email.setValue(correoNew);
     }
 
-    this.uService.modificar(rut, this.usuario.value);
-    this.mostrarToast("bottom", "Usuario modificado!", 3000);
-    //vamos a habilitar el rut:
-    this.usuario.reset();
-    document.getElementById("rut")?.removeAttribute("disabled");
-    this.boton_modificar = true;
-    this.isModalOpen = false;
-    
-  }
-
-  public registrar() {
-    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
-    const today = new Date();
-    const fechaNacimientoDate = new Date(fechaNacimiento);
-    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
-  
-    if (age < 17) {
-      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
-    } else {
-      const respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
-      if (respuesta) {
-        this.mostrarToast("top", "Usuario Registrado!", 1000);
-        this.registroUsuario.reset();
-        this.agreOpen = false;
-      } else {
-        this.mostrarToast("bottom", "Error al registrar.", 3000);
-      }
+    var resp:boolean = await this.uStorage.modificar(this.usuario.value, this.KEY);
+    if(resp){
+      this.mostrarToast("bottom", "Usuario modificado!", 3000);
+      await this.listar();
+      document.getElementById("rut")?.removeAttribute("disabled");
+      this.boton_modificar = true;
+      this.isModalOpen = false;
     }
-  }
 
-  public buscar(rut_buscar: string) {
-    var usuario_encontrado: any = this.uService.buscar(rut_buscar);
+  }
+  
+
+  /////////////////////////////////////////////
+
+
+
+  async buscar(rut_modificar:string) {
+
+    var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
     this.usuario.setValue(usuario_encontrado);
     this.boton_modificar = false;
     //vamos a bloquear el rut
     document.getElementById("rut")?.setAttribute("disabled", "true");
   }
 
-  setOpen(isOpen: boolean, rut_modificar: string) {
+  async setOpen(isOpen: boolean, rut_modificar: string) {
     if (rut_modificar == '') {
       this.agreOpen = isOpen;
     } else {
       this.isModalOpen = isOpen;
-      this.buscar(rut_modificar);
+      await this.buscar(rut_modificar);
     }
 
   }
 
-  back(){
+  back() {
     this.router.navigate(['/login'])
   }
 
   contar() {
-    this.alumnos = this.lista_usuario.filter(usu => usu.perfil === "Alumno").length;
-    this.profesores = this.lista_usuario.filter(usu => usu.perfil === "Profesor").length;
+    this.alumnos = this.usuarios.filter(usu => usu.perfil === "Alumno").length;
+    this.profesores = this.usuarios.filter(usu => usu.perfil === "Profesor").length;
   }
 
-  public eliminar(rut_eliminar: string) {
-    this.uService.eliminar(rut_eliminar);
-    this.mostrarToast('middle', "USUARIO ELIMINADO CON ÉXITO!", 3000);
-    this.usuarios;
-  }
+
 
   openMenu() {
     this.menuCtrl.enable(true, 'menu');
@@ -221,4 +243,5 @@ function validarRutChileno(control: FormControl): ValidationErrors | null {
 
   return esValido ? null : { rutInvalido: true };
 }
+
 

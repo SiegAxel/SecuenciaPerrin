@@ -89,7 +89,7 @@
                                         </tr>
                                     </thead>
 
-                                    <tbody *ngFor="let usu of lista_usuario">
+                                    <tbody *ngFor="let usu of usuarios">
                                         <tr>
 
                                             <td>{{usu.rut}}</td>
@@ -137,7 +137,7 @@
                     </ion-buttons>
                     <ion-buttons slot="end">
                         <ion-button [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
-                            (click)="registrar()" type="submit">Confirmar</ion-button>
+                            (click)="guardar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -187,7 +187,7 @@
 
     /* MODAL MODIFICAR */
 
-    <ion-modal [isOpen]="isModalOpen" class="modalModi" *ngFor="let usu of lista_usuario">
+    <ion-modal [isOpen]="isModalOpen" class="modalModi" *ngFor="let usu of usuarios">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
@@ -196,7 +196,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificar()" type="submit">Confirmar</ion-button>
+                        <ion-button (click)="modificar()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
