@@ -25,6 +25,24 @@
 @import "@ionic/angular/css/text-transformation.css";
 @import "@ionic/angular/css/flex-utils.css";
 
+:root {
+    --ion-color-favorite: #ffffff;
+    --ion-color-favorite-rgb: 255, 255, 255;
+    --ion-color-favorite-contrast: #ffffff;
+    --ion-color-favorite-contrast-rgb: 255, 255, 255;
+    --ion-color-favorite-shade: #e9e9e9;
+    --ion-color-favorite-tint: #e6e6e6;
+  }
+
+  .ion-color-favorite {
+    --ion-color-base: var(--ion-color-favorite);
+    --ion-color-base-rgb: var(--ion-color-favorite-rgb);
+    --ion-color-contrast: var(--ion-color-favorite-contrast);
+    --ion-color-contrast-rgb: var(--ion-color-favorite-contrast-rgb);
+    --ion-color-shade: var(--ion-color-favorite-shade);
+    --ion-color-tint: var(--ion-color-favorite-tint);
+  }
+
 * {
     font-family: 'Fira Sans', sans-serif;
 }

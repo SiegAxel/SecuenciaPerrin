@@ -1,0 +1,30 @@
+ion-header ion-toolbar {
+    --background: white;
+    border-bottom: 1px solid red;
+}
+
+ion-header h4 {
+    color: red;
+}
+
+.user-wrapper {
+    width: fit-content;
+    display: flex;
+    margin: auto;
+}
+
+.fade-in-animation {
+    animation: fadeIn ease-in 2s;
+  }
+  
+  
+  @keyframes fadeIn {
+    from {
+        
+      opacity: 0;
+    }
+    to {
+
+      opacity: 1;
+    }
+  }
