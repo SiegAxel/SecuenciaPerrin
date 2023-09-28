@@ -4,6 +4,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
 @Component({
   selector: 'app-login',
@@ -26,14 +27,13 @@ export class LoginPage implements OnInit {
   email: string = "";
   clave: string = "";
 
+  KEY: string = 'usuarios';
 
-
-  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioService, private toastController: ToastController) { }
+  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController) { }
 
   async login() {
-    var lista_usuario: any[] = this.uService.listar();
+    var lista_usuario: any[] = await this.uService.listar(this.KEY);
     var usu_encontrado = lista_usuario.find(usu => usu.email == this.email && usu.pass1 == this.clave);
-
 
     console.log(usu_encontrado);
     if (usu_encontrado == undefined) {
@@ -69,7 +69,6 @@ export class LoginPage implements OnInit {
     this.clave = '';
   }
 
-
   async recoverPassword() {
     try {
       await this.loaderService.presentLoader();
@@ -99,10 +98,7 @@ export class LoginPage implements OnInit {
     await toast.present();
   };
 
-
   ngOnInit() {
   }
-
-
 
 }

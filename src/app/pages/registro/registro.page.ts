@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
 @Component({
   selector: 'app-registro',
@@ -11,10 +12,11 @@ import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/f
 })
 export class RegistroPage implements OnInit {
 
-  constructor(private usuarioService: UsuarioService,
+  constructor(
     private toastController: ToastController,
     private router: Router,
-  ) { }
+    private uService : UsuarioStorageService 
+  ) {}
 
   usuario = new FormGroup({
     rut: new FormControl('', [Validators.required, Validators.pattern('[0-9]{1,2}\\.[0-9]{3}\\.[0-9]{3}-[0-9kK]{1}'), validarRutChileno]),
@@ -37,19 +39,18 @@ export class RegistroPage implements OnInit {
 
   usuarios: any[] = [];
 
-  ngOnInit() {
-    this.usuarios = this.listar_usuarios();
-  }
+  KEY: string = 'usuarios';
 
+   async ngOnInit() {
+    this.usuarios = await this.listar_usuarios();
+  }
 
   async redireccionar() {
     await new Promise(f => setTimeout(f, 1000));
     this.router.navigate(['/login'])
   }
 
-
-
-  public registrar() {
+  async registrar() {
     const fechaNacimiento = this.usuario.controls.fechanac.value || '';
     const today = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
@@ -58,7 +59,7 @@ export class RegistroPage implements OnInit {
     if (age < 17) {
       this.mostrarToast("middle", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
     } else {
-      const respuesta: boolean = this.usuarioService.agregar(this.usuario.value);
+      const respuesta: boolean = await this.uService.agregar(this.usuario.value, this.KEY);
       if (respuesta) {
         this.mostrarToast("top", "Usuario Registrado!", 1000);
         this.usuario.reset();
@@ -70,8 +71,8 @@ export class RegistroPage implements OnInit {
     }
   }
 
-  listar_usuarios() {
-    return this.usuarioService.listar();
+  async listar_usuarios() {
+    return this.uService.listar(this.KEY);
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
@@ -85,11 +86,7 @@ export class RegistroPage implements OnInit {
 
     await toast.present();
   }
-
-
 }
-
-
 
 function validarRut(rut: string): boolean {
   // Limpia el RUT de puntos y guión

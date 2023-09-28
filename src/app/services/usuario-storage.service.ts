@@ -64,9 +64,7 @@ export class UsuarioStorageService {
     return true;
   }
 
-
   //Eliminar:
-
   async eliminar(rut: string, key: string): Promise<boolean>{
     var resp: boolean = false;
     this.usuarios = await this.storage.get(key) || [];
@@ -81,7 +79,6 @@ export class UsuarioStorageService {
   }
 
   //Listar:
-
   async listar(key: string): Promise<any[]>{
     this.usuarios = await this.storage.get(key) || [];
     return this.usuarios;
