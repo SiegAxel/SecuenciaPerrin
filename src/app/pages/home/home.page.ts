@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomePage implements OnInit {
 
-  constructor() { }
+  data: any;
+  KEY : string = 'usuarios';
 
-  ngOnInit() {
+  constructor(private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router) 
+  { 
+    this.data = router.getCurrentNavigation()?.extras.state;
+    console.log( this.data.user)
+
+  }
+
+
+  usuarios = this.uStorage.listar(this.KEY);
+
+
+  async ngOnInit() {
+    // const nombre_user = (await this.usuarios).find()
   }
 
 }
