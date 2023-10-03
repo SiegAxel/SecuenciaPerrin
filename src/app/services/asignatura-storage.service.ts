@@ -8,5 +8,13 @@ export class AsignaturaStorageService {
 
   asignaturas: any[] = [];
 
-  constructor() { }
+  constructor(private storage: Storage) {
+    storage.create();
+  }
+
+
+  //Buscar: Que buscar y donde buscarlo.
+
+
+
 }

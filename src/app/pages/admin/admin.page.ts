@@ -47,6 +47,12 @@ export class AdminPage implements OnInit {
     Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
   });
 
+  registroAsignatura = new FormGroup({
+    codigo: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    profesor: new FormControl('', Validators.required)
+  })
+
   constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,
     private uService: UsuarioService,
     private menuCtrl: MenuController, private toastController: ToastController,
@@ -78,6 +84,12 @@ export class AdminPage implements OnInit {
 
   agreOpen = false;
 
+  isAsigOpen = false;
+
+  asigOpen = false;
+
+  isAsignaturas = false;
+
   async ngOnInit() {
     await this.listar();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
@@ -95,6 +107,17 @@ export class AdminPage implements OnInit {
   }
 
   // Metodos Unidad 2:
+
+
+  esAsignatura() {
+    this.isAsignaturas = true;
+  }
+
+  noAsignatura() {
+    this.isAsignaturas = false;
+  }
+
+
 
   async listar() {
     this.usuarios = await this.uStorage.listar(this.KEY);
@@ -177,7 +200,6 @@ export class AdminPage implements OnInit {
       this.isModalOpen = isOpen;
       await this.buscar(rut_modificar);
     }
-
   }
 
   back() {
@@ -189,12 +211,9 @@ export class AdminPage implements OnInit {
     this.profesores = this.usuarios.filter(usu => usu.perfil === "Profesor").length;
   }
 
-
-
   openMenu() {
     this.menuCtrl.enable(true, 'menu');
     this.menuCtrl.open('menu');
-
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
