@@ -84,4 +84,11 @@ export class UsuarioStorageService {
     return this.usuarios;
   }
 
+  //Loguear:
+
+  async login(correo: string, clave: string, key: string){
+    this.usuarios = await this.storage.get(key) || [];
+    return this.usuarios.find(usu => usu.correo == correo && usu.clave == clave);
+  }
+
 }

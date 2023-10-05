@@ -41,10 +41,6 @@ const routes: Routes = [
     loadChildren: () => import('./pages/alumno/alumno.module').then( m => m.AlumnoPageModule)
   },
   {
-    path: 'api',
-    loadChildren: () => import('./pages/api/api.module').then( m => m.ApiPageModule)
-  },
-  {
     path: 'detalle/:id',
     loadChildren: () => import('./pages/detalle/detalle.module').then( m => m.DetallePageModule)
   },

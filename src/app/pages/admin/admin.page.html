@@ -131,7 +131,7 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Asignaturas Disponibles</h3>
-                                <ion-button (click)="setOpen(true, '')" fill="clear" color="danger"><ion-icon
+                                <ion-button (click)="setOpenAsignatura(true, '')" fill="clear" color="danger"><ion-icon
                                         name="add-outline"></ion-icon></ion-button>
                             </div>
 
@@ -293,15 +293,15 @@
 
     /* PAGINA ASIGNATURAS */
 
-    /* MODAL ASIGNATURAS */
+    /* AGREGAR ASIGNATURAS */
 
-    <ion-modal [isOpen]="agreOpen" class="modalModi">
+    <ion-modal [isOpen]="asigOpen" class="modalModi">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
                     <ion-title class="modiTitle">AGREGAR ASIGNATURA</ion-title>
                     <ion-buttons slot="start">
-                        <ion-button (click)="setOpen(false, '')">Cerrar</ion-button>
+                        <ion-button (click)="setOpenAsignatura(false, '')">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
                         <ion-button
@@ -311,8 +311,42 @@
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-paddinga">
-                <form [formGroup]="registroUsuario">
+                <form [formGroup]="registroAsignatura">
                     <ion-item>
+                        <ion-label position="stacked">Codigo</ion-label>
+                        <ion-input type="text" formControlName="codigo"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Nombre</ion-label>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label position="stacked">Profesor</ion-label>
+                        <ion-input type="text" formControlName="profesor"></ion-input>
+                    </ion-item>
+                </form>
+            </ion-content>
+        </ng-template>
+    </ion-modal>
+
+    /* MODIFICAR ASIGNATURAS */
+
+    <ion-modal [isOpen]="isAsigOpen" class="modalModi" *ngFor="let usu of usuarios">
+        <ng-template class="modiTemplate">
+            <ion-header>
+                <ion-toolbar>
+                    <ion-title class="modiTitle">MODIFICAR ASIGNATURA</ion-title>
+                    <ion-buttons slot="start">
+                        <ion-button (click)="setOpenAsignatura(false, usu.rut)">Cerrar</ion-button>
+                    </ion-buttons>
+                    <ion-buttons slot="end">
+                        <ion-button (click)="modificar()">Confirmar</ion-button>
+                    </ion-buttons>
+                </ion-toolbar>
+            </ion-header>
+            <ion-content class="ion-paddinga">
+                <form [formGroup]="registroAsignatura">
+                    <ion-item disabled="true">
                         <ion-label position="stacked">Codigo</ion-label>
                         <ion-input type="text" formControlName="codigo"></ion-input>
                     </ion-item>

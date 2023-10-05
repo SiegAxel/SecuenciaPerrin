@@ -12,6 +12,10 @@ const routes: Routes = [
         path: 'admin/:nombre',
         loadChildren: () => import('../admin/admin.module').then( m => m.AdminPageModule)
       },
+      {
+        path: 'api/:nombre',
+        loadChildren: () => import('../api/api.module').then( m => m.ApiPageModule)
+      },
     ]
   }
 ];

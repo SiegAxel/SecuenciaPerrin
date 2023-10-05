@@ -54,9 +54,6 @@ export class LoginPage implements OnInit {
 
     console.log(usu_encontrado);
 
- 
-
-
     if (usu_encontrado == undefined) {
       this.mostrarToast("top", "Datos Incorrectos", 3000);
     }

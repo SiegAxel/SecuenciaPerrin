@@ -108,7 +108,6 @@ export class AdminPage implements OnInit {
 
   // Metodos Unidad 2:
 
-
   esAsignatura() {
     this.isAsignaturas = true;
   }
@@ -116,8 +115,6 @@ export class AdminPage implements OnInit {
   noAsignatura() {
     this.isAsignaturas = false;
   }
-
-
 
   async listar() {
     this.usuarios = await this.uStorage.listar(this.KEY);
@@ -199,6 +196,15 @@ export class AdminPage implements OnInit {
     } else {
       this.isModalOpen = isOpen;
       await this.buscar(rut_modificar);
+    }
+  }
+
+  async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
+    if (cod_modificar == '') {
+      this.asigOpen = isOpen;
+    } else {
+      this.isAsigOpen = isOpen;
+      await this.buscar(cod_modificar);
     }
   }
 

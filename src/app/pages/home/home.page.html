@@ -5,6 +5,9 @@
       <ion-tab-button tab="admin/{{data.user.nombre}}">
         <ion-icon name="book"></ion-icon>
       </ion-tab-button>
+      <ion-tab-button tab="api/{{data.user.nombre}}" *ngIf="data.perfil == 'admin' ">
+        <ion-icon name="star"></ion-icon>
+      </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
 </ion-content>
