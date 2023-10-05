@@ -7,6 +7,7 @@ import { ModalController } from '@ionic/angular';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
 
 
 
@@ -56,9 +57,12 @@ export class AdminPage implements OnInit {
   constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,
     private uService: UsuarioService,
     private menuCtrl: MenuController, private toastController: ToastController,
-    private modalCtrl: ModalController, private router: Router) { }
+    private modalCtrl: ModalController, private router: Router,
+    private aService: AsignaturaStorageService) { }
 
   boton_modificar: boolean = true;
+
+  boton_modificarAsig: boolean = true;
 
   nombre_usuario: string = "";
 
@@ -78,7 +82,11 @@ export class AdminPage implements OnInit {
 
   usuarios: any[] = [];
 
+  asignaturas: any[] = [];
+
   KEY: string = 'usuarios';
+
+  KEYA: string = 'asignaturas';
 
   isModalOpen = false;
 
@@ -92,6 +100,7 @@ export class AdminPage implements OnInit {
 
   async ngOnInit() {
     await this.listar();
+    await this.listarAsig();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.cantidad_usuarios = this.usuarios.length;
     this.lista_usuarios = this.usuarios;
@@ -125,7 +134,7 @@ export class AdminPage implements OnInit {
     const today = new Date();
     const fechaNacimientoDate = new Date(fechaNacimiento);
     const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
-
+    
     if (age < 17) {
       this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
     } else {
@@ -176,10 +185,7 @@ export class AdminPage implements OnInit {
 
   }
   
-
   /////////////////////////////////////////////
-
-
 
   async buscar(rut_modificar:string) {
 
@@ -233,6 +239,43 @@ export class AdminPage implements OnInit {
 
     await toast.present();
   }
+
+  // CRUD Asignatura //
+
+  async listarAsig(){
+    this.asignaturas = await this.aService.listar(this.KEYA);
+  }
+
+  async guardarAsig(){
+   var resp: boolean = await this.aService.agregar(this.registroAsignatura.value, this.KEYA);
+   if(resp){
+    this.mostrarToast('middle', 'Asignatura agregada!', 3000);
+    this.registroAsignatura.reset();
+    await this.listarAsig();
+    this.asigOpen = false;
+   } else {
+    this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
+   }
+  }
+
+  async modificarAsig(){
+    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA);
+    if(resp){
+      this.mostrarToast('middle', 'Asignatura modificada!', 3000);
+      await this.listarAsig();
+      this.boton_modificarAsig = true;
+      this.isAsigOpen = false;
+    } else {
+      this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
+    }
+  }
+
+  async eliminarAsig(codigo_eliminar: string){
+    await this.aService.eliminar(codigo_eliminar, this.KEYA);
+    await this.listarAsig();
+    this.mostrarToast('top', 'Asignatura eliminada!', 3000);
+  }
+
 }
 
 function validarRut(rut: string): boolean {

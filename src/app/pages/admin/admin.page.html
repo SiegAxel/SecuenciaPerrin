@@ -146,14 +146,12 @@
                                             </tr>
                                         </thead>
 
-                                        <tbody *ngFor="let usu of usuarios">
+                                        <tbody *ngFor="let asig of asignaturas">
                                             <tr>
 
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
-                                                <td></td>
+                                                <td>{{asig.codigo}}</td>
+                                                <td>{{asig.nombre}}</td>
+                                                <td>{{asig.profesor}}</td>
                                                 <td>
                                                     <ion-item-sliding>
                                                         <ion-item color="success">
@@ -161,9 +159,9 @@
                                                         </ion-item>
                                                         <ion-item-options side="end">
                                                             <ion-item-option color="favorite"
-                                                                (click)="setOpen(true, usu.rut )">Modificar</ion-item-option>
-                                                            <ion-item-option color="danger" (click)="eliminar(usu.rut)"
-                                                                [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
+                                                                (click)="setOpen(true, asig.codigo)">Modificar</ion-item-option>
+                                                            <ion-item-option color="danger" (click)="eliminarAsig(asig.codigo)"
+                                                                [disabled]="asig.codigo == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
                                                 </td>
@@ -252,7 +250,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificar()">Confirmar</ion-button>
+                        <ion-button (click)="modificarAsig()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -305,8 +303,7 @@
                     </ion-buttons>
                     <ion-buttons slot="end">
                         <ion-button
-                            [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
-                            (click)="guardar()" type="submit">Confirmar</ion-button>
+                            (click)="guardarAsig()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
