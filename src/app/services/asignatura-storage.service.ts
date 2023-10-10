@@ -13,7 +13,7 @@ export class AsignaturaStorageService {
   }
 
   //Buscar:
-  async buscar(codigo: string, key: string): Promise<any>{
+  async buscarAsig(codigo: string, key: string): Promise<any>{
     this.asignaturas = await this.storage.get(key) || [];
     return this.asignaturas.find(asig => asig.codigo == codigo);
   }
@@ -22,7 +22,7 @@ export class AsignaturaStorageService {
    async agregar(asignatura: any, key: string): Promise<boolean>{
     try {
       this.asignaturas = await this.storage.get(key) || [];
-      let asignaturaEncontrada = await this.buscar(asignatura.codigo, key);
+      let asignaturaEncontrada = await this.buscarAsig(asignatura.codigo, key);
   
       if (asignaturaEncontrada === undefined) {
         this.asignaturas.push(asignatura);
@@ -37,18 +37,25 @@ export class AsignaturaStorageService {
    }
 
     //Modificar: 
-   async modificar(asignatura: any, key: string): Promise<boolean>{
-    this.asignaturas = await this.storage.get(key) || [];
-    let index = this.asignaturas.findIndex(asig => asig.codigo == asignatura.codigo);
-
-    if(index == -1){
-      return false;
-    }
-
-    this.asignaturas[index] = asignatura;
-    await this.storage.set(key, this.asignaturas);
-    return true;
-   }
+    async modificar(asignatura: any, key: string): Promise<boolean>{
+      this.asignaturas = await this.storage.get(key) || [];
+      let index = this.asignaturas.findIndex(asig => asig.codigo == asignatura.codigo);
+  
+      console.log('Índice de asignatura en modificar:', index);
+  
+      if(index == -1){
+          return false;
+      }
+  
+      this.asignaturas[index] = asignatura;
+      await this.storage.set(key, this.asignaturas);
+  
+      console.log('Asignatura modificada:', asignatura);
+  
+      return true;
+  }
+  
+    
 
     //Eliminar:
    async eliminar(codigo: string, key: string): Promise<boolean>{

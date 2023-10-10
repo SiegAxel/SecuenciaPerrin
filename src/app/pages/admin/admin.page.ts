@@ -54,6 +54,12 @@ export class AdminPage implements OnInit {
     profesor: new FormControl('', Validators.required)
   })
 
+  asignatura = new FormGroup({
+    codigo: new FormControl('', Validators.required),
+    nombre: new FormControl('', Validators.required),
+    profesor: new FormControl('', Validators.required),
+  });
+
   constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,
     private uService: UsuarioService,
     private menuCtrl: MenuController, private toastController: ToastController,
@@ -83,7 +89,7 @@ export class AdminPage implements OnInit {
   usuarios: any[] = [];
 
   asignaturas: any[] = [];
-
+  
   KEY: string = 'usuarios';
 
   KEYA: string = 'asignaturas';
@@ -127,6 +133,11 @@ export class AdminPage implements OnInit {
 
   async listar() {
     this.usuarios = await this.uStorage.listar(this.KEY);
+  }
+
+  filtrarProfes(){
+    const profesores = this.usuarios.filter(usuario => usuario.perfil === 'profesor');
+    return profesores;
   }
 
   async guardar() {
@@ -210,7 +221,7 @@ export class AdminPage implements OnInit {
       this.asigOpen = isOpen;
     } else {
       this.isAsigOpen = isOpen;
-      await this.buscar(cod_modificar);
+      await this.buscarAsig(cod_modificar);
     }
   }
 
@@ -246,6 +257,16 @@ export class AdminPage implements OnInit {
     this.asignaturas = await this.aService.listar(this.KEYA);
   }
 
+  async buscarAsig(cod_modificar: string) {
+    var asignatura_encontrada: any = await this.aService.buscarAsig(cod_modificar, this.KEYA);
+    if (asignatura_encontrada) {
+      this.registroAsignatura.setValue(asignatura_encontrada);
+      this.boton_modificarAsig = false;
+    } else {
+      console.log("La asignatura no fue encontrada.")
+    }
+  }
+  
   async guardarAsig(){
    var resp: boolean = await this.aService.agregar(this.registroAsignatura.value, this.KEYA);
    if(resp){
@@ -259,16 +280,22 @@ export class AdminPage implements OnInit {
   }
 
   async modificarAsig(){
+    console.log('Antes de modificar en modificarAsig:', this.registroAsignatura.value);
+
     var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA);
+
+    console.log('Respuesta de modificar en modificarAsig:', resp);
+
     if(resp){
-      this.mostrarToast('middle', 'Asignatura modificada!', 3000);
-      await this.listarAsig();
-      this.boton_modificarAsig = true;
-      this.isAsigOpen = false;
+        this.mostrarToast('top', 'Asignatura modificada!', 3000);
+        await this.listarAsig();
+        this.boton_modificarAsig = true;
+        this.isAsigOpen = false;
     } else {
-      this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
+        this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
     }
-  }
+}
+
 
   async eliminarAsig(codigo_eliminar: string){
     await this.aService.eliminar(codigo_eliminar, this.KEYA);

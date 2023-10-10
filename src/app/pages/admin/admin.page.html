@@ -251,7 +251,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificarAsig()">Confirmar</ion-button>
+                        <ion-button (click)="modificar()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -319,7 +319,7 @@
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked">Profesor</ion-label>
-                        <ion-input type="text" formControlName="profesor"></ion-input>
+                        <ion-input type="text"formControlName="profesor"></ion-input>
                     </ion-item>
                 </form>
             </ion-content>
@@ -345,17 +345,19 @@
                 <form [formGroup]="registroAsignatura">
                     <ion-item disabled="true">
                         <ion-label position="stacked">Codigo</ion-label>
-                        <ion-input type="text" formControlName="codigo">{{asig.codigo}}</ion-input>
+                        <ion-input type="text" formControlName="codigo"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked">Nombre</ion-label>
-                        <ion-input type="text" formControlName="nombre">{{asig.nombre}}</ion-input>
+                        <ion-input type="text" formControlName="nombre"></ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-list>
                             <ion-item>
-                              <ion-select label="Profesor">
-                                <ion-select-option value="profesor" *ngFor="let profes of usuarios" formControlName="profesor">{{profes.nombre}}</ion-select-option>
+                              <ion-select label="Profesor" formControlName="profesor">
+                                <ion-select-option value="{{profesor.nombre}}" *ngFor="let profesor of filtrarProfes()">
+                                  {{ profesor.nombre }}
+                                </ion-select-option>
                               </ion-select>
                             </ion-item>
                           </ion-list>

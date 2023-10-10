@@ -139,7 +139,8 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     await this.uService.agregar(this.admin, this.KEY);
-    await this.uService.agregar(this.alumno, this.KEY)
+    await this.uService.agregar(this.profesor, this.KEY);
+    await this.uService.agregar(this.alumno, this.KEY);
   }
 
 
