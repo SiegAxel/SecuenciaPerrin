@@ -19,7 +19,6 @@ export class HomePage implements OnInit {
 
   }
 
-
   usuarios = this.uStorage.listar(this.KEY);
 
 

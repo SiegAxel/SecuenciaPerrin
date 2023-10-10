@@ -21,6 +21,9 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
+            <qrcode [qrdata]="data" [width] = "256" [errorCorrectionLevel]="'M'">
+            </qrcode>
+            <ion-input label="Qr codigo" [(ngModel)]="data"></ion-input>
             <ion-img src="assets/images/frame.png"></ion-img>
           </ion-card-content>
         </ion-card>

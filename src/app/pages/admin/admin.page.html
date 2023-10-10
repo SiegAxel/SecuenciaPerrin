@@ -8,10 +8,10 @@
         <div class="sidebar-menu">
             <ul>
                 <li>
-                    <span (click)="noAsignatura()"><ion-icon  name="home"></ion-icon>Inicio</span>
+                    <span (click)="noAsignatura()"><ion-icon name="home"></ion-icon>Inicio</span>
                 </li>
                 <li>
-                    <span (click)="esAsignatura()"><ion-icon  name="book-outline"></ion-icon>Asignaturas</span>
+                    <span (click)="esAsignatura()"><ion-icon name="book-outline"></ion-icon>Asignaturas</span>
                 </li>
             </ul>
 
@@ -159,8 +159,9 @@
                                                         </ion-item>
                                                         <ion-item-options side="end">
                                                             <ion-item-option color="favorite"
-                                                                (click)="setOpen(true, asig.codigo)">Modificar</ion-item-option>
-                                                            <ion-item-option color="danger" (click)="eliminarAsig(asig.codigo)"
+                                                                (click)="setOpenAsignatura(true, asig.codigo)">Modificar</ion-item-option>
+                                                            <ion-item-option color="danger"
+                                                                (click)="eliminarAsig(asig.codigo)"
                                                                 [disabled]="asig.codigo == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
@@ -302,8 +303,7 @@
                         <ion-button (click)="setOpenAsignatura(false, '')">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button
-                            (click)="guardarAsig()" type="submit">Confirmar</ion-button>
+                        <ion-button (click)="guardarAsig()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -328,16 +328,16 @@
 
     /* MODIFICAR ASIGNATURAS */
 
-    <ion-modal [isOpen]="isAsigOpen" class="modalModi" *ngFor="let usu of usuarios">
+    <ion-modal [isOpen]="isAsigOpen" class="modalModi" *ngFor="let asig of asignaturas">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
                     <ion-title class="modiTitle">MODIFICAR ASIGNATURA</ion-title>
                     <ion-buttons slot="start">
-                        <ion-button (click)="setOpenAsignatura(false, usu.rut)">Cerrar</ion-button>
+                        <ion-button (click)="setOpenAsignatura(false, asig.codigo)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificar()">Confirmar</ion-button>
+                        <ion-button (click)="modificarAsig()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -345,15 +345,20 @@
                 <form [formGroup]="registroAsignatura">
                     <ion-item disabled="true">
                         <ion-label position="stacked">Codigo</ion-label>
-                        <ion-input type="text" formControlName="codigo"></ion-input>
+                        <ion-input type="text" formControlName="codigo">{{asig.codigo}}</ion-input>
                     </ion-item>
                     <ion-item>
                         <ion-label position="stacked">Nombre</ion-label>
-                        <ion-input type="text" formControlName="nombre"></ion-input>
+                        <ion-input type="text" formControlName="nombre">{{asig.nombre}}</ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Profesor</ion-label>
-                        <ion-input type="text" formControlName="profesor"></ion-input>
+                        <ion-list>
+                            <ion-item>
+                              <ion-select label="Profesor">
+                                <ion-select-option value="profesor" *ngFor="let profes of usuarios" formControlName="profesor">{{profes.nombre}}</ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                          </ion-list>
                     </ion-item>
                 </form>
             </ion-content>

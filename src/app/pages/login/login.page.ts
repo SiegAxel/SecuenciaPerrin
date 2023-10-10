@@ -14,16 +14,14 @@ import { NavigationExtras } from '@angular/router';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage implements OnInit {
-  
+
 
 
 
   constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController) { }
 
 
-
-
-  admin: any ={
+  admin: any = {
     rut: '11.111.111-1',
     nombre: 'ariel',
     email: 'ariel@duoc.cl',
@@ -32,7 +30,30 @@ export class LoginPage implements OnInit {
     pass1: 'Judas123',
     pass2: 'Judas123'
   }
-  
+
+
+  profesor: any = {
+    rut: '12.111.111-1',
+    nombre: 'felipe',
+    email: 'felipe@profesor.duoc.cl',
+    fechanac: '2003-05-09',
+    perfil: 'profesor',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  }
+
+  alumno: any = {
+    rut: '13.111.111-1',
+    nombre: 'manuel',
+    email: 'manuel@duocuc.cl',
+    fechanac: '2003-05-09',
+    perfil: 'alumno',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  }
+
+ 
+
   usuario = new FormGroup({
     email: new FormControl('', [Validators.email,
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
@@ -58,7 +79,7 @@ export class LoginPage implements OnInit {
       this.mostrarToast("top", "Datos Incorrectos", 3000);
     }
     else {
-      if (usu_encontrado.perfil == 'admin') {
+      if (usu_encontrado != undefined) {
         try {
           await this.loaderService.presentLoader();
         } finally {
@@ -67,22 +88,17 @@ export class LoginPage implements OnInit {
               user: usu_encontrado
             }
           };
-          this.router.navigate(['/home'],navigationExtras);
+          this.uService.setEstadoLogin();
+          this.router.navigate(['/home'], navigationExtras);
           await this.loaderService.hideLoader();
           this.clear();
+          console.log(this.uService.getEstadoLogin())
+          return usu_encontrado;
         }
-      } else if (usu_encontrado.perfil == 'Profesor') {
-        this.router.navigate(['/profe/', usu_encontrado.nombre]);
-        await this.loaderService.hideLoader();
-        this.clear();
-      }
-      else if (usu_encontrado.perfil == 'Alumno') {
-        this.router.navigate(['/alumno/', usu_encontrado.nombre]);
-        await this.loaderService.hideLoader();
-        this.clear();
       } else {
         this.router.navigate(['/error']);
         await this.loaderService.hideLoader();
+        return undefined;
       }
     }
   }
@@ -123,6 +139,9 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     await this.uService.agregar(this.admin, this.KEY);
+    await this.uService.agregar(this.alumno, this.KEY)
   }
+
+
 
 }

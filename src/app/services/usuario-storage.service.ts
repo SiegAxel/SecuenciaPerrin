@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Router } from '@angular/router';
 
 // IMPORTAR STORAGE //
 
@@ -10,12 +11,13 @@ import { Storage } from '@ionic/storage-angular';
 })
 export class UsuarioStorageService {
 
-  // VARIABLE AUXILIAR //
+  // VARIABLES AUXILIARES //
 
     usuarios: any[] = [];
+    estado_login: boolean = false;
   
   // CREAR VARIABLE DE STORAGE EN CONSTRUCTOR //
-  constructor(private storage : Storage) { 
+  constructor(private storage : Storage, private router: Router) { 
     storage.create();
   }
 
@@ -85,10 +87,28 @@ export class UsuarioStorageService {
   }
 
   //Loguear:
-
   async login(correo: string, clave: string, key: string){
     this.usuarios = await this.storage.get(key) || [];
-    return this.usuarios.find(usu => usu.correo == correo && usu.clave == clave);
+    var user: any = this.usuarios.find(usu => usu.correo == correo && usu.clave == clave);
+    if(user != undefined){
+      this.estado_login = true;
+      return user;
+    }
+    return undefined;
   }
+
+  logout(){
+    this.estado_login = false;
+    this.router.navigate(['/login']);
+  }
+
+  setEstadoLogin(){
+    this.estado_login = true;
+  }
+
+  getEstadoLogin(): boolean{
+    return this.estado_login;
+  }
+
 
 }

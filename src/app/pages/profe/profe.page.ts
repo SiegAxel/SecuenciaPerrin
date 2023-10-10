@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfePage implements OnInit {
 
+  data: string = 'https://www.google.cl';
+
   constructor() { }
 
   ngOnInit() {

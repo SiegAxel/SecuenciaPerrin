@@ -13,6 +13,14 @@ const routes: Routes = [
         loadChildren: () => import('../admin/admin.module').then( m => m.AdminPageModule)
       },
       {
+        path: 'profe/:nombre',
+        loadChildren: () => import('../profe/profe.module').then( m => m.ProfePageModule)
+      },
+      {
+        path: 'alumno/:nombre',
+        loadChildren: () => import('../alumno/alumno.module').then( m => m.AlumnoPageModule)
+      },
+      {
         path: 'api/:nombre',
         loadChildren: () => import('../api/api.module').then( m => m.ApiPageModule)
       },

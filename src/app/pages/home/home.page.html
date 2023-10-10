@@ -2,11 +2,14 @@
 <ion-content >
   <ion-tabs>
     <ion-tab-bar>
-      <ion-tab-button tab="admin/{{data.user.nombre}}">
+      <ion-tab-button tab="admin/{{data.user.nombre}}" *ngIf="data.user.perfil == 'admin' ">
         <ion-icon name="book"></ion-icon>
       </ion-tab-button>
-      <ion-tab-button tab="api/{{data.user.nombre}}" *ngIf="data.perfil == 'admin' ">
-        <ion-icon name="star"></ion-icon>
+      <ion-tab-button tab="profe/{{data.user.nombre}}" *ngIf="data.user.perfil == 'profesor' ">
+        <ion-icon name="moon"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="alumno/{{data.user.nombre}}" *ngIf="data.user.perfil == 'alumno' ">
+        <ion-icon name="car"></ion-icon>
       </ion-tab-button>
     </ion-tab-bar>
   </ion-tabs>
