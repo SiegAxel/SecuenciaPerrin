@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restcon',
@@ -16,7 +17,7 @@ export class RestconPage implements OnInit {
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
     ),
   })
-  constructor( private uService: UsuarioService, private toastController: ToastController, private uStorage: UsuarioStorageService) { }
+  constructor( private uService: UsuarioService, private toastController: ToastController, private uStorage: UsuarioStorageService, private router: Router) { }
 
   ngOnInit() {
   }
@@ -66,5 +67,9 @@ export class RestconPage implements OnInit {
   })
   await toast.present();
 };
+
+back() {
+  this.router.navigate(['/login'])
+}
   
 }

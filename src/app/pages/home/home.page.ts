@@ -16,7 +16,6 @@ export class HomePage implements OnInit {
   { 
     this.data = router.getCurrentNavigation()?.extras.state;
     console.log( this.data.user)
-
   }
 
   usuarios = this.uStorage.listar(this.KEY);

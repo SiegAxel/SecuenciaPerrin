@@ -1,16 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="user-wrapper">
-      <img src="assets/images/favicon.png" width="40px" height="40px" alt
-        class="fade-in-animation">
-      <div>
-        <h4 style="margin-top: 15%;" class="fade-in-animation">erifyU</h4>
-      </div>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -21,10 +9,9 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
-            <qrcode [qrdata]="data" [width] = "256" [errorCorrectionLevel]="'M'">
+            <qrcode [qrdata]="dato" [width]="256" [errorCorrectionLevel]="'M'">
             </qrcode>
-            <ion-input label="Qr codigo" [(ngModel)]="data"></ion-input>
-            <ion-img src="assets/images/frame.png"></ion-img>
+            <ion-input label="Qr codigo" [(ngModel)]="dato"></ion-input>
           </ion-card-content>
         </ion-card>
       </ion-col>

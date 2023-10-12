@@ -8,7 +8,17 @@ ion-header ion-toolbar {
 }
 
 ion-content {
+  top: 76px;
   --background: rgb(224, 224, 224);
+
+  ion-grid {
+
+    ion-row{
+      overflow: scroll;
+      margin-bottom: 60px;
+    }
+
+  }
 }
 
 .user-wrapper {

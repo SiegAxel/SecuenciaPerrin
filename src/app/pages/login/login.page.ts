@@ -15,11 +15,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-
-
-
   constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController) { }
-
 
   admin: any = {
     rut: '11.111.111-1',
