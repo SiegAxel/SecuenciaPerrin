@@ -49,16 +49,10 @@ export class AdminPage implements OnInit {
   });
 
   registroAsignatura = new FormGroup({
-    codigo: new FormControl('', Validators.required),
-    nombre: new FormControl('', Validators.required),
-    profesor: new FormControl('', Validators.required)
+    codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    profesor: new FormControl('', [Validators.required, Validators.minLength(3)])
   })
-
-  asignatura = new FormGroup({
-    codigo: new FormControl('', Validators.required),
-    nombre: new FormControl('', Validators.required),
-    profesor: new FormControl('', Validators.required),
-  });
 
   constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,
     private uService: UsuarioService,
@@ -269,13 +263,14 @@ export class AdminPage implements OnInit {
   
   async guardarAsig(){
    var resp: boolean = await this.aService.agregar(this.registroAsignatura.value, this.KEYA);
+
    if(resp){
     this.mostrarToast('middle', 'Asignatura agregada!', 3000);
     this.registroAsignatura.reset();
     await this.listarAsig();
     this.asigOpen = false;
    } else {
-    this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
+      this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
    }
   }
 

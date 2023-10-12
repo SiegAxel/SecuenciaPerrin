@@ -151,7 +151,7 @@
 
                                                 <td>{{asig.codigo}}</td>
                                                 <td>{{asig.nombre}}</td>
-                                                <td>{{asig.profesor}}</td>
+                                                <td>{{asig.profesor | titlecase}}</td>
                                                 <td>
                                                     <ion-item-sliding>
                                                         <ion-item color="success">
@@ -303,7 +303,7 @@
                         <ion-button (click)="setOpenAsignatura(false, '')">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="guardarAsig()" type="submit">Confirmar</ion-button>
+                        <ion-button (click)="guardarAsig()" type="submit" [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -318,8 +318,15 @@
                         <ion-input type="text" formControlName="nombre"></ion-input>
                     </ion-item>
                     <ion-item>
-                        <ion-label position="stacked">Profesor</ion-label>
-                        <ion-input type="text"formControlName="profesor"></ion-input>
+                        <ion-list>
+                            <ion-item>
+                              <ion-select label="Profesor" formControlName="profesor">
+                                <ion-select-option value="{{profesor.nombre}}" *ngFor="let profesor of filtrarProfes()">
+                                  {{ profesor.nombre }}
+                                </ion-select-option>
+                              </ion-select>
+                            </ion-item>
+                          </ion-list>
                     </ion-item>
                 </form>
             </ion-content>
@@ -337,7 +344,7 @@
                         <ion-button (click)="setOpenAsignatura(false, asig.codigo)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificarAsig()">Confirmar</ion-button>
+                        <ion-button (click)="modificarAsig()" [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>

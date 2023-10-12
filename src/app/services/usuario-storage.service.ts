@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, booleanAttribute } from '@angular/core';
 import { Router } from '@angular/router';
 
 // IMPORTAR STORAGE //
@@ -95,6 +95,18 @@ export class UsuarioStorageService {
       return user;
     }
     return undefined;
+  }
+
+  //Buscar correo:
+  async correoExiste(email: string, key: string): Promise<boolean> {
+    this.usuarios = await this.storage.get(key) || [];
+    var resp: boolean = this.usuarios.some(usuario => usuario.email == email);
+
+    if(resp){
+      return true;
+    } else {
+      return false;
+    }
   }
 
   logout(){
