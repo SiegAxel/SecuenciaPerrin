@@ -15,14 +15,13 @@ export class HomePage implements OnInit {
   constructor(private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router) 
   { 
     this.data = router.getCurrentNavigation()?.extras.state;
-    console.log( this.data.user)
+    console.log(this.data.user)
   }
 
   usuarios = this.uStorage.listar(this.KEY);
 
 
   async ngOnInit() {
-    // const nombre_user = (await this.usuarios).find()
   }
 
 }

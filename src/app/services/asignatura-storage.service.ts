@@ -12,6 +12,12 @@ export class AsignaturaStorageService {
     storage.create();
   }
 
+  async asignaturasDocente(rut: string, key: string){
+    this.asignaturas = await this.storage.get(key) || [];
+    this.asignaturas = this.asignaturas.filter(asig => asig.rut == rut)
+    return this.asignaturas;
+  }
+
   //Buscar:
   async buscarAsig(codigo: string, key: string): Promise<any>{
     this.asignaturas = await this.storage.get(key) || [];
@@ -23,7 +29,6 @@ export class AsignaturaStorageService {
     try {
       this.asignaturas = await this.storage.get(key) || [];
       let asignaturaEncontrada = await this.buscarAsig(asignatura.codigo, key);
-  
       if (asignaturaEncontrada === undefined) {
         this.asignaturas.push(asignatura);
         await this.storage.set(key, this.asignaturas);
