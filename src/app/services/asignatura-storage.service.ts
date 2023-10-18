@@ -12,9 +12,19 @@ export class AsignaturaStorageService {
     storage.create();
   }
 
+  private rut_profesor: string = '';
+
+  setRutProfesor(rut: string) {
+    this.rut_profesor = rut;
+  }
+
+  getRutProfesor() {
+    return this.rut_profesor;
+  }
+
   async asignaturasDocente(rut: string, key: string){
     this.asignaturas = await this.storage.get(key) || [];
-    this.asignaturas = this.asignaturas.filter(asig => asig.rut == rut)
+    this.asignaturas = await this.asignaturas.filter(asig => asig.rut_profesor == rut)
     return this.asignaturas;
   }
 
@@ -60,8 +70,7 @@ export class AsignaturaStorageService {
       return true;
   }
   
-    
-
+  
     //Eliminar:
    async eliminar(codigo: string, key: string): Promise<boolean>{
     var resp: boolean = false;

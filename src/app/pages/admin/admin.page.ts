@@ -51,7 +51,7 @@ export class AdminPage implements OnInit {
   registroAsignatura = new FormGroup({
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    profesor: new FormControl('', [Validators.required, Validators.minLength(3)])
+    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)])
   })
 
   constructor(private uStorage: UsuarioStorageService, private aRoute: ActivatedRoute,

@@ -151,7 +151,7 @@
 
                                                 <td>{{asig.codigo}}</td>
                                                 <td>{{asig.nombre}}</td>
-                                                <td>{{asig.profesor | titlecase}}</td>
+                                                <td>{{asig.rut_profesor | titlecase}}</td>
                                                 <td>
                                                     <ion-item-sliding>
                                                         <ion-item color="success">
@@ -320,9 +320,9 @@
                     <ion-item>
                         <ion-list>
                             <ion-item>
-                              <ion-select label="Profesor" formControlName="profesor">
-                                <ion-select-option value="{{profesor.nombre}}" *ngFor="let profesor of filtrarProfes()">
-                                  {{ profesor.nombre }}
+                              <ion-select label="Profesor" formControlName="rut_profesor">
+                                <ion-select-option value="{{profesor.rut}}" *ngFor="let profesor of filtrarProfes()">
+                                  {{ profesor.rut }}
                                 </ion-select-option>
                               </ion-select>
                             </ion-item>
