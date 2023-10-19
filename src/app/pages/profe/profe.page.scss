@@ -50,6 +50,7 @@ ion-content {
   border: 1px red solid;
 }
 
+
 .card1 {
   ion-title{
     font-weight: bold;
@@ -94,9 +95,7 @@ ion-content {
   }
 }
 
-
 .modalModi {
-
   ion-content {
       height: 100%;
       margin: 0;
@@ -104,6 +103,7 @@ ion-content {
       --background: url('/../assets/images/DottedRed.png');
       --background-size: cover;
   }
+
 
   ion-toolbar {
       --background: white;
@@ -121,7 +121,7 @@ ion-content {
 .modalModi .perfilSelect {
   width: fit-content;
   display: flex;
-  margin-bottom: 3%;
+  margin: auto;
   margin-top: 3%;
 }
 

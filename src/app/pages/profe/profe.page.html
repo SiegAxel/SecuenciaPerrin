@@ -21,9 +21,9 @@
             <p><b><strong>TUS ASIGNATURAS</strong></b></p>
           </ion-card-header>
           <ion-card-content>
-            <table width="100%" id="tabla" >
+            <table width="100%" id="tabla">
               <thead>
-                <tr >
+                <tr>
                   <td>Asignatura</td>
                 </tr>
               </thead>
@@ -31,7 +31,7 @@
               <tbody *ngFor="let asig of asignaturas">
                 <tr>
                   <td>{{asig.nombre}}</td>
-                  <ion-button (click)="setOpen(true)">Crear Clase</ion-button>
+                  <ion-button (click)="setOpen(true, asig.nombre)">Crear Clase</ion-button>
                 </tr>
               </tbody>
             </table>
@@ -44,14 +44,14 @@
           <ion-card-content>
             <table width="100%" id="tabla">
               <thead>
-                <tr >
+                <tr>
                   <td>Asignatura</td>
                   <td>Horario</td>
                 </tr>
               </thead>
 
               <tbody>
-                <tr *ngFor="let clase of clases" >
+                <tr *ngFor="let clase of clases">
                   <td>{{clase.asignatura}}</td>
                   <td>{{clase.hora}}</td>
                   <ion-button>Crear Código</ion-button>
@@ -67,85 +67,27 @@
 
 <ion-modal [isOpen]="agreOpen" class="modalModi">
   <ng-template class="modiTemplate">
-      <ion-header>
-          <ion-toolbar>
-              <ion-title class="modiTitle">CREAR CLASE</ion-title>
-              <ion-buttons slot="start">
-                  <ion-button (click)="setOpen(false)">Cerrar</ion-button>
-              </ion-buttons>
-              <ion-buttons slot="end">
-                  <ion-button
-                      [disabled]="registroClase.invalid"
-                      (click)="guardarClase()" type="submit">Confirmar</ion-button>
-              </ion-buttons>
-          </ion-toolbar>
-      </ion-header>
-      <ion-content class="ion-paddinga">
-          <form [formGroup]="registroClase">
-              <ion-item>
-                  <ion-label position="stacked">ID</ion-label>
-                  <ion-input type="text" formControlName="id"></ion-input>
-              </ion-item>
-                  
-              <ion-item>
-                <ion-label position="stacked">Asignatura</ion-label>
-                <ion-input type="text" formControlName="asignatura"></ion-input>
-            </ion-item>
-
-              <ion-item>
-                <ion-list class="perfilSelect">
-                  <ion-item>
-                    <ion-list>
-                      <ion-item>
-                        <ion-select label="Profesor" formControlName="profesor">
-                          <ion-select-option value="{{profe.nombre}}" *ngFor="let profe of filtrarProfes()">
-                            {{ profe.nombre }}
-                          </ion-select-option>
-                        </ion-select>
-                      </ion-item>
-                    </ion-list>
-                  </ion-item>
-              </ion-list>
-              </ion-item>
-
-              <ion-list class="perfilSelect">
-                <ion-item>
-                  <ion-list>
-                    <ion-item>
-                      <ion-select label="Hora inicial" formControlName="hora">
-                        <ion-select-option>
-                          8:00AM
-                        </ion-select-option>
-                        <ion-select-option>
-                           8:30AM
-                        </ion-select-option>
-                        <ion-select-option>
-                           9:00AM
-                        </ion-select-option>
-                        <ion-select-option>
-                           10:00AM
-                        </ion-select-option>
-                        <ion-select-option>
-                           11:00AM
-                        </ion-select-option>
-                        <ion-select-option>
-                           12:00PM
-                        </ion-select-option>
-                        <ion-select-option>
-                           13:00PM
-                        </ion-select-option>
-                        <ion-select-option>
-                           14:00PM
-                        </ion-select-option>
-                        <ion-select-option>
-                           15:00PM
-                        </ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-list>
-                </ion-item>
-            </ion-list>
-          </form>
-      </ion-content>
+    <ion-header>
+      <ion-toolbar>
+        <ion-title class="modiTitle">CREAR CLASE</ion-title>
+        <ion-buttons slot="start">
+          <ion-button (click)="setOpen(false,'')">Cerrar</ion-button>
+        </ion-buttons>
+        <ion-buttons slot="end">
+          <ion-button (click)="guardarClase()" type="submit">Confirmar</ion-button>
+        </ion-buttons>
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-paddinga">
+      <form [formGroup]="registroClase">
+        <ion-item>
+          <ion-label position="stacked">ID</ion-label>
+          <ion-input type="text" formControlName="id" value="randomPassword">{{randomPassword}}</ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-button (click)="generarID()">Generar Codigo</ion-button>
+        </ion-item>
+      </form>
+    </ion-content>
   </ng-template>
 </ion-modal>

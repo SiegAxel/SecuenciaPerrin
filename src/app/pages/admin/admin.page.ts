@@ -182,8 +182,7 @@ export class AdminPage implements OnInit {
     var resp:boolean = await this.uStorage.modificar(this.usuario.value, this.KEY);
     if(resp){
       this.mostrarToast("bottom", "Usuario modificado!", 3000);
-      await this.listar();
-      document.getElementById("rut")?.removeAttribute("disabled");
+      await this.listarAsig();
       this.boton_modificar = true;
       this.isModalOpen = false;
     }

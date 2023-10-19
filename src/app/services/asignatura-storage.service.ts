@@ -22,6 +22,16 @@ export class AsignaturaStorageService {
     return this.rut_profesor;
   }
 
+  private nombre_profesor: string = '';
+
+  setNombreUser(nombre_profesor: string) {
+    this.nombre_profesor = nombre_profesor;
+  }
+
+  getNombreUser() {
+    return this.nombre_profesor;
+  }
+
   async asignaturasDocente(rut: string, key: string){
     this.asignaturas = await this.storage.get(key) || [];
     this.asignaturas = await this.asignaturas.filter(asig => asig.rut_profesor == rut)

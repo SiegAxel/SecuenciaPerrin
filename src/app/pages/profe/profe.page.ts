@@ -5,6 +5,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profe',
@@ -12,13 +13,6 @@ import { UsuarioStorageService } from 'src/app/services/usuario-storage.service'
   styleUrls: ['./profe.page.scss'],
 })
 export class ProfePage implements OnInit {
-
-  registroClase = new FormGroup({
-    id: new FormControl('', Validators.required),
-    asignatura: new FormControl('', Validators.required),
-    profesor: new FormControl('', Validators.required),
-    hora: new FormControl('', Validators.required)
-  })
 
   KEYC: string = 'clases'
 
@@ -38,9 +32,36 @@ export class ProfePage implements OnInit {
 
   rut_profesor: string = '';
 
-  dato: string = 'https://www.google.cl';
+  nombre_profesor: string = '';
 
-  constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService) { }
+  dato: string = '';
+
+  dateTime = new Date()
+  hora = this.dateTime.getHours();
+  minutos = this.dateTime.getMinutes();
+  time = '';
+
+  randomPassword: string = '';
+
+  registroClase = new FormGroup({
+    id: new FormControl('', Validators.required),
+    asignatura: new FormControl(''),
+    profesor: new FormControl(''),
+    hora: new FormControl(this.time)
+  })
+
+  constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute) { }
+  
+  generarID() {
+    const passwordInput = document.querySelector('#password');
+    this.randomPassword = Math.random().toString(36).slice(-8);
+    console.log(this.randomPassword);
+    this.dato = this.randomPassword;
+    this.registroClase.controls.id.setValue(this.randomPassword);
+    this.time = this.hora+":"+this.minutos;
+    this.registroClase.controls.hora.setValue(this.time);
+    this.registroClase.controls.profesor.setValue(this.nombre_profesor);
+  }
 
   filtrarAsignaturas() {
     this.asignaturas = this.asignaturas.filter(asig => asig.rut_profesor === this.rut_profesor);
@@ -65,6 +86,7 @@ export class ProfePage implements OnInit {
   }
 
   async guardarClase() {
+    console.log(this.registroClase.value)
     var resp: boolean = await this.cService.agregar(this.registroClase.value, this.KEYC);
 
     if (resp) {
@@ -77,8 +99,9 @@ export class ProfePage implements OnInit {
     }
   }
 
-  async setOpen(isOpen: boolean) {
+  async setOpen(isOpen: boolean, nombreAsig: string) {
     this.agreOpen = isOpen;
+    this.registroClase.controls.asignatura.setValue(nombreAsig);
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
@@ -95,13 +118,17 @@ export class ProfePage implements OnInit {
 
   ngOnInit() {
     this.rut_profesor = this.aService.getRutProfesor();
+    this.nombre_profesor = this.aRoute.snapshot.paramMap.get('nombre')||'';
     this.listarAsig().then(() => {
       this.listarUsuarios();
       this.listarClase();
       this.filtrarAsignaturas();
       this.filtrarProfes();
       console.log(this.rut_profesor);
+      console.log(this.nombre_profesor);
       console.log(this.asignaturas);
+      console.log(this.time)
+      
     });
   }
 
