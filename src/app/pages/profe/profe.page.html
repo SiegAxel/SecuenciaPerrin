@@ -9,9 +9,9 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
-            <qrcode [qrdata]="dato" [width]="256" [errorCorrectionLevel]="'M'">
+            <qrcode  [allowEmptyString]="true" [qrdata]="dato" [width]="256" [errorCorrectionLevel]="'M'">
             </qrcode>
-            <ion-input label="Qr codigo" [(ngModel)]="dato"></ion-input>
+            <ion-input label="Código QR" [(ngModel)]="dato"></ion-input>
           </ion-card-content>
         </ion-card>
       </ion-col>
@@ -54,7 +54,7 @@
                 <tr *ngFor="let clase of clases">
                   <td>{{clase.asignatura}}</td>
                   <td>{{clase.hora}}</td>
-                  <ion-button>Crear Código</ion-button>
+                  <ion-button (click)="verCodigo(clase.id)">Visualizar Código</ion-button>
                 </tr>
               </tbody>
             </table>
@@ -82,10 +82,10 @@
       <form [formGroup]="registroClase">
         <ion-item>
           <ion-label position="stacked">ID</ion-label>
-          <ion-input type="text" formControlName="id" value="randomPassword">{{randomPassword}}</ion-input>
+          <ion-input type="text" formControlName="id" value="randomPassword" >{{randomPassword}}</ion-input>
         </ion-item>
         <ion-item>
-          <ion-button (click)="generarID()">Generar Codigo</ion-button>
+          <ion-button (click)="generarID()">Generar Código</ion-button>
         </ion-item>
       </form>
     </ion-content>

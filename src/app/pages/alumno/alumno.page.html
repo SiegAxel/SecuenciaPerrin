@@ -1,16 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="user-wrapper">
-      <img src="assets/images/favicon.png" width="40px" height="40px" alt
-        class="fade-in-animation">
-      <div>
-        <h4 style="margin-top: 15%;" class="fade-in-animation">erifyU</h4>
-      </div>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -21,8 +9,9 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
-         
-            <ion-input type="text" placeholder="CODIGO QR"></ion-input>
+            <h3>Ingrese su codigo de clase:</h3>
+            <ion-input type="text" [(ngModel)]="ClassCode" placeholder="CODIGO QR"></ion-input>
+            <ion-button (click)="marcarAsistencia()">Marcar Asistencia</ion-button>
           </ion-card-content>
         </ion-card>
       </ion-col>

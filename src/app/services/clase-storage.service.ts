@@ -8,8 +8,6 @@ export class ClaseStorageService {
 
   clases: any[] = [];
 
-
-
   constructor(private storage: Storage) { 
     storage.create();
   }
@@ -19,6 +17,36 @@ export class ClaseStorageService {
     this.clases = await this.storage.get(key) || [];
     return this.clases.find(clase => clase.id == id);
   }
+
+  async buscarNombres(nom: string, key: string): Promise<boolean>{
+    this.clases = await this.storage.get(key) || [];
+    var resp: boolean = this.clases.find(usuario => usuario.nombre == nom);
+
+    if(resp){
+      return true;
+    }
+    return false;
+   
+  }
+
+  //Actualizar:
+
+  async actualizarClase(clase: any, key: string): Promise<boolean> {
+    try {
+      this.clases = await this.storage.get(key) || [];
+      const index = this.clases.findIndex((c) => c.id === clase.id);
+      if (index !== -1) {
+        this.clases[index] = clase;
+        await this.storage.set(key, this.clases);
+        return true;
+      }
+      return false;
+    } catch (error) {
+      console.error('Error en actualizarClase:', error);
+      return false;
+    }
+  }
+
 
    //Agregar: 
    async agregar(clase: any, key: string): Promise<boolean>{

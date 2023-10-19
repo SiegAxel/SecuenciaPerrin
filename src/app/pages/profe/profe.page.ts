@@ -47,13 +47,13 @@ export class ProfePage implements OnInit {
     id: new FormControl('', Validators.required),
     asignatura: new FormControl(''),
     profesor: new FormControl(''),
-    hora: new FormControl(this.time)
+    hora: new FormControl(''),
+    asistencia: new FormControl([]),
   })
 
   constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute) { }
   
   generarID() {
-    const passwordInput = document.querySelector('#password');
     this.randomPassword = Math.random().toString(36).slice(-8);
     console.log(this.randomPassword);
     this.dato = this.randomPassword;
@@ -61,6 +61,18 @@ export class ProfePage implements OnInit {
     this.time = this.hora+":"+this.minutos;
     this.registroClase.controls.hora.setValue(this.time);
     this.registroClase.controls.profesor.setValue(this.nombre_profesor);
+  }
+
+  verCodigo(id: string){
+    var clase = this.clases.find(clase => clase.id == id);
+    if(clase != undefined){
+      this.dato = clase.id;
+      console.log(id);
+      console.log(this.dato);
+    } else {
+      this.mostrarToast('top', 'Clase no encontrada.', 2000);
+    }
+ 
   }
 
   filtrarAsignaturas() {
@@ -127,8 +139,8 @@ export class ProfePage implements OnInit {
       console.log(this.rut_profesor);
       console.log(this.nombre_profesor);
       console.log(this.asignaturas);
-      console.log(this.time)
-      
+      console.log(this.time);
+      console.log(this.clases);
     });
   }
 

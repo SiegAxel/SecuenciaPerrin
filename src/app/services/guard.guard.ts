@@ -17,8 +17,6 @@ constructor(private uStorage: UsuarioStorageService, private router: Router){
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       
-      
-
       if(this.uStorage.getEstadoLogin() == true){
         return true;  
       } else {

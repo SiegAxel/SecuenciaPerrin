@@ -27,7 +27,6 @@ export class LoginPage implements OnInit {
     pass2: 'Judas123'
   }
 
-
   profesor: any = {
     rut: '12.111.111-1',
     nombre: 'felipe',
@@ -47,8 +46,6 @@ export class LoginPage implements OnInit {
     pass1: 'Judas123',
     pass2: 'Judas123'
   }
-
- 
 
   usuario = new FormGroup({
     email: new FormControl('', [Validators.email,
@@ -137,6 +134,7 @@ export class LoginPage implements OnInit {
     await this.uService.agregar(this.admin, this.KEY);
     await this.uService.agregar(this.profesor, this.KEY);
     await this.uService.agregar(this.alumno, this.KEY);
+    console.log(this.admin,this.alumno,this.profesor)
   }
 
 
