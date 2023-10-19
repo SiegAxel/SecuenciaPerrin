@@ -50,10 +50,10 @@
                 </tr>
               </thead>
 
-              <tbody *ngFor="let clase of clases" >
-                <tr>
-                  <td>{{clase.profesor}}</td>
-                  <td>16:00 AM</td>
+              <tbody>
+                <tr *ngFor="let clase of clases" >
+                  <td>{{clase.asignatura}}</td>
+                  <td>{{clase.hora}}</td>
                   <ion-button>Crear Código</ion-button>
                 </tr>
               </tbody>
@@ -69,7 +69,7 @@
   <ng-template class="modiTemplate">
       <ion-header>
           <ion-toolbar>
-              <ion-title class="modiTitle">AGREGAR USUARIO</ion-title>
+              <ion-title class="modiTitle">CREAR CLASE</ion-title>
               <ion-buttons slot="start">
                   <ion-button (click)="setOpen(false)">Cerrar</ion-button>
               </ion-buttons>
@@ -87,23 +87,25 @@
                   <ion-input type="text" formControlName="id"></ion-input>
               </ion-item>
                   
-              <ion-list class="perfilSelect">
-                <ion-item>
-                  <ion-list>
-                    <ion-item>
-                      <ion-select label="Asignatura" formControlName="asignatura">
-                        <ion-select-option value="{{asig.codigo}}" *ngFor="let asig of filtrarAsignaturas()">
-                          {{ asig.nombre }}
-                        </ion-select-option>
-                      </ion-select>
-                    </ion-item>
-                  </ion-list>
-                </ion-item>
-            </ion-list>
+              <ion-item>
+                <ion-label position="stacked">Asignatura</ion-label>
+                <ion-input type="text" formControlName="asignatura"></ion-input>
+            </ion-item>
 
               <ion-item>
-                  <ion-label position="stacked">Profesor</ion-label>
-                  <ion-input type="text" formControlName="profesor"></ion-input>
+                <ion-list class="perfilSelect">
+                  <ion-item>
+                    <ion-list>
+                      <ion-item>
+                        <ion-select label="Profesor" formControlName="profesor">
+                          <ion-select-option value="{{profe.nombre}}" *ngFor="let profe of filtrarProfes()">
+                            {{ profe.nombre }}
+                          </ion-select-option>
+                        </ion-select>
+                      </ion-item>
+                    </ion-list>
+                  </ion-item>
+              </ion-list>
               </ion-item>
 
               <ion-list class="perfilSelect">

@@ -4,6 +4,7 @@ import { HomePage } from '../home/home.page';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
 @Component({
   selector: 'app-profe',
@@ -21,25 +22,34 @@ export class ProfePage implements OnInit {
 
   KEYC: string = 'clases'
 
+  KEYA: string = 'asignaturas';
+
+  KEY: string = 'usuarios';
+
   isModalOpen = false;
 
   agreOpen = false;
 
   asignaturas: any[] = [];
 
-  clases: any[] = [];
+  usuarios: any[] = [];
 
-  KEYA: string = 'asignaturas';
+  clases: any[] = [];
 
   rut_profesor: string = '';
 
   dato: string = 'https://www.google.cl';
 
-  constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController) { }
+  constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService) { }
 
   filtrarAsignaturas() {
     this.asignaturas = this.asignaturas.filter(asig => asig.rut_profesor === this.rut_profesor);
     return this.asignaturas;
+  }
+
+  filtrarProfes(){
+    const profesores = this.usuarios.filter(usuario => usuario.perfil === 'profesor');
+    return profesores;
   }
 
   async listarAsig() {
@@ -48,6 +58,10 @@ export class ProfePage implements OnInit {
 
   async listarClase() {
     this.clases = await this.cService.listar(this.KEYC);
+  }
+
+  async listarUsuarios(){
+    this.usuarios = await this.uService.listar(this.KEY);
   }
 
   async guardarClase() {
@@ -82,7 +96,10 @@ export class ProfePage implements OnInit {
   ngOnInit() {
     this.rut_profesor = this.aService.getRutProfesor();
     this.listarAsig().then(() => {
+      this.listarUsuarios();
+      this.listarClase();
       this.filtrarAsignaturas();
+      this.filtrarProfes();
       console.log(this.rut_profesor);
       console.log(this.asignaturas);
     });

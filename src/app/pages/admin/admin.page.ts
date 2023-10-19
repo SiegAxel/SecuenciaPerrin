@@ -187,13 +187,11 @@ export class AdminPage implements OnInit {
       this.boton_modificar = true;
       this.isModalOpen = false;
     }
-
   }
   
   /////////////////////////////////////////////
 
   async buscar(rut_modificar:string) {
-
     var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
     this.usuario.setValue(usuario_encontrado);
     this.boton_modificar = false;
