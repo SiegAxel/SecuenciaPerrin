@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, Validators, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 
 @Component({
@@ -12,7 +13,7 @@ import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 export class AlumnoPage implements OnInit {
 
 
-  constructor(private cService: ClaseStorageService, private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
+  constructor(private apiService: ApiService,private cService: ClaseStorageService, private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
 
   nombre_alumno: string = '';
   ClassCode: string = '';
@@ -20,6 +21,7 @@ export class AlumnoPage implements OnInit {
   codigo: string = '';
   clases: any[] = [];
   clasesFiltradas: any[] = [];
+
 
   registroClase = new FormGroup({
     id: new FormControl('', Validators.required),

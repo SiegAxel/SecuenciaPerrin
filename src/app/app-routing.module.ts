@@ -26,6 +26,10 @@ const routes: Routes = [
     path: 'restcon',
     loadChildren: () => import('./pages/restcon/restcon.module').then( m => m.RestconPageModule)
   },
+   {
+    path: 'api',
+    loadChildren: () => import('./pages/api/api.module').then( m => m.ApiPageModule)
+  },
   {
     path: 'loader',
     loadChildren: () => import('./pages/loader/loader.module').then( m => m.LoaderPageModule)
@@ -42,10 +46,6 @@ const routes: Routes = [
     path: '**',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
-
-
-
-
 ];
 
 @NgModule({
