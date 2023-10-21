@@ -1,5 +1,8 @@
 ion-content {
     --background: rgb(205, 0, 0);
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 * {

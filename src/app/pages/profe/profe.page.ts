@@ -98,8 +98,10 @@ export class ProfePage implements OnInit {
   }
 
   async guardarClase() {
-    console.log(this.registroClase.value)
-    var resp: boolean = await this.cService.agregar(this.registroClase.value, this.KEYC);
+    const nuevaClase = this.registroClase.value;
+    nuevaClase.asistencia = []; // Inicializa asistencia como un arreglo vacío
+    console.log(nuevaClase);
+    const resp: boolean = await this.cService.agregar(nuevaClase, this.KEYC);
 
     if (resp) {
       this.mostrarToast('middle', 'Clase creada!', 3000);

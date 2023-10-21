@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="mainContent">
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -9,7 +9,8 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
-            <qrcode  [allowEmptyString]="true" [qrdata]="dato" [width]="256" [errorCorrectionLevel]="'M'">
+            <qrcode [allowEmptyString]="true" [qrdata]="dato" [width]="256"
+              [errorCorrectionLevel]="'M'">
             </qrcode>
             <ion-input label="Código QR" [(ngModel)]="dato"></ion-input>
           </ion-card-content>
@@ -79,15 +80,17 @@
       </ion-toolbar>
     </ion-header>
     <ion-content class="ion-paddinga">
-      <form [formGroup]="registroClase">
-        <ion-item>
-          <ion-label position="stacked">ID</ion-label>
-          <ion-input type="text" formControlName="id" value="randomPassword" >{{randomPassword}}</ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-button (click)="generarID()">Generar Código</ion-button>
-        </ion-item>
-      </form>
+      <div class="modalClase">
+        <form [formGroup]="registroClase">
+          <ion-item>
+            <ion-label position="stacked">ID</ion-label>
+            <ion-input type="text" formControlName="id" value="randomPassword"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-button class="generarcode" expand="block" (click)="generarID()">Generar Código</ion-button>
+          </ion-item>
+        </form>
+      </div>
     </ion-content>
   </ng-template>
 </ion-modal>

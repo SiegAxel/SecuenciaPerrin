@@ -1,19 +1,19 @@
-ion-header ion-toolbar {
-  --background: white;
-  border-bottom: 1px solid red;
-  h4{
-    color: red;
-    font-weight: bold;
-  }
+ion-content::-webkit-scrollbar {
+  display: none;
 }
 
-ion-content {
+ion-row::-webkit-scrollbar {
+  display: none;
+}
+
+.mainContent {
   top: 76px;
   --background: rgb(224, 224, 224);
+  overflow: hidden;
 
   ion-grid {
 
-    ion-row{
+    ion-row {
       overflow: scroll;
       margin-bottom: 60px;
     }
@@ -44,7 +44,8 @@ ion-content {
   }
 }
 
-.card1, .card2 {
+.card1,
+.card2 {
   text-align: center;
   background: white;
   border: 1px red solid;
@@ -52,18 +53,18 @@ ion-content {
 
 
 .card1 {
-  ion-title{
+  ion-title {
     font-weight: bold;
     color: black;
   }
 }
 
 .card2 {
-  b{
+  b {
     color: black;
   }
 
-  thead{
+  thead {
 
     td {
       color: black;
@@ -74,54 +75,68 @@ ion-content {
 
 /* MODAL MODIFICAR */
 
-.ion-padding {
-  --background: linear-gradient(white, white, rgb(172, 0, 0));
-  --color: white;
-
-  ion-item {
-      margin-bottom: 5%;
-  }
+ion-input {
+  font-weight: bold;
 }
 
-.ion-paddinga {
-  --background: rgb(170, 170, 170);
-
-  ion-item {
-      margin-bottom: 5%;
-  }
-
-  ion-list {
-      background: rgba(255, 255, 255, 0);
-  }
-}
 
 .modalModi {
+
+  --background: transparent;
+  padding: 0;
+  border: 0;
+  margin: 0;
+  
   ion-content {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-      --background: url('/../assets/images/DottedRed.png');
-      --background-size: cover;
+    --background: linear-gradient(rgba(255, 175, 175, 0.585), rgba(255, 203, 185, 0.558), rgba(249, 248, 248, 0.749));
+    --color: white;
   }
 
+  ion-title {
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    color: tomato;
+    font-weight: bold;
+  }
 
   ion-toolbar {
-      --background: white;
-      --color: black;
-      --font-weigth: bold;
+    --background: white;
+    --color: black;
+    --font-weight: bold;
   }
-}
 
-.modalModi ion-title {
-  width: fit-content;
-  display: flex;
-  margin: auto;
-}
+  ion-item {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 0px;
+    color: black;
+    --background: transparent;
 
-.modalModi .perfilSelect {
-  width: fit-content;
-  display: flex;
-  margin: auto;
-  margin-top: 3%;
-}
+    ion-button {
+      --background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
 
+      &:hover {
+        transform: scale(1.08);
+        --background: tomato;
+      }
+
+    }
+
+  }
+
+
+  ion-content ion-button {
+    width: 80%;
+    background-color: rgb(172, 0, 0);
+    color: white;
+    margin-top: 5%;
+    margin: 0 auto;
+  }
+
+}

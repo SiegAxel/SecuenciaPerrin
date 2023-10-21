@@ -1,11 +1,21 @@
+ion-content::-webkit-scrollbar {
+  display: none;
+}
+
+ion-row::-webkit-scrollbar {
+  display: none;
+}
+
 ion-header ion-toolbar {
   --background: white;
   border-bottom: 1px solid red;
-  h4{
+
+  h4 {
     color: red;
     font-weight: bold;
   }
 }
+
 
 ion-content {
   top: 76px;
@@ -13,7 +23,7 @@ ion-content {
 
   ion-grid {
 
-    ion-row{
+    ion-row {
       overflow: scroll;
       margin-bottom: 60px;
     }
@@ -44,21 +54,50 @@ ion-content {
   }
 }
 
-.card1, .card2 {
+.card1,
+.card2,
+.card3 {
   text-align: center;
   background: white;
   border: 1px red solid;
 }
 
 .card1 {
-  ion-title{
+  ion-title {
     font-weight: bold;
     color: black;
   }
 }
 
 .card2 {
-  b{
+  b {
+    color: black;
+  }
+}
+
+table {
+  width: 100%;
+  table-layout: fixed;
+
+  thead {
+
+    td {
+      color: black;
+      font-weight: bold;
+      width: 33.33%;
+    }
+  }
+
+  tbody {
+
+    td {
+      color: tomato;
+    }
+  }
+}
+
+.card3 {
+  b {
     color: black;
   }
 }
