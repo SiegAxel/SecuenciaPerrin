@@ -21,6 +21,7 @@ export class AlumnoPage implements OnInit {
   codigo: string = '';
   clases: any[] = [];
   clasesFiltradas: any[] = [];
+  url: string = ''
 
 
   registroClase = new FormGroup({
@@ -31,9 +32,25 @@ export class AlumnoPage implements OnInit {
     asistencia: new FormControl([]),
   })
 
+  mostrarDatos({ url }: {url: string}) {
+    this.url = url;
+  }
+  
+  obtenerDatos(){
+
+    const nasa_key = 'j3raHVSoIBMudrsGNVle6PJXXf0WrJqyVOzw5g7a';
+    const ruta = `https://api.nasa.gov/planetary/apod?api_key=${nasa_key}`;
+
+    fetch(ruta)
+    .then(respuesta => respuesta.json())
+    .then(resultado => this.mostrarDatos(resultado))
+  }
+
   async ngOnInit() {
     this.nombre_alumno = this.aRoute.snapshot.paramMap.get('nombre') || '';
     await this.filtrarClases();
+    this.obtenerDatos();
+    console.log(this.obtenerDatos())
     console.log(this.clasesFiltradas);
   }
 
