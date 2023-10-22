@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
+import { AlertController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -14,7 +15,7 @@ export class HomePage implements OnInit {
   KEY : string = 'usuarios';
   rut_profesor: string = '';
 
-  constructor(private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router, private aService: AsignaturaStorageService) 
+  constructor(private alertController: AlertController,private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router, private aService: AsignaturaStorageService) 
   { 
     this.data = router.getCurrentNavigation()?.extras.state;
     console.log(this.data.user)
@@ -27,6 +28,10 @@ export class HomePage implements OnInit {
 
 
   async ngOnInit() {
+  }
+
+  async logout() {
+    this.uStorage.logout();
   }
 
 }

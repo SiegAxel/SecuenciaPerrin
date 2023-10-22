@@ -55,7 +55,20 @@
                 <tr *ngFor="let clase of clases">
                   <td>{{clase.asignatura}}</td>
                   <td>{{clase.hora}}</td>
-                  <ion-button (click)="verCodigo(clase.id)">Visualizar Código</ion-button>
+                  <ion-item-sliding>
+                    <ion-item color="success">
+                      <ion-icon name="arrow-back-outline"></ion-icon>
+                    </ion-item>
+                    <ion-item-options side="end">
+                      <ion-item-option (click)="verCodigo(clase.id)">
+                        <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+                      </ion-item-option>
+                      <ion-item-option color="danger"
+                        (click)="eliminarClase(clase.id)">
+                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                      </ion-item-option>
+                    </ion-item-options>
+                  </ion-item-sliding>
                 </tr>
               </tbody>
             </table>
@@ -87,7 +100,8 @@
             <ion-input type="text" formControlName="id" value="randomPassword"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-button class="generarcode" expand="block" (click)="generarID()">Generar Código</ion-button>
+            <ion-button class="generarcode" expand="block" (click)="generarID()">Generar
+              Código</ion-button>
           </ion-item>
         </form>
       </div>

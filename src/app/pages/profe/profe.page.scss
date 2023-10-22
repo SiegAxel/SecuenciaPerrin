@@ -140,3 +140,22 @@ ion-input {
   }
 
 }
+
+.alerta-custom .alert-wrapper {
+  background: #ffffff; /* Cambia el color de fondo de la alerta */
+  color: #ff0000; /* Cambia el color del texto en la alerta */
+}
+
+ion-item-sliding ion-item-options {
+  position: absolute;
+}
+
+@media (max-width: 1400px) { /* Ajusta el valor de ancho máximo según tus necesidades */
+  ion-item-sliding ion-item-options {
+    position: flex;
+    ion-item-option {
+      width: 50%;
+      top: 50%;
+    }
+  }
+}

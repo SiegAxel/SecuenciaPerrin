@@ -28,7 +28,7 @@
                         name="menu"></ion-icon></ion-button>
             </h2>
             <div class="user-wrapper">
-                <img src="assets/images/favicon.png" width="40px" height="40px" (click)="back()">
+                <img src="assets/images/favicon.png" width="40px" height="40px" (click)="logout()">
                 <div>
                     <h4>VerifyU</h4>
                     <small>¡Bienvenido {{nombre_usuario}}!</small>
@@ -278,9 +278,9 @@
                             <ion-item>
                                 <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
                                     <div slot="label">Seleccione un Perfil</div>
-                                    <ion-select-option value="Alumno">Alumno</ion-select-option>
-                                    <ion-select-option value="Profesor">Profesor</ion-select-option>
-                                    <ion-select-option value="Admin">Admin</ion-select-option>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
                                 </ion-select>
                             </ion-item>
                         </ion-list>
@@ -350,7 +350,7 @@
             </ion-header>
             <ion-content class="ion-paddinga">
                 <form [formGroup]="registroAsignatura">
-                    <ion-item>
+                    <ion-item disabled="true">
                         <ion-label position="stacked">Codigo</ion-label>
                         <ion-input type="text" formControlName="codigo"></ion-input>
                     </ion-item>
