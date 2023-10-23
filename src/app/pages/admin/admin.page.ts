@@ -10,8 +10,6 @@ import { UsuarioStorageService } from 'src/app/services/usuario-storage.service'
 import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 
-
-
 @Component({
   selector: 'app-admin',
   templateUrl: './admin.page.html',
@@ -52,7 +50,8 @@ export class AdminPage implements OnInit {
   registroAsignatura = new FormGroup({
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)])
+    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    nombre_profesor: new FormControl(''),
   })
 
   constructor(
@@ -282,6 +281,7 @@ export class AdminPage implements OnInit {
 
   async buscarAsig(cod_modificar: string) {
     var asignatura_encontrada: any = await this.aService.buscarAsig(cod_modificar, this.KEYA);
+
     if (asignatura_encontrada) {
       this.registroAsignatura.setValue(asignatura_encontrada);
       this.boton_modificarAsig = false;

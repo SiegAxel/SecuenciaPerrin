@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
   KEY : string = 'usuarios';
   rut_profesor: string = '';
 
-  constructor(private alertController: AlertController,private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router, private aService: AsignaturaStorageService) 
+  constructor(private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router, private aService: AsignaturaStorageService) 
   { 
     this.data = router.getCurrentNavigation()?.extras.state;
     console.log(this.data.user)
@@ -25,7 +25,6 @@ export class HomePage implements OnInit {
   }
 
   usuarios = this.uStorage.listar(this.KEY);
-
 
   async ngOnInit() {
   }

@@ -73,7 +73,6 @@ export class ProfePage implements OnInit {
     } else {
       this.mostrarToast('top', 'Clase no encontrada.', 2000);
     }
-
   }
 
   filtrarAsignaturas() {
@@ -139,9 +138,9 @@ export class ProfePage implements OnInit {
         {
           text: 'Eliminar',
           handler: async () => {
-
             await this.cService.eliminar(id_eliminar, this.KEYC);
             await this.filtrarClases();
+            this.dato = '';
             this.mostrarToast('middle', 'Clase eliminada!', 3000);
           }
         }

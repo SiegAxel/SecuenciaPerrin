@@ -19,11 +19,7 @@ const routes: Routes = [
       {
         path: 'alumno/:nombre',
         loadChildren: () => import('../alumno/alumno.module').then( m => m.AlumnoPageModule)
-      },
-      {
-        path: 'api/:nombre',
-        loadChildren: () => import('../api/api.module').then( m => m.ApiPageModule)
-      },
+      }
     ]
   }
 ];

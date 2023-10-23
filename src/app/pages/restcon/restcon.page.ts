@@ -40,7 +40,6 @@ export class RestconPage implements OnInit {
   isModalOpen = false;
 
   setOpen(isOpen: boolean) {
-
     this.isModalOpen = isOpen;
   }
 

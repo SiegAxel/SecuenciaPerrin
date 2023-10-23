@@ -8,7 +8,6 @@ export class UsuarioService {
    //LISTA DE USUARIOS:
    usuarios: any[] = [];
 
-
   constructor() { }
 
   //SERVICIO DE CONTROL DE INFORMACIÓN:
@@ -41,7 +40,6 @@ export class UsuarioService {
     var posicion = this.usuarios.findIndex( usu => usu.rut == rut );
     this.usuarios[posicion] = usuario;
   }
-
 
   correoExiste(email: string): boolean {
     return this.usuarios.some(usuario => usuario.email === email);

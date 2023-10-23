@@ -12,7 +12,6 @@ import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 })
 export class AlumnoPage implements OnInit {
 
-
   constructor(private apiService: ApiService,private cService: ClaseStorageService, private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
 
   nombre_alumno: string = '';
@@ -23,7 +22,6 @@ export class AlumnoPage implements OnInit {
   clasesFiltradas: any[] = [];
   url: string = ''
 
-
   registroClase = new FormGroup({
     id: new FormControl('', Validators.required),
     asignatura: new FormControl(''),
@@ -32,12 +30,13 @@ export class AlumnoPage implements OnInit {
     asistencia: new FormControl([]),
   })
 
+  /* METODOS DE API */
+
   mostrarDatos({ url }: {url: string}) {
     this.url = url;
   }
   
   obtenerDatos(){
-
     const nasa_key = 'j3raHVSoIBMudrsGNVle6PJXXf0WrJqyVOzw5g7a';
     const ruta = `https://api.nasa.gov/planetary/apod?api_key=${nasa_key}`;
 
@@ -45,6 +44,8 @@ export class AlumnoPage implements OnInit {
     .then(respuesta => respuesta.json())
     .then(resultado => this.mostrarDatos(resultado))
   }
+
+  /* FIN DE METODOS API */
 
   async ngOnInit() {
     this.nombre_alumno = this.aRoute.snapshot.paramMap.get('nombre') || '';
@@ -85,7 +86,6 @@ export class AlumnoPage implements OnInit {
       }
     }
   }
-
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
     message: string,
