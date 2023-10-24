@@ -75,7 +75,8 @@ export class ProfePage implements OnInit {
     }
   }
 
-  filtrarAsignaturas() {
+  async filtrarAsignaturas() {
+    await this.listarAsig()
     this.asignaturas = this.asignaturas.filter(asig => asig.rut_profesor === this.rut_profesor);
     return this.asignaturas;
   }
@@ -167,15 +168,15 @@ export class ProfePage implements OnInit {
     await toast.present();
   }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.rut_profesor = this.aService.getRutProfesor();
     this.nombre_profesor = this.aRoute.snapshot.paramMap.get('nombre') || '';
-    this.listarAsig();
-    this.listarUsuarios();
-    this.listarClase();
-    this.filtrarAsignaturas();
-    this.filtrarClases();
-    this.filtrarProfes();
+    await this.listarAsig();
+    await this.listarUsuarios();
+    await this.listarClase();
+    await this.filtrarAsignaturas();
+    await this.filtrarClases();
+    await this.filtrarProfes();
     console.log(this.rut_profesor);
     console.log(this.nombre_profesor);
     console.log(this.asignaturas);

@@ -17,7 +17,7 @@ export class HomePage implements OnInit {
 
   constructor(private uStorage : UsuarioStorageService, private route: ActivatedRoute, private router: Router, private aService: AsignaturaStorageService) 
   { 
-    this.data = router.getCurrentNavigation()?.extras.state;
+    this.data = this.router.getCurrentNavigation()?.extras.state;
     console.log(this.data.user)
     this.rut_profesor = this.data.user.rut;
     console.log(this.rut_profesor);
