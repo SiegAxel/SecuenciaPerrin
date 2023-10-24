@@ -51,7 +51,6 @@ export class AdminPage implements OnInit {
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
     rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    nombre_profesor: new FormControl(''),
   })
 
   constructor(
@@ -157,6 +156,7 @@ export class AdminPage implements OnInit {
         this.mostrarToast("middle", "Usuario agregado!", 3000);
         this.registroUsuario.reset();
         await this.listar();
+        
         this.agreOpen = false;
       } else {
         this.mostrarToast("middle", "Error al agregar usuario.", 3000);
@@ -181,6 +181,7 @@ export class AdminPage implements OnInit {
           handler: async () => {
             await this.uStorage.eliminar(rut_eliminar, this.KEY);
             await this.listar();
+            await this.contar();
             this.mostrarToast('middle', 'USUARIO ELIMINADO CON ÉXITO!', 3000);
           }
         }
@@ -240,6 +241,7 @@ export class AdminPage implements OnInit {
   async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
     if (cod_modificar == '') {
       this.asigOpen = isOpen;
+      this.registroAsignatura.reset();
     } else {
       this.isAsigOpen = isOpen;
       await this.buscarAsig(cod_modificar);
@@ -312,6 +314,7 @@ export class AdminPage implements OnInit {
     if (resp) {
       this.mostrarToast('top', 'Asignatura modificada!', 3000);
       await this.listarAsig();
+      this.registroAsignatura.reset();
       this.boton_modificarAsig = true;
       this.isAsigOpen = false;
     } else {

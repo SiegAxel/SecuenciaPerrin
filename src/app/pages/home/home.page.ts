@@ -22,6 +22,9 @@ export class HomePage implements OnInit {
     this.rut_profesor = this.data.user.rut;
     console.log(this.rut_profesor);
     this.aService.setRutProfesor(this.rut_profesor);
+    if (this.data.user.perfil === 'alumno') {
+      this.uStorage.setRut(this.data.user.rut);
+    }
   }
 
   usuarios = this.uStorage.listar(this.KEY);

@@ -16,6 +16,7 @@ export class UsuarioStorageService {
 
     usuarios: any[] = [];
     estado_login: boolean = false;
+    rut: string = '';
   
   // CREAR VARIABLE DE STORAGE EN CONSTRUCTOR //
   constructor(private alertController: AlertController,private storage : Storage, private router: Router) { 
@@ -148,5 +149,13 @@ export class UsuarioStorageService {
     return this.estado_login;
   }
 
+  setRut(rut:string){
+    this.rut = rut;
+  }
+
+
+  getRut(){
+    return this.rut;
+  }
 
 }

@@ -47,28 +47,40 @@
               <thead>
                 <tr>
                   <td>Asignatura</td>
-                  <td>Horario</td>
+                  <!-- <td>Horario</td> -->
                 </tr>
               </thead>
 
               <tbody>
                 <tr *ngFor="let clase of clases">
-                  <td>{{clase.asignatura}}</td>
-                  <td>{{clase.hora}}</td>
-                  <ion-item-sliding>
-                    <ion-item color="success">
-                      <ion-icon name="arrow-back-outline"></ion-icon>
-                    </ion-item>
-                    <ion-item-options side="end">
-                      <ion-item-option (click)="verCodigo(clase.id)">
-                        <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
-                      </ion-item-option>
-                      <ion-item-option color="danger"
-                        (click)="eliminarClase(clase.id)">
-                        <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
-                      </ion-item-option>
-                    </ion-item-options>
-                  </ion-item-sliding>
+                  <ion-accordion-group>
+                    <ion-accordion>
+                      <ion-item slot="header">
+                        <td>{{clase.asignatura}} - </td>
+                        <td>{{clase.hora}}</td>
+                      </ion-item>
+                      <div slot="content"><ion-item-sliding>
+                          <ion-item color="favorite2">
+                            <ion-icon name="arrow-back-outline"></ion-icon>
+                          </ion-item>
+                          <ion-item-options side="end">
+                            <ion-item-option (click)="verCodigo(clase.id)">
+                              <ion-icon slot="icon-only" name="eye-outline"></ion-icon>
+                            </ion-item-option>
+                            <ion-item-option color="favorite2"
+                              (click)="eliminarClase(clase.id)">
+                              <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+                            </ion-item-option>
+                          </ion-item-options>
+                        </ion-item-sliding></div>
+                      <div class="ion-padding" slot="content"> 
+                        <ul>
+                          <li *ngFor="let nombre of clase.asistencia" class="tracking-in-expand">{{nombre}}</li>
+                        </ul>
+                      </div>
+                    </ion-accordion>
+                  </ion-accordion-group>
+
                 </tr>
               </tbody>
             </table>

@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
 @Component({
   selector: 'app-alumno',
@@ -12,9 +13,10 @@ import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 })
 export class AlumnoPage implements OnInit {
 
-  constructor(private apiService: ApiService,private cService: ClaseStorageService, private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
+  constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
 
   nombre_alumno: string = '';
+  rut_alumno: string = '';
   ClassCode: string = '';
   KEYC: string = 'clases';
   codigo: string = '';
@@ -58,7 +60,7 @@ export class AlumnoPage implements OnInit {
   async filtrarClases() {
     await this.listarClase();
     this.clasesFiltradas = this.clases.filter(clase => {
-      return Array.isArray(clase.asistencia) && clase.asistencia.includes(this.nombre_alumno);
+      return Array.isArray(clase.asistencia) && clase.asistencia.includes(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut());
     });
   }
 
@@ -68,25 +70,24 @@ export class AlumnoPage implements OnInit {
 
   async marcarAsistencia() {
     this.codigo = await this.cService.buscarClase(this.ClassCode, this.KEYC);
-
-    if (this.codigo === null) {
+    var separator = ' - ';
+    if (this.codigo === undefined) {
       this.mostrarToast("top", "Código no encontrado.", 3000);
     } else {
       const claseEncontrada: any = this.codigo;
-
-      // Esto verifica si el nombre del alumno ya está en la lista de asistencia que es lo que nos faltaba
-      if (claseEncontrada.asistencia.includes(this.nombre_alumno)) {
+  
+      if (claseEncontrada.asistencia.includes(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut())) {
         this.mostrarToast("middle", "Ya se ha registrado la asistencia.", 2500);
       } else {
-        claseEncontrada.asistencia.push(this.nombre_alumno);
+        claseEncontrada.asistencia.push(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut());
         await this.cService.actualizarClase(claseEncontrada, this.KEYC);
         this.mostrarToast("top", "Asistencia marcada.", 3000);
-        console.log(this.cService.listar(this.KEYC))
+        console.log(this.cService.listar(this.KEYC));
         this.filtrarClases();
       }
     }
   }
-
+  
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
     message: string,
     duration: number) {
