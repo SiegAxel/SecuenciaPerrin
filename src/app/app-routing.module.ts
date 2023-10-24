@@ -1,6 +1,7 @@
 
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { GuardGuard } from './services/guard.guard';
 
 const routes: Routes = [
   {
@@ -17,6 +18,11 @@ const routes: Routes = [
     loadChildren: () => import('./pages/registro/registro.module').then( m => m.RegistroPageModule)
   },
   {
+    path: 'home',
+    loadChildren: () => import('./pages/home/home.module').then( m => m.HomePageModule),
+    canActivate:[GuardGuard]
+  },
+  {
     path: 'restcon',
     loadChildren: () => import('./pages/restcon/restcon.module').then( m => m.RestconPageModule)
   },
@@ -29,22 +35,13 @@ const routes: Routes = [
     loadChildren: () => import('./pages/splash/splash.module').then( m => m.SplashPageModule)
   },
   {
-    path: 'admin/:nombre',
-    loadChildren: () => import('./pages/admin/admin.module').then( m => m.AdminPageModule)
-  },
-  {
-    path: 'profe/:nombre',
-    loadChildren: () => import('./pages/profe/profe.module').then( m => m.ProfePageModule)
-  },
-  {
-    path: 'alumno/:nombre',
-    loadChildren: () => import('./pages/alumno/alumno.module').then( m => m.AlumnoPageModule)
+    path: 'detalle/:id',
+    loadChildren: () => import('./pages/detalle/detalle.module').then( m => m.DetallePageModule)
   },
   {
     path: '**',
     loadChildren: () => import('./pages/error/error.module').then( m => m.ErrorPageModule)
   },
-
 ];
 
 @NgModule({

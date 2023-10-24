@@ -1,5 +1,9 @@
 ion-content {
     --background: rgb(205, 0, 0);
+
+    &::-webkit-scrollbar {
+        display: none;
+    }
 }
 
 * {
@@ -80,7 +84,7 @@ header label span {
 main {
     margin-top: 75px;
     padding: 2rem 1.5rem;
-    background: #f1f5f9;
+    background: #ff0000;
     background: linear-gradient(to left bottom, gray, white);
     min-height: calc(100vh - 80px);
 }
@@ -318,7 +322,7 @@ ion-menu {
 .sidebar-menu span {
     padding-left: 1rem;
     display: block;
-    color: #ff0000;
+    color: #000000;
     font-size: 1.1rem;
     font-weight: bold;
     text-decoration: none;
@@ -344,16 +348,14 @@ ion-item-sliding {
 /* Modal de Modificar Usuario */
 
 .ion-padding {
-    --background: linear-gradient(white, white, rgb(172, 0, 0));
-    --color: white;
+    --background: rgb(255, 0, 0);
+    --background: linear-gradient(360deg, rgba(255, 0, 0, 1) 10%, rgba(255, 255, 255, 1) 10%, rgba(198, 198, 198, 0) 100%);
+    color: rgb(255, 255, 255);
 
     ion-item {
         margin-bottom: 5%;
     }
 }
-
-
-
 
 .ion-paddinga {
     --background: rgb(170, 170, 170);
@@ -368,39 +370,60 @@ ion-item-sliding {
 }
 
 .modalModi {
+    background: white;
+    background: linear-gradient(#350000,
+            rgba(255, 255, 255, 0.245) 90%);
+    transition-property: background;
+    transition-timing-function: ease-in-out;
+    transition-duration: 1s;
+    transition-delay: 0.1s;
+    padding: 0;
+    border: 0;
+    margin: 0;
 
     ion-content {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-        --background: url('/../assets/images/DottedRed.png');
-        --background-size: cover;
+        --background: linear-gradient(rgba(255, 175, 175, 0.585), rgba(255, 203, 185, 0.558), rgba(249, 248, 248, 0.749));
+        --color: white;
     }
 
+    ion-title {
+        justify-items: center;
+        align-items: center;
+        text-align: center;
+        color: tomato;
+        font-weight: bold;
+    }
 
     ion-toolbar {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
         --background: white;
         --color: black;
-        --font-weigth: bold;
+        --font-weight: bold;
     }
+
+    ion-item {
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 0px;
+        color: black;
+        --background: transparent;
+
+    }
+
 }
-
-
-.modalModi ion-title {
-    width: fit-content;
-    display: flex;
-    margin: auto;
-}
-
-.modalModi .perfilSelect {
-    width: fit-content;
-    display: flex;
-    margin: auto;
-    margin-top: 3%;
-}
-
 
 
 
 
 /* Termina Modal de Modificar Usuario */
+
+/* Input de busqueda */
+
+#inputBuscar {
+    width: 30%;
+    height: fit-content;
+    border-bottom: 1px solid black;
+}

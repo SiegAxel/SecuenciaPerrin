@@ -1,13 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { UsuarioService } from 'src/app/services/usuario.service';
-import { MenuController } from '@ionic/angular';
+import { AlertController, MenuController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { ModalController } from '@ionic/angular';
 import { FormControl, FormGroup, ValidationErrors, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-
-
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
+import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 
 @Component({
   selector: 'app-admin',
@@ -46,21 +47,40 @@ export class AdminPage implements OnInit {
     Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
   });
 
+  registroAsignatura = new FormGroup({
+    codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
+    nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  })
 
-
-  constructor(private aRoute: ActivatedRoute, private uService: UsuarioService, private menuCtrl: MenuController, private toastController: ToastController, private modalCtrl: ModalController, private router: Router) { }
+  constructor(
+    private cStorage: ClaseStorageService, 
+    private uStorage: UsuarioStorageService, 
+    private aRoute: ActivatedRoute,
+    private uService: UsuarioService,
+    private menuCtrl: MenuController, 
+    private toastController: ToastController,
+    private modalCtrl: ModalController, 
+    private router: Router,
+    private aService: AsignaturaStorageService,
+    private alertController: AlertController
+    ) { }
 
   boton_modificar: boolean = true;
 
+  boton_modificarAsig: boolean = true;
+
   nombre_usuario: string = "";
 
-  rut_usuario: string = "";
+  nomBuscar: string = "";
 
-  lista_usuario: any[] = [];
+  rut_usuario: string = "";
 
   cantidad_usuarios: any = 0
 
   alumnos: number = 0;
+
+  lista_usuarios: any[] = [];
 
   profesores: number = 0;
 
@@ -68,19 +88,33 @@ export class AdminPage implements OnInit {
 
   usuarios: any[] = [];
 
+  asignaturas: any[] = [];
+
+  KEY: string = 'usuarios';
+
+  KEYA: string = 'asignaturas';
+
+  KEYC: string = 'clases';
+
   isModalOpen = false;
 
   agreOpen = false;
 
-  ngOnInit() {
+  isAsigOpen = false;
 
+  asigOpen = false;
+
+  isAsignaturas = false;
+
+  async ngOnInit() {
+    await this.listar();
+    await this.listarAsig();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
-    this.lista_usuario = this.uService.listar();
-    this.cantidad_usuarios = this.lista_usuario.length;
-    this.usuarios = this.lista_usuario;
+    this.cantidad_usuarios = this.usuarios.length;
+    this.lista_usuarios = this.usuarios;
     this.contar();
 
-    const loggedInUser = this.lista_usuario.find(user => user.nombre === this.nombre_usuario);
+    const loggedInUser = this.usuarios.find(user => user.nombre === this.nombre_usuario);
     if (loggedInUser) {
       this.rut_usuario = loggedInUser.rut;
       console.log('rut usuario logged-in:', this.rut_usuario);
@@ -89,90 +123,144 @@ export class AdminPage implements OnInit {
     }
   }
 
-  public modificar() {
+  // Metodos Unidad 2:
+
+  esAsignatura() {
+    this.isAsignaturas = true;
+  }
+
+  noAsignatura() {
+    this.isAsignaturas = false;
+  }
+
+  async listar() {
+    this.usuarios = await this.uStorage.listar(this.KEY);
+  }
+
+  filtrarProfes() {
+    const profesores = this.usuarios.filter(usuario => usuario.perfil === 'profesor');
+    return profesores;
+  }
+
+  async guardar() {
+    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+    const today = new Date();
+    const fechaNacimientoDate = new Date(fechaNacimiento);
+    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+
+    if (age < 17) {
+      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
+    } else {
+      var resp: boolean = await this.uStorage.agregar(this.registroUsuario.value, this.KEY);
+      if (resp) {
+        this.mostrarToast("middle", "Usuario agregado!", 3000);
+        this.registroUsuario.reset();
+        await this.listar();
+        
+        this.agreOpen = false;
+      } else {
+        this.mostrarToast("middle", "Error al agregar usuario.", 3000);
+      }
+    }
+  }
+
+  async eliminar(rut_eliminar: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que deseas eliminar este usuario?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            await this.uStorage.eliminar(rut_eliminar, this.KEY);
+            await this.listar();
+            await this.contar();
+            this.mostrarToast('middle', 'USUARIO ELIMINADO CON ÉXITO!', 3000);
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+
+  async modificar() {
     var rut: string = this.usuario.controls.rut.value || '';
     var perfil = this.usuario.controls.perfil.value || '';
     var usuName = this.usuario.controls.nombre.value || '';
     var correoNew = "";
-    
-    if(perfil == "Alumno"){
+    usuName = usuName.trim().replace(/\s+/g, "");
+    if (perfil == "alumno") {
       correoNew = usuName + "@duocuc.cl"
       this.usuario.controls.email.setValue(correoNew);
-    } else if(perfil == "Profesor"){
-      correoNew = usuName + "@duoc.profesor.cl"
+    } else if (perfil == "profesor") {
+      correoNew = usuName + "@profesor.duoc.cl"
       this.usuario.controls.email.setValue(correoNew);
     } else {
       correoNew = usuName + "@duoc.cl";
       this.usuario.controls.email.setValue(correoNew);
     }
 
-    this.uService.modificar(rut, this.usuario.value);
-    this.mostrarToast("bottom", "Usuario modificado!", 3000);
-    //vamos a habilitar el rut:
-    this.usuario.reset();
-    document.getElementById("rut")?.removeAttribute("disabled");
-    this.boton_modificar = true;
-    this.isModalOpen = false;
-    
-  }
-
-  public registrar() {
-    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
-    const today = new Date();
-    const fechaNacimientoDate = new Date(fechaNacimiento);
-    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
-  
-    if (age < 17) {
-      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
-    } else {
-      const respuesta: boolean = this.uService.agregar(this.registroUsuario.value);
-      if (respuesta) {
-        this.mostrarToast("top", "Usuario Registrado!", 1000);
-        this.registroUsuario.reset();
-        this.agreOpen = false;
-      } else {
-        this.mostrarToast("bottom", "Error al registrar.", 3000);
-      }
+    var resp: boolean = await this.uStorage.modificar(this.usuario.value, this.KEY);
+    if (resp) {
+      this.mostrarToast("bottom", "Usuario modificado!", 3000);
+      await this.listar();
+      await this.contar();
+      this.boton_modificar = true;
+      this.isModalOpen = false;
     }
   }
 
-  public buscar(rut_buscar: string) {
-    var usuario_encontrado: any = this.uService.buscar(rut_buscar);
+  /////////////////////////////////////////////
+
+  async buscar(rut_modificar: string) {
+    var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
     this.usuario.setValue(usuario_encontrado);
     this.boton_modificar = false;
     //vamos a bloquear el rut
     document.getElementById("rut")?.setAttribute("disabled", "true");
   }
 
-  setOpen(isOpen: boolean, rut_modificar: string) {
+  async setOpen(isOpen: boolean, rut_modificar: string) {
     if (rut_modificar == '') {
       this.agreOpen = isOpen;
     } else {
       this.isModalOpen = isOpen;
-      this.buscar(rut_modificar);
+      await this.buscar(rut_modificar);
     }
-
   }
 
-  back(){
+  async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
+    if (cod_modificar == '') {
+      this.asigOpen = isOpen;
+      this.registroAsignatura.reset();
+    } else {
+      this.isAsigOpen = isOpen;
+      await this.buscarAsig(cod_modificar);
+    }
+  }
+
+  back() {
     this.router.navigate(['/login'])
   }
 
   contar() {
-    this.alumnos = this.lista_usuario.filter(usu => usu.perfil === "Alumno").length;
-    this.profesores = this.lista_usuario.filter(usu => usu.perfil === "Profesor").length;
-  }
-
-  public eliminar(rut_eliminar: string) {
-    this.uService.eliminar(rut_eliminar);
-    this.mostrarToast('middle', "USUARIO ELIMINADO CON ÉXITO!", 3000);
-    this.usuarios;
+    this.alumnos = this.usuarios.filter(usu => usu.perfil === "alumno").length;
+    this.profesores = this.usuarios.filter(usu => usu.perfil === "profesor").length;
+    this.clases = this.cStorage.listar(this.KEYC).catch.length;
   }
 
   openMenu() {
     this.menuCtrl.enable(true, 'menu');
     this.menuCtrl.open('menu');
-
   }
 
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
@@ -186,6 +274,85 @@ export class AdminPage implements OnInit {
 
     await toast.present();
   }
+
+  // CRUD Asignatura //
+
+  async listarAsig() {
+    this.asignaturas = await this.aService.listar(this.KEYA);
+  }
+
+  async buscarAsig(cod_modificar: string) {
+    var asignatura_encontrada: any = await this.aService.buscarAsig(cod_modificar, this.KEYA);
+
+    if (asignatura_encontrada) {
+      this.registroAsignatura.setValue(asignatura_encontrada);
+      this.boton_modificarAsig = false;
+    } else {
+      console.log("La asignatura no fue encontrada.")
+    }
+  }
+
+  async guardarAsig() {
+    var resp: boolean = await this.aService.agregar(this.registroAsignatura.value, this.KEYA);
+
+    if (resp) {
+      this.mostrarToast('middle', 'Asignatura agregada!', 3000);
+      this.registroAsignatura.reset();
+      await this.listarAsig();
+      this.asigOpen = false;
+    } else {
+      this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
+    }
+  }
+
+  async modificarAsig() {
+    console.log('Antes de modificar en modificarAsig:', this.registroAsignatura.value);
+
+    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA);
+
+    console.log('Respuesta de modificar en modificarAsig:', resp);
+    if (resp) {
+      this.mostrarToast('top', 'Asignatura modificada!', 3000);
+      await this.listarAsig();
+      this.registroAsignatura.reset();
+      this.boton_modificarAsig = true;
+      this.isAsigOpen = false;
+    } else {
+      this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
+    }
+  }
+
+
+  async eliminarAsig(codigo_eliminar: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que deseas eliminar esta asignatura?',
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            await this.aService.eliminar(codigo_eliminar, this.KEYA);
+            await this.listarAsig();
+            this.mostrarToast('top', 'Asignatura eliminada!', 3000);
+          }
+        }
+      ]
+    });
+  
+    await alert.present();
+  }
+
+  async logout() {
+    this.uStorage.logout();
+  }
+
 }
 
 function validarRut(rut: string): boolean {
@@ -221,4 +388,6 @@ function validarRutChileno(control: FormControl): ValidationErrors | null {
 
   return esValido ? null : { rutInvalido: true };
 }
+
+
 

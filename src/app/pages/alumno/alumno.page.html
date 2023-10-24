@@ -1,16 +1,4 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <div class="user-wrapper">
-      <img src="assets/images/favicon.png" width="40px" height="40px" alt
-        class="fade-in-animation">
-      <div>
-        <h4 style="margin-top: 15%;" class="fade-in-animation">erifyU</h4>
-      </div>
-    </div>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content [fullscreen]="true">
+<ion-content>
   <ion-grid>
     <ion-row>
       <ion-col>
@@ -21,8 +9,47 @@
             </ion-title>
           </ion-card-header>
           <ion-card-content>
-            <ion-img src="assets/images/DottedRed.png"></ion-img>
+            <h3>Ingrese su codigo de clase:</h3>
+            <ion-input type="text" [(ngModel)]="ClassCode"
+              placeholder="CODIGO QR"></ion-input>
+            <ion-button (click)="marcarAsistencia()">Marcar Asistencia</ion-button>
           </ion-card-content>
+        </ion-card>
+        <ion-card class="card3">
+          <ion-card-header>
+            <ion-title>
+              Lista de Clases Asistidas
+            </ion-title>
+          </ion-card-header>
+          <ion-card-content>
+            <table>
+              <thead>
+                <tr>
+                  <td>Asignatura</td>
+                  <td>Horario</td>
+                  <td>Profesor</td>
+                </tr>
+              </thead>
+
+              <tbody *ngFor="let clase of clasesFiltradas">
+                <tr>
+                  <td>{{clase.asignatura}}</td>
+                  <td>{{clase.hora}}</td>
+                  <td>{{clase.profesor | titlecase}}</td>
+                </tr>
+              </tbody>
+            </table>
+          </ion-card-content>
+        </ion-card>
+
+        <ion-card class="card3">
+          <ion-list >
+            <ion-item>
+              <ion-thumbnail id="foto">
+                <img [src]="url" alt="Imagen de la NASA">
+              </ion-thumbnail>
+            </ion-item>
+          </ion-list>
         </ion-card>
       </ion-col>
       <ion-col>

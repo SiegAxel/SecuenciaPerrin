@@ -1,0 +1,39 @@
+
+<ion-content >
+
+  <header *ngIf="data.user.perfil == 'profesor' || data.user.perfil == 'alumno'">
+    <div class="user-wrapper">
+      <img src="assets/images/favicon.png" width="40px" height="40px" (click)="logout()">
+      <div>
+        <h4>VerifyU</h4>
+        <small>¡Bienvenido {{data.user.nombre |titlecase}}!</small>
+      </div>
+    </div>
+  </header>
+
+  <ion-card class="page_home">
+    <ion-grid>
+      <ion-row justify-content-center align-items-center>
+        <ion-col text-center>
+          <div>
+          <img src="assets/images/favicon.png" width="40px" height="40px" alt class="fade-in-animation">
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </ion-card>
+
+  <ion-tabs>
+    <ion-tab-bar>
+      <ion-tab-button tab="admin/{{data.user.nombre}}" *ngIf="data.user.perfil == 'admin' ">
+        <ion-icon name="desktop"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="profe/{{data.user.nombre}}" *ngIf="data.user.perfil == 'profesor' ">
+        <ion-icon name="book"></ion-icon>
+      </ion-tab-button>
+      <ion-tab-button tab="alumno/{{data.user.nombre}}" *ngIf="data.user.perfil == 'alumno' ">
+        <ion-icon name="school"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+</ion-content>

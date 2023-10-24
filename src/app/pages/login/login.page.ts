@@ -4,6 +4,9 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { ToastController } from '@ionic/angular';
 import { Router } from '@angular/router';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { NavController } from '@ionic/angular';
+import { NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,6 +15,46 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 })
 export class LoginPage implements OnInit {
 
+  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController) { }
+
+  admin: any = {
+    rut: '11.111.111-1',
+    nombre: 'ariel',
+    email: 'ariel@duoc.cl',
+    fechanac: '2003-05-09',
+    perfil: 'admin',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  }
+
+  profesor: any [] = [{
+    rut: '12.111.111-1',
+    nombre: 'felipe',
+    email: 'felipe@profesor.duoc.cl',
+    fechanac: '2003-05-09',
+    perfil: 'profesor',
+    pass1: 'Judas123',
+    pass2: 'Judas123'},
+    {
+      rut: '14.111.111-1',
+      nombre: 'felipe2',
+      email: 'felipe2@profesor.duoc.cl',
+      fechanac: '2003-05-09',
+      perfil: 'profesor',
+      pass1: 'Judas123',
+      pass2: 'Judas123'}
+    ]
+  
+
+  alumno: any = {
+    rut: '13.111.111-1',
+    nombre: 'manuel',
+    email: 'manuel@duocuc.cl',
+    fechanac: '2003-05-09',
+    perfil: 'alumno',
+    pass1: 'Judas123',
+    pass2: 'Judas123'
+  }
 
   usuario = new FormGroup({
     email: new FormControl('', [Validators.email,
@@ -26,40 +69,38 @@ export class LoginPage implements OnInit {
   email: string = "";
   clave: string = "";
 
-
-
-  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioService, private toastController: ToastController) { }
+  KEY: string = 'usuarios';
 
   async login() {
-    var lista_usuario: any[] = this.uService.listar();
+    var lista_usuario: any[] = await this.uService.listar(this.KEY);
     var usu_encontrado = lista_usuario.find(usu => usu.email == this.email && usu.pass1 == this.clave);
 
-
     console.log(usu_encontrado);
+
     if (usu_encontrado == undefined) {
       this.mostrarToast("top", "Datos Incorrectos", 3000);
     }
     else {
-      if (usu_encontrado.perfil == 'admin') {
+      if (usu_encontrado != undefined) {
         try {
           await this.loaderService.presentLoader();
         } finally {
-          this.router.navigate(['/admin', usu_encontrado.nombre]);
+          let navigationExtras: NavigationExtras = {
+            state: {
+              user: usu_encontrado
+            }
+          };
+          this.uService.setEstadoLogin();
+          this.router.navigate(['/home'], navigationExtras);
           await this.loaderService.hideLoader();
           this.clear();
+          console.log(this.uService.getEstadoLogin())
+          return usu_encontrado;
         }
-      } else if (usu_encontrado.perfil == 'Profesor') {
-        this.router.navigate(['/profe', usu_encontrado.nombre]);
-        await this.loaderService.hideLoader();
-        this.clear();
-      }
-      else if (usu_encontrado.perfil == 'Alumno') {
-        this.router.navigate(['/alumno', usu_encontrado.nombre]);
-        await this.loaderService.hideLoader();
-        this.clear();
       } else {
         this.router.navigate(['/error']);
         await this.loaderService.hideLoader();
+        return undefined;
       }
     }
   }
@@ -68,7 +109,6 @@ export class LoginPage implements OnInit {
     this.email = '';
     this.clave = '';
   }
-
 
   async recoverPassword() {
     try {
@@ -95,12 +135,17 @@ export class LoginPage implements OnInit {
       message,
       duration,
       position,
+      color: 'danger'
     })
     await toast.present();
   };
 
-
-  ngOnInit() {
+  async ngOnInit() {
+    await this.uService.agregar(this.admin, this.KEY);
+    await this.uService.agregar(this.profesor[0], this.KEY);
+    await this.uService.agregar(this.profesor[1], this.KEY);
+    await this.uService.agregar(this.alumno, this.KEY);
+    console.log(this.admin,this.alumno,this.profesor)
   }
 
 

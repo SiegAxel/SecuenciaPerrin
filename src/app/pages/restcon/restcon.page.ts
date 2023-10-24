@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { ToastController } from '@ionic/angular';
+import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-restcon',
@@ -15,15 +17,17 @@ export class RestconPage implements OnInit {
     Validators.required, Validators.pattern("^(.+)@(duocuc\\.cl|profesor\\.duoc\\.cl|duoc\\.cl)$")],
     ),
   })
-  constructor( private uService: UsuarioService, private toastController: ToastController) { }
+  constructor( private uService: UsuarioService, private toastController: ToastController, private uStorage: UsuarioStorageService, private router: Router) { }
 
   ngOnInit() {
   }
 
+  KEY: string = 'usuarios';
+
   async recuperarContrasena() {
     const correo = this.usuario.get('email')?.value; 
     if (correo != null) {
-      if (this.uService.correoExiste(correo)) {
+      if (await this.uStorage.correoExiste(correo, this.KEY) == true) {
         this.usuario.reset();
         this.toastValid("middle", "Recuperacion enviada al correo", 3000);
         this.setOpen(false);
@@ -36,7 +40,6 @@ export class RestconPage implements OnInit {
   isModalOpen = false;
 
   setOpen(isOpen: boolean) {
-
     this.isModalOpen = isOpen;
   }
 
@@ -63,5 +66,9 @@ export class RestconPage implements OnInit {
   })
   await toast.present();
 };
+
+back() {
+  this.router.navigate(['/login'])
+}
   
 }

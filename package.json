@@ -28,11 +28,15 @@
     "@capacitor/status-bar": "5.0.6",
     "@fdograph/rut-utilities": "^1.4.0",
     "@ionic/angular": "^7.0.0",
+    "@ionic/storage-angular": "^4.0.0",
     "@jcesarmobile/ssl-skip": "0.2.0",
+    "angular-qrcode": "^7.2.0",
+    "angularx-qrcode": "^16.0.2",
     "ionicons": "^7.0.0",
     "ng15-rut": "^0.0.4",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
+    "uuid": "^9.0.1",
     "zone.js": "~0.13.0"
   },
   "devDependencies": {

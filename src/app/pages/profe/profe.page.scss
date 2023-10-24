@@ -1,14 +1,24 @@
-ion-header ion-toolbar {
-  --background: white;
-  border-bottom: 1px solid red;
-  h4{
-    color: red;
-    font-weight: bold;
-  }
+ion-content::-webkit-scrollbar {
+  display: none;
 }
 
-ion-content {
+ion-row::-webkit-scrollbar {
+  display: none;
+}
+
+.mainContent {
+  top: 76px;
   --background: rgb(224, 224, 224);
+  overflow: hidden;
+
+  ion-grid {
+
+    ion-row {
+      overflow: scroll;
+      margin-bottom: 60px;
+    }
+
+  }
 }
 
 .user-wrapper {
@@ -34,25 +44,27 @@ ion-content {
   }
 }
 
-.card1, .card2 {
+.card1,
+.card2 {
   text-align: center;
   background: white;
   border: 1px red solid;
 }
 
+
 .card1 {
-  ion-title{
+  ion-title {
     font-weight: bold;
     color: black;
   }
 }
 
 .card2 {
-  b{
+  b {
     color: black;
   }
 
-  thead{
+  thead {
 
     td {
       color: black;
@@ -61,3 +73,144 @@ ion-content {
   }
 }
 
+/* MODAL MODIFICAR */
+
+ion-input {
+  font-weight: bold;
+}
+
+
+.modalModi {
+
+  --background: transparent;
+  padding: 0;
+  border: 0;
+  margin: 0;
+
+  ion-content {
+    --background: linear-gradient(rgba(255, 27, 27, 0.585), rgba(255, 203, 185, 0.558), rgba(249, 248, 248, 0.749));
+    --color: white;
+  }
+
+  ion-title {
+    justify-items: center;
+    align-items: center;
+    text-align: center;
+    color: tomato;
+    font-weight: bold;
+  }
+
+  ion-toolbar {
+    --background: white;
+    --color: black;
+    --font-weight: bold;
+  }
+
+  ion-item {
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    padding: 0px;
+    color: black;
+    --background: transparent;
+
+    ion-button {
+      --background: transparent;
+      border: none;
+      outline: none;
+      cursor: pointer;
+      transition: all .2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.08);
+        --background: tomato;
+      }
+
+    }
+
+  }
+
+  ion-content ion-button {
+    width: 80%;
+    background-color: rgb(172, 0, 0);
+    color: white;
+    margin-top: 5%;
+    margin: 0 auto;
+  }
+
+}
+
+.alerta-custom .alert-wrapper {
+  background: #ffffff;
+  /* Cambia el color de fondo de la alerta */
+  color: #ff0000;
+  /* Cambia el color del texto en la alerta */
+}
+
+ion-item-sliding ion-item-options {
+  position: absolute;
+}
+
+@media (max-width: 680px) {
+
+  /* Ajusta el valor de ancho máximo según tus necesidades */
+  ion-item-sliding ion-item-options {
+    position: flex;
+
+    ion-item-option {
+      width: 24%;
+      top: 50%;
+    }
+  }
+}
+
+ion-accordion {
+  margin: 0 auto;
+  color: rgb(65, 65, 65);
+  background: white;
+  margin-bottom: 1%;
+  margin-top: 2%;
+  border-radius: 1px;
+  font-weight: bold;
+  font-family: sans-serif;
+
+  ion-icon .icon-inner{
+    color: black;
+  }
+
+  ion-item td {
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.tracking-in-expand{animation:tracking-in-expand .7s cubic-bezier(.215,.61,.355,1.000) both}
+@keyframes tracking-in-expand{0%{letter-spacing:-.5em;opacity:0}40%{opacity:.6}100%{opacity:1}}
+
+
+.cboClase {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+ion-accordion.accordion-expanding,
+ion-accordion.accordion-expanded {
+  width: calc(100% - 32px);
+  margin: 16px auto;
+  font-weight: bold;
+}
+
+ion-accordion.accordion-collapsing ion-item[slot='header'],
+ion-accordion.accordion-collapsed ion-item[slot='header'] {
+  --background: rgb(255, 0, 0);
+  --background: linear-gradient(135deg, rgba(255, 0, 0, 1) 11%, rgba(255, 255, 255, 1) 11%, rgba(198, 198, 198, 0.5685924027814251) 100%);
+  --color: rgb(0, 0, 0);
+}
+
+ion-accordion.accordion-expanding ion-item[slot='header'],
+ion-accordion.accordion-expanded ion-item[slot='header'] {
+  --background: rgb(255, 0, 0);
+  --background: linear-gradient(-45deg, rgba(255, 0, 0, 1) 11%, rgba(255, 255, 255, 1) 11%, rgba(198, 198, 198, 0.5685924027814251) 100%);
+  --color: black;
+}
