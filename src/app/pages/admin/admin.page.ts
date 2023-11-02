@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-admin',
@@ -24,7 +25,7 @@ export class AdminPage implements OnInit {
     fechanac: new FormControl('', Validators.required),
     perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
-    pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+    pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
   });
 
   usuario = new FormGroup({
@@ -44,7 +45,8 @@ export class AdminPage implements OnInit {
     pass2: new FormControl('', [Validators.required,
     Validators.minLength(6),
     Validators.maxLength(20),
-    Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')])
+    Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    codigo_firebase: new FormControl('', Validators.required),
   });
 
   registroAsignatura = new FormGroup({
@@ -63,7 +65,8 @@ export class AdminPage implements OnInit {
     private modalCtrl: ModalController, 
     private router: Router,
     private aService: AsignaturaStorageService,
-    private alertController: AlertController
+    private alertController: AlertController,
+    private fireService: FirebaseService
     ) { }
 
   boton_modificar: boolean = true;
@@ -107,12 +110,13 @@ export class AdminPage implements OnInit {
   isAsignaturas = false;
 
   async ngOnInit() {
-    await this.listar();
+    //await this.listar();
     await this.listarAsig();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.cantidad_usuarios = this.usuarios.length;
     this.lista_usuarios = this.usuarios;
     this.contar();
+    this.cargarUsuarios();
 
     const loggedInUser = this.usuarios.find(user => user.nombre === this.nombre_usuario);
     if (loggedInUser) {
@@ -164,7 +168,7 @@ export class AdminPage implements OnInit {
     }
   }
 
-  async eliminar(rut_eliminar: string) {
+  /* async eliminar(rut_eliminar: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que deseas eliminar este usuario?',
@@ -189,7 +193,7 @@ export class AdminPage implements OnInit {
     });
   
     await alert.present();
-  }
+  } */
 
 
   async modificar() {
@@ -221,22 +225,32 @@ export class AdminPage implements OnInit {
 
   /////////////////////////////////////////////
 
-  async buscar(rut_modificar: string) {
+/*   async buscar(rut_modificar: string) {
     var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
     this.usuario.setValue(usuario_encontrado);
     this.boton_modificar = false;
     //vamos a bloquear el rut
     document.getElementById("rut")?.setAttribute("disabled", "true");
-  }
+  } */
 
-  async setOpen(isOpen: boolean, rut_modificar: string) {
-    if (rut_modificar == '') {
-      this.agreOpen = isOpen;
-    } else {
-      this.isModalOpen = isOpen;
-      await this.buscar(rut_modificar);
-    }
-  }
+  // async setOpen(isOpen: boolean, rut_modificar: string) {
+  //   if (rut_modificar == '') {
+  //     this.agreOpen = isOpen;
+  //   } else {
+  //     this.isModalOpen = isOpen;
+  //     await this.buscar(rut_modificar);
+  //   }
+  // }
+
+
+  async setOpen(isOpen: boolean, id: string) {
+  if (id == '') {
+    this.agreOpen = isOpen;
+   } else {
+    this.isModalOpen = isOpen;
+         await this.buscar(id);
+       }
+     }
 
   async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
     if (cod_modificar == '') {
@@ -352,8 +366,53 @@ export class AdminPage implements OnInit {
   async logout() {
     this.uStorage.logout();
   }
+  
+  // METODOS FIREBASE //
+
+agregar()
+{
+  this.fireService.agregar('usuarios', this.registroUsuario.value);
+}
+
+modificarFire()
+{
+  this.fireService.modificar('usuarios', this.usuario.controls.codigo_firebase.value || '', this.usuario.value)
+}
+
+buscar(id: string)
+{
+  this.fireService.getDato('usuarios', id).subscribe(data=> {
+    let usu: any = data.data()
+    usu['codigo_firebase'] = id;
+    this.usuario.setValue(usu);
+  });
+}
+
+eliminar(id: string)
+{
+  this.fireService.eliminar('usuarios', id);
+}
+
+cargarUsuarios()
+{
+  this.fireService.getDatos('usuarios')?.subscribe(data => {
+    //console.log(data);
+    this.usuarios = [];
+    for(let usuario of data)
+    {
+      //console.log(usuario.payload.doc.data);
+      let usu: any = usuario.payload.doc.data();
+      usu['codigo_firebase'] = usuario.payload.doc.id;
+      this.usuarios.push(usu);
+    }
+  });
+}
+
+
 
 }
+
+
 
 function validarRut(rut: string): boolean {
   // Limpia el RUT de puntos y guión

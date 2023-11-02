@@ -37,6 +37,8 @@ export class ProfePage implements OnInit {
 
   dato: string = '';
 
+  cantidad_clases: any = 0;
+
   dateTime = new Date()
   hora = this.dateTime.getHours();
   minutos = this.dateTime.getMinutes();
@@ -52,7 +54,7 @@ export class ProfePage implements OnInit {
     asistencia: new FormControl([]),
   })
 
-  constructor(private alertController: AlertController, private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute) { }
+  constructor(private alertController: AlertController, private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute, private cStorage: ClaseStorageService) { }
 
   generarID() {
     this.randomPassword = Math.random().toString(36).slice(-8);

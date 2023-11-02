@@ -113,10 +113,10 @@
                                                             side="end">
                                                             <ion-item-option
                                                                 color="favorite"
-                                                                (click)="setOpen(true, usu.rut )">Modificar</ion-item-option>
+                                                                (click)="setOpen(true,usu.codigo_firebase)">Modificar</ion-item-option>
                                                             <ion-item-option
                                                                 color="danger"
-                                                                (click)="eliminar(usu.rut)"
+                                                                (click)="eliminar(usu.codigo_firebase)"
                                                                 [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
@@ -206,7 +206,7 @@
                     <ion-buttons slot="end">
                         <ion-button
                             [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
-                            (click)="guardar()" type="submit">Confirmar</ion-button>
+                            (click)="agregar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -271,7 +271,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificar()">Confirmar</ion-button>
+                        <ion-button (click)="modificarFire()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
