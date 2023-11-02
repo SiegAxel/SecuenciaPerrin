@@ -146,27 +146,27 @@ export class AdminPage implements OnInit {
     return profesores;
   }
 
-  async guardar() {
-    const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
-    const today = new Date();
-    const fechaNacimientoDate = new Date(fechaNacimiento);
-    const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+  // async guardar() {
+  //   const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+  //   const today = new Date();
+  //   const fechaNacimientoDate = new Date(fechaNacimiento);
+  //   const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
 
-    if (age < 17) {
-      this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
-    } else {
-      var resp: boolean = await this.uStorage.agregar(this.registroUsuario.value, this.KEY);
-      if (resp) {
-        this.mostrarToast("middle", "Usuario agregado!", 3000);
-        this.registroUsuario.reset();
-        await this.listar();
+  //   if (age < 17) {
+  //     this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
+  //   } else {
+  //     var resp: boolean = await this.uStorage.agregar(this.registroUsuario.value, this.KEY);
+  //     if (resp) {
+  //       this.mostrarToast("middle", "Usuario agregado!", 3000);
+  //       this.registroUsuario.reset();
+  //       await this.listar();
         
-        this.agreOpen = false;
-      } else {
-        this.mostrarToast("middle", "Error al agregar usuario.", 3000);
-      }
-    }
-  }
+  //       this.agreOpen = false;
+  //     } else {
+  //       this.mostrarToast("middle", "Error al agregar usuario.", 3000);
+  //     }
+  //   }
+  // }
 
   /* async eliminar(rut_eliminar: string) {
     const alert = await this.alertController.create({
@@ -371,7 +371,27 @@ export class AdminPage implements OnInit {
 
 agregar()
 {
-  this.fireService.agregar('usuarios', this.registroUsuario.value);
+  const fechaNacimiento = this.registroUsuario.controls.fechanac.value || '';
+  const today = new Date();
+  const fechaNacimientoDate = new Date(fechaNacimiento);
+  const age = today.getFullYear() - fechaNacimientoDate.getFullYear();
+
+  if (age < 17) {
+    this.mostrarToast("bottom", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
+  } else {
+    var resp = this.fireService.agregar('usuarios', this.registroUsuario.value);
+    if (resp !== null) {
+      this.mostrarToast("middle", "Usuario agregado!", 3000);
+      this.registroUsuario.reset();
+      this.cargarUsuarios();
+      
+      this.agreOpen = false;
+    } else {
+      this.mostrarToast("middle", "Error al agregar usuario.", 3000);
+    }
+  }
+
+  
 }
 
 modificarFire()
