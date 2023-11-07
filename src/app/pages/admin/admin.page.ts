@@ -26,6 +26,7 @@ export class AdminPage implements OnInit {
     perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
     pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    codigo_firebase: new FormControl('', Validators.required),
   });
 
   usuario = new FormGroup({
@@ -158,9 +159,9 @@ export class AdminPage implements OnInit {
       var resp: boolean = await this.uStorage.agregar(this.registroUsuario.value, this.KEY);
       if (resp) {
         this.mostrarToast("middle", "Usuario agregado!", 3000);
+        this.fireService.agregar('usuarios', this.registroUsuario.value);
         this.registroUsuario.reset();
-        await this.listar();
-        
+        this.cargarUsuarios();
         this.agreOpen = false;
       } else {
         this.mostrarToast("middle", "Error al agregar usuario.", 3000);
@@ -404,6 +405,7 @@ cargarUsuarios()
       let usu: any = usuario.payload.doc.data();
       usu['codigo_firebase'] = usuario.payload.doc.id;
       this.usuarios.push(usu);
+
     }
   });
 }
