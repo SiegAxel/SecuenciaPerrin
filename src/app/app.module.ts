@@ -17,9 +17,14 @@ import { HttpClientModule } from '@angular/common/http';
 // IMPORT QR //
 import { QRCodeModule } from 'angularx-qrcode'
 
+// IMPORT MÓDULO DE FIREBASE QUE TIENE ANGULAR(npm install @angular/fire) //
+import { AngularFireModule } from '@angular/fire/compat';
+import { environment } from 'src/environments/environment';
+
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule, AppRoutingModule, IonicStorageModule.forRoot(), QRCodeModule],
+  imports: [BrowserModule, IonicModule.forRoot(), HttpClientModule, AppRoutingModule, IonicStorageModule.forRoot(), 
+  QRCodeModule, AngularFireModule.initializeApp(environment.firebaseConfig)],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
   bootstrap: [AppComponent],
 })

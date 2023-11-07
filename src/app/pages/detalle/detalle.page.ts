@@ -17,17 +17,17 @@ export class DetallePage implements OnInit {
   constructor(private aRoute: ActivatedRoute, private apiService: ApiService) { }
 
   ngOnInit() {
-    this.id = +(this.aRoute.snapshot.paramMap.get('id') || '');
-    this.detalle();
+   /*  this.id = +(this.aRoute.snapshot.paramMap.get('id') || '');
+    this.detalle(); */
   }
 
   // METODO QUE ENTREGA TODOS LOS DATOS DE UN PERSONAJE //
 
-  detalle(){
+/*   detalle(){
     this.apiService.getDato(this.id).subscribe( (resp: any) => {
       console.log(resp)
       this.personaje = resp;
     } );
-  }
+  } */
 
 }

@@ -1,5 +1,6 @@
 import { Injectable, booleanAttribute } from '@angular/core';
 import { Router } from '@angular/router';
+import { AlertController } from '@ionic/angular';
 
 // IMPORTAR STORAGE //
 
@@ -15,9 +16,10 @@ export class UsuarioStorageService {
 
     usuarios: any[] = [];
     estado_login: boolean = false;
+    rut: string = '';
   
   // CREAR VARIABLE DE STORAGE EN CONSTRUCTOR //
-  constructor(private storage : Storage, private router: Router) { 
+  constructor(private alertController: AlertController,private storage : Storage, private router: Router) { 
     storage.create();
   }
 
@@ -109,18 +111,51 @@ export class UsuarioStorageService {
     }
   }
 
-  logout(){
-    this.estado_login = false;
-    this.router.navigate(['/login']);
+  async logout(){ const alert = await this.alertController.create({
+    header: 'Confirmar cierre de sesión',
+    message: '¿Estás seguro de que deseas cerrar sesión?',
+    buttons: [
+      {
+        text: 'Cancelar',
+        role: 'cancel',
+        cssClass: 'secondary',
+        handler: (cancel) => {
+          console.log('Operación de cierre de sesión cancelada');
+        },
+      },
+      {
+        text: 'Cerrar sesión',
+        handler: () => {
+          try {
+            this.estado_login = false;
+            this.router.navigate(['/login']);
+          } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+          }
+        },
+      },
+    ],
+  });
+
+  await alert.present();
   }
 
   setEstadoLogin(){
     this.estado_login = true;
   }
 
+
   getEstadoLogin(): boolean{
     return this.estado_login;
   }
 
+  setRut(rut:string){
+    this.rut = rut;
+  }
+
+
+  getRut(){
+    return this.rut;
+  }
 
 }

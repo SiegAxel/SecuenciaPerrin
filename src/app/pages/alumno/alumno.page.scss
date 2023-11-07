@@ -96,8 +96,18 @@ table {
   }
 }
 
+/* CSS API */
+
 .card3 {
   b {
     color: black;
   }
+
+  width: fit-content;
+  height: fit-content;
+}
+
+.card3 #foto {
+  width: 300px;
+  height: 300px;
 }

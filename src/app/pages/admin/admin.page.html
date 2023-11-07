@@ -24,11 +24,13 @@
     <div class="main-content" class="ion-page" id="main-content">
         <header>
             <h2 class="sidebar-title">
-                <ion-button slot="start" fill="clear" color="light" (click)="openMenu()"><ion-icon
+                <ion-button slot="start" fill="clear" color="light"
+                    (click)="openMenu()"><ion-icon
                         name="menu"></ion-icon></ion-button>
             </h2>
             <div class="user-wrapper">
-                <img src="assets/images/favicon.png" width="40px" height="40px" (click)="back()">
+                <img src="assets/images/favicon.png" width="40px" height="40px"
+                    (click)="logout()">
                 <div>
                     <h4>VerifyU</h4>
                     <small>¡Bienvenido {{nombre_usuario}}!</small>
@@ -73,7 +75,8 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Usuarios Recientes</h3>
-                                <ion-button (click)="setOpen(true, '')" fill="clear" color="danger"><ion-icon
+                                <ion-button (click)="setOpen(true, '')"
+                                    fill="clear" color="danger"><ion-icon
                                         name="add-outline"></ion-icon></ion-button>
                             </div>
 
@@ -90,10 +93,8 @@
 
                                             </tr>
                                         </thead>
-
                                         <tbody *ngFor="let usu of usuarios">
                                             <tr>
-
                                                 <td>{{usu.rut}}</td>
                                                 <td>{{usu.nombre |
                                                     titlecase}}</td>
@@ -103,13 +104,19 @@
                                                     titlecase}}</td>
                                                 <td>
                                                     <ion-item-sliding>
-                                                        <ion-item color="success">
-                                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        <ion-item
+                                                            color="favorite2">
+                                                            <ion-icon
+                                                                name="arrow-back-outline"></ion-icon>
                                                         </ion-item>
-                                                        <ion-item-options side="end">
-                                                            <ion-item-option color="favorite"
-                                                                (click)="setOpen(true, usu.rut )">Modificar</ion-item-option>
-                                                            <ion-item-option color="danger" (click)="eliminar(usu.rut)"
+                                                        <ion-item-options
+                                                            side="end">
+                                                            <ion-item-option
+                                                                color="favorite"
+                                                                (click)="setOpen(true,usu.codigo_firebase)">Modificar</ion-item-option>
+                                                            <ion-item-option
+                                                                color="danger"
+                                                                (click)="eliminar(usu.codigo_firebase)"
                                                                 [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
@@ -117,7 +124,6 @@
                                             </tr>
                                         </tbody>
                                     </table>
-
                                 </div>
                             </div>
                         </div>
@@ -131,7 +137,9 @@
                         <div class="card">
                             <div class="card-header">
                                 <h3>Asignaturas Disponibles</h3>
-                                <ion-button (click)="setOpenAsignatura(true, '')" fill="clear" color="danger"><ion-icon
+                                <ion-button
+                                    (click)="setOpenAsignatura(true, '')"
+                                    fill="clear" color="danger"><ion-icon
                                         name="add-outline"></ion-icon></ion-button>
                             </div>
 
@@ -151,16 +159,22 @@
 
                                                 <td>{{asig.codigo}}</td>
                                                 <td>{{asig.nombre}}</td>
-                                                <td>{{asig.rut_profesor | titlecase}}</td>
+                                                <td>{{asig.rut_profesor |
+                                                    titlecase}}</td>
                                                 <td>
                                                     <ion-item-sliding>
-                                                        <ion-item color="success">
-                                                            <ion-icon name="arrow-back-outline"></ion-icon>
+                                                        <ion-item
+                                                            color="favorite2">
+                                                            <ion-icon
+                                                                name="arrow-back-outline"></ion-icon>
                                                         </ion-item>
-                                                        <ion-item-options side="end">
-                                                            <ion-item-option color="favorite"
+                                                        <ion-item-options
+                                                            side="end">
+                                                            <ion-item-option
+                                                                color="favorite"
                                                                 (click)="setOpenAsignatura(true, asig.codigo)">Modificar</ion-item-option>
-                                                            <ion-item-option color="danger"
+                                                            <ion-item-option
+                                                                color="danger"
                                                                 (click)="eliminarAsig(asig.codigo)"
                                                                 [disabled]="asig.codigo == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
@@ -192,7 +206,7 @@
                     <ion-buttons slot="end">
                         <ion-button
                             [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
-                            (click)="guardar()" type="submit">Confirmar</ion-button>
+                            (click)="agregar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -216,18 +230,23 @@
                     </ion-item>
                     <ion-item class="inputReg">
                         <ion-label position="stacked">Contraseña</ion-label>
-                        <ion-input type="password" placeholder="Ingrese su contraseña" class="contraseña"
+                        <ion-input type="password"
+                            placeholder="Ingrese su contraseña"
+                            class="contraseña"
                             formControlName="pass1"></ion-input>
                     </ion-item>
 
                     <ion-item class="inputReg">
                         <ion-label position="stacked">Confirmar contraseña</ion-label>
-                        <ion-input type="password" placeholder="Reingrese su contraseña" class="contraseña"
+                        <ion-input type="password"
+                            placeholder="Reingrese su contraseña"
+                            class="contraseña"
                             formControlName="pass2"></ion-input>
                     </ion-item>
                     <ion-list class="perfilSelect">
                         <ion-item>
-                            <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                            <ion-select placeholder="Perfil de Usuario"
+                                formControlName="perfil">
                                 <div slot="label">Seleccione un Perfil</div>
                                 <ion-select-option value="alumno">Alumno</ion-select-option>
                                 <ion-select-option value="profesor">Profesor</ion-select-option>
@@ -242,7 +261,8 @@
 
     /* MODAL MODIFICAR */
 
-    <ion-modal [isOpen]="isModalOpen" class="modalModi" *ngFor="let usu of usuarios">
+    <ion-modal [isOpen]="isModalOpen" class="modalModi"
+        *ngFor="let usu of usuarios">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
@@ -251,7 +271,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificar()">Confirmar</ion-button>
+                        <ion-button (click)="modificarFire()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -276,11 +296,12 @@
                     <ion-item>
                         <ion-list class="perfilSelect">
                             <ion-item>
-                                <ion-select placeholder="Perfil de Usuario" formControlName="perfil">
+                                <ion-select placeholder="Perfil de Usuario"
+                                    formControlName="perfil">
                                     <div slot="label">Seleccione un Perfil</div>
-                                    <ion-select-option value="Alumno">Alumno</ion-select-option>
-                                    <ion-select-option value="Profesor">Profesor</ion-select-option>
-                                    <ion-select-option value="Admin">Admin</ion-select-option>
+                                    <ion-select-option value="alumno">Alumno</ion-select-option>
+                                    <ion-select-option value="profesor">Profesor</ion-select-option>
+                                    <ion-select-option value="admin">Admin</ion-select-option>
                                 </ion-select>
                             </ion-item>
                         </ion-list>
@@ -303,7 +324,8 @@
                         <ion-button (click)="setOpenAsignatura(false, '')">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="guardarAsig()" type="submit" [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
+                        <ion-button (click)="guardarAsig()" type="submit"
+                            [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -320,13 +342,15 @@
                     <ion-item>
                         <ion-list>
                             <ion-item>
-                              <ion-select label="Profesor" formControlName="rut_profesor">
-                                <ion-select-option value="{{profesor.rut}}" *ngFor="let profesor of filtrarProfes()">
-                                  {{ profesor.rut }}
-                                </ion-select-option>
-                              </ion-select>
+                                <ion-select label="Profesor"
+                                    formControlName="rut_profesor">
+                                    <ion-select-option value="{{profesor.rut}}"
+                                        *ngFor="let profesor of filtrarProfes()">
+                                        {{ profesor.rut }}
+                                    </ion-select-option>
+                                </ion-select>
                             </ion-item>
-                          </ion-list>
+                        </ion-list>
                     </ion-item>
                 </form>
             </ion-content>
@@ -335,22 +359,25 @@
 
     /* MODIFICAR ASIGNATURAS */
 
-    <ion-modal [isOpen]="isAsigOpen" class="modalModi" *ngFor="let asig of asignaturas">
+    <ion-modal [isOpen]="isAsigOpen" class="modalModi"
+        *ngFor="let asig of asignaturas">
         <ng-template class="modiTemplate">
             <ion-header>
                 <ion-toolbar>
                     <ion-title class="modiTitle">MODIFICAR ASIGNATURA</ion-title>
                     <ion-buttons slot="start">
-                        <ion-button (click)="setOpenAsignatura(false, asig.codigo)">Cerrar</ion-button>
+                        <ion-button
+                            (click)="setOpenAsignatura(false, asig.codigo)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificarAsig()" [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
+                        <ion-button (click)="modificarAsig()"
+                            [disabled]="registroAsignatura.invalid">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
             <ion-content class="ion-paddinga">
                 <form [formGroup]="registroAsignatura">
-                    <ion-item>
+                    <ion-item disabled="true">
                         <ion-label position="stacked">Codigo</ion-label>
                         <ion-input type="text" formControlName="codigo"></ion-input>
                     </ion-item>
@@ -361,13 +388,16 @@
                     <ion-item>
                         <ion-list>
                             <ion-item>
-                              <ion-select label="Profesor" formControlName="profesor">
-                                <ion-select-option value="{{profesor.nombre}}" *ngFor="let profesor of filtrarProfes()">
-                                  {{ profesor.nombre }}
-                                </ion-select-option>
-                              </ion-select>
+                                <ion-select label="Profesor"
+                                    formControlName="profesor">
+                                    <ion-select-option
+                                        value="{{profesor.nombre}}"
+                                        *ngFor="let profesor of filtrarProfes()">
+                                        {{ profesor.nombre }}
+                                    </ion-select-option>
+                                </ion-select>
                             </ion-item>
-                          </ion-list>
+                        </ion-list>
                     </ion-item>
                 </form>
             </ion-content>

@@ -27,15 +27,24 @@ export class LoginPage implements OnInit {
     pass2: 'Judas123'
   }
 
-  profesor: any = {
+  profesor: any [] = [{
     rut: '12.111.111-1',
     nombre: 'felipe',
     email: 'felipe@profesor.duoc.cl',
     fechanac: '2003-05-09',
     perfil: 'profesor',
     pass1: 'Judas123',
-    pass2: 'Judas123'
-  }
+    pass2: 'Judas123'},
+    {
+      rut: '14.111.111-1',
+      nombre: 'felipe2',
+      email: 'felipe2@profesor.duoc.cl',
+      fechanac: '2003-05-09',
+      perfil: 'profesor',
+      pass1: 'Judas123',
+      pass2: 'Judas123'}
+    ]
+  
 
   alumno: any = {
     rut: '13.111.111-1',
@@ -126,13 +135,15 @@ export class LoginPage implements OnInit {
       message,
       duration,
       position,
+      color: 'danger'
     })
     await toast.present();
   };
 
   async ngOnInit() {
     await this.uService.agregar(this.admin, this.KEY);
-    await this.uService.agregar(this.profesor, this.KEY);
+    await this.uService.agregar(this.profesor[0], this.KEY);
+    await this.uService.agregar(this.profesor[1], this.KEY);
     await this.uService.agregar(this.alumno, this.KEY);
     console.log(this.admin,this.alumno,this.profesor)
   }

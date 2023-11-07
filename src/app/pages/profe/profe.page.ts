@@ -2,10 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AsignaturaStorageService } from 'src/app/services/asignatura-storage.service';
 import { HomePage } from '../home/home.page';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ToastController } from '@ionic/angular';
+import { AlertController, ToastController } from '@ionic/angular';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { ActivatedRoute } from '@angular/router';
+import { AnimationBuilder } from '@angular/animations';
 
 @Component({
   selector: 'app-profe',
@@ -36,6 +37,8 @@ export class ProfePage implements OnInit {
 
   dato: string = '';
 
+  cantidad_clases: any = 0;
+
   dateTime = new Date()
   hora = this.dateTime.getHours();
   minutos = this.dateTime.getMinutes();
@@ -51,36 +54,42 @@ export class ProfePage implements OnInit {
     asistencia: new FormControl([]),
   })
 
-  constructor(private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute) { }
-  
+  constructor(private alertController: AlertController, private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute, private cStorage: ClaseStorageService) { }
+
   generarID() {
     this.randomPassword = Math.random().toString(36).slice(-8);
     console.log(this.randomPassword);
     this.dato = this.randomPassword;
     this.registroClase.controls.id.setValue(this.randomPassword);
-    this.time = this.hora+":"+this.minutos;
+    this.time = this.hora + ":" + this.minutos;
     this.registroClase.controls.hora.setValue(this.time);
     this.registroClase.controls.profesor.setValue(this.nombre_profesor);
   }
 
-  verCodigo(id: string){
+  verCodigo(id: string) {
     var clase = this.clases.find(clase => clase.id == id);
-    if(clase != undefined){
+    if (clase != undefined) {
       this.dato = clase.id;
       console.log(id);
       console.log(this.dato);
     } else {
       this.mostrarToast('top', 'Clase no encontrada.', 2000);
     }
- 
   }
 
-  filtrarAsignaturas() {
+  async filtrarAsignaturas() {
+    await this.listarAsig()
     this.asignaturas = this.asignaturas.filter(asig => asig.rut_profesor === this.rut_profesor);
     return this.asignaturas;
   }
 
-  filtrarProfes(){
+  async filtrarClases() {
+    await this.listarClase()
+    this.clases = this.clases.filter(clase => clase.profesor === this.nombre_profesor);
+    return this.clases;
+  }
+
+  filtrarProfes() {
     const profesores = this.usuarios.filter(usuario => usuario.perfil === 'profesor');
     return profesores;
   }
@@ -93,7 +102,7 @@ export class ProfePage implements OnInit {
     this.clases = await this.cService.listar(this.KEYC);
   }
 
-  async listarUsuarios(){
+  async listarUsuarios() {
     this.usuarios = await this.uService.listar(this.KEY);
   }
 
@@ -106,11 +115,42 @@ export class ProfePage implements OnInit {
     if (resp) {
       this.mostrarToast('middle', 'Clase creada!', 3000);
       this.registroClase.reset();
-      await this.listarClase();
+      await this.filtrarClases();
       this.agreOpen = false;
     } else {
       this.mostrarToast('middle', 'Error al crear clase.', 3000);
     }
+  }
+
+  async eliminarClase(id_eliminar: string) {
+    const alert = await this.alertController.create({
+      header: 'Confirmar eliminación',
+      message: '¿Estás seguro de que deseas eliminar esta clase?',
+      animated: true,
+      backdropDismiss: true,
+      translucent​:true,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          cssClass: 'alerta-custom',
+          handler: () => {
+
+          }
+        },
+        {
+          text: 'Eliminar',
+          handler: async () => {
+            await this.cService.eliminar(id_eliminar, this.KEYC);
+            await this.filtrarClases();
+            this.dato = '';
+            this.mostrarToast('middle', 'Clase eliminada!', 3000);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async setOpen(isOpen: boolean, nombreAsig: string) {
@@ -130,20 +170,20 @@ export class ProfePage implements OnInit {
     await toast.present();
   }
 
-  ngOnInit() {
+ async ngOnInit() {
     this.rut_profesor = this.aService.getRutProfesor();
-    this.nombre_profesor = this.aRoute.snapshot.paramMap.get('nombre')||'';
-    this.listarAsig().then(() => {
-      this.listarUsuarios();
-      this.listarClase();
-      this.filtrarAsignaturas();
-      this.filtrarProfes();
-      console.log(this.rut_profesor);
-      console.log(this.nombre_profesor);
-      console.log(this.asignaturas);
-      console.log(this.time);
-      console.log(this.clases);
-    });
+    this.nombre_profesor = this.aRoute.snapshot.paramMap.get('nombre') || '';
+    await this.listarAsig();
+    await this.listarUsuarios();
+    await this.listarClase();
+    await this.filtrarAsignaturas();
+    await this.filtrarClases();
+    await this.filtrarProfes();
+    console.log(this.rut_profesor);
+    console.log(this.nombre_profesor);
+    console.log(this.asignaturas);
+    console.log(this.time);
+    console.log(this.clases);
   }
 
 }

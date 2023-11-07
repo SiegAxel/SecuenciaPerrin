@@ -35,11 +35,21 @@
                 <tr>
                   <td>{{clase.asignatura}}</td>
                   <td>{{clase.hora}}</td>
-                  <td>{{clase.profesor |titlecase}}</td>
+                  <td>{{clase.profesor | titlecase}}</td>
                 </tr>
               </tbody>
             </table>
           </ion-card-content>
+        </ion-card>
+
+        <ion-card class="card3">
+          <ion-list >
+            <ion-item>
+              <ion-thumbnail id="foto">
+                <img [src]="url" alt="Imagen de la NASA">
+              </ion-thumbnail>
+            </ion-item>
+          </ion-list>
         </ion-card>
       </ion-col>
       <ion-col>
