@@ -116,7 +116,7 @@
                                                                 (click)="setOpen(true,usu.codigo_firebase)">Modificar</ion-item-option>
                                                             <ion-item-option
                                                                 color="danger"
-                                                                (click)="eliminar(usu.codigo_firebase)"
+                                                                (click)="eliminar(usu.codigo_firebase,usu.rut)"
                                                                 [disabled]="usu.rut == rut_usuario">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
@@ -206,7 +206,7 @@
                     <ion-buttons slot="end">
                         <ion-button
                             [disabled]="registroUsuario.controls.pass1.value != registroUsuario.controls.pass2.value || registroUsuario.invalid"
-                            (click)="agregar()" type="submit">Confirmar</ion-button>
+                            (click)="guardar()" type="submit">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -271,7 +271,7 @@
                         <ion-button (click)="setOpen(false, usu.rut)">Cerrar</ion-button>
                     </ion-buttons>
                     <ion-buttons slot="end">
-                        <ion-button (click)="modificarFire()">Confirmar</ion-button>
+                        <ion-button (click)="modificar()">Confirmar</ion-button>
                     </ion-buttons>
                 </ion-toolbar>
             </ion-header>
@@ -346,9 +346,10 @@
                                     formControlName="rut_profesor">
                                     <ion-select-option value="{{profesor.rut}}"
                                         *ngFor="let profesor of filtrarProfes()">
-                                        {{ profesor.rut }}
+                                        {{profesor.rut}}
                                     </ion-select-option>
                                 </ion-select>
+                                
                             </ion-item>
                         </ion-list>
                     </ion-item>

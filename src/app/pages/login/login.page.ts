@@ -7,6 +7,7 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { NavController } from '@ionic/angular';
 import { NavigationExtras } from '@angular/router';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,7 @@ import { NavigationExtras } from '@angular/router';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController) { }
+  constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController, private fService: FirebaseService) { }
 
   admin: any = {
     rut: '11.111.111-1',
@@ -70,10 +71,11 @@ export class LoginPage implements OnInit {
   clave: string = "";
 
   KEY: string = 'usuarios';
+  lista_usuario: any[] = [];
 
   async login() {
-    var lista_usuario: any[] = await this.uService.listar(this.KEY);
-    var usu_encontrado = lista_usuario.find(usu => usu.email == this.email && usu.pass1 == this.clave);
+    //var lista_usuario: any[] = await this.uService.listar(this.KEY);
+    var usu_encontrado = this.lista_usuario.find(usu => usu.email == this.email && usu.pass1 == this.clave);
 
     console.log(usu_encontrado);
 
@@ -145,7 +147,15 @@ export class LoginPage implements OnInit {
     await this.uService.agregar(this.profesor[0], this.KEY);
     await this.uService.agregar(this.profesor[1], this.KEY);
     await this.uService.agregar(this.alumno, this.KEY);
-    console.log(this.admin,this.alumno,this.profesor)
+    this.fService.getDatos('usuarios').subscribe(data => {
+      this.lista_usuario = data.map(item => item.payload.doc.data());
+      console.log(this.lista_usuario);
+    });
+    // console.log(this.admin,this.alumno,this.profesor)
+
+    //llamar al listar de firebase y cargan en una lista local, limpiandola primero y cargandola: usuarios[]
+
+
   }
 
 
