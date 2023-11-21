@@ -46,7 +46,6 @@ export class LoginPage implements OnInit {
       pass2: 'Judas123'}
     ]
   
-
   alumno: any = {
     rut: '13.111.111-1',
     nombre: 'manuel',
@@ -69,7 +68,7 @@ export class LoginPage implements OnInit {
 
   email: string = "";
   clave: string = "";
-
+  isCheck: boolean = false;
   KEY: string = 'usuarios';
   lista_usuario: any[] = [];
 
@@ -96,6 +95,7 @@ export class LoginPage implements OnInit {
           this.router.navigate(['/home'], navigationExtras);
           await this.loaderService.hideLoader();
           this.clear();
+          this.isCheck = true;
           console.log(this.uService.getEstadoLogin())
           return usu_encontrado;
         }
@@ -157,6 +157,7 @@ export class LoginPage implements OnInit {
 
 
   }
+
 
 
 
