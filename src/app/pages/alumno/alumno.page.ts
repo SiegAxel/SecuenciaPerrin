@@ -6,12 +6,17 @@ import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 
+declare var google: any; 
+
 @Component({
   selector: 'app-alumno',
   templateUrl: './alumno.page.html',
   styleUrls: ['./alumno.page.scss'],
 })
 export class AlumnoPage implements OnInit {
+
+  map: any;
+  marker: any;
 
   constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
 
@@ -55,6 +60,8 @@ export class AlumnoPage implements OnInit {
     this.obtenerDatos();
     console.log(this.obtenerDatos())
     console.log(this.clasesFiltradas);
+    await this.cargarMapa();
+    this.autoCompletarInput(this.map, this.marker);
   }
 
   async filtrarClases() {
@@ -102,6 +109,36 @@ export class AlumnoPage implements OnInit {
 
   back() {
     this.router.navigate(['/login']);
+  }
+
+  async cargarMapa(){
+    const mapa: any = document.getElementById("map");
+    this.map = new google.maps.Map(mapa, {
+      center: {lat: -33.598595309477396, lng: -70.57906106437217},
+      zoom: 18
+    });
+
+    this.marker = new google.maps.Marker({
+      position: {lat: -33.598595309477396, lng: -70.57906106437217},
+      map: this.map,
+      title: '(งಠ_ಠ)ง'
+    });
+    
+  }
+
+  autoCompletarInput(mapaLocal: any, marcadorLocal: any){
+    var autocomplete: any = document.getElementById("autocomplete");
+    const search = new google.maps.Autocomplete(autocomplete); //( ಥ ʖ̯ ಥ)
+    search.bindTo('bounds', this.map); //( ಠ ʖ̯ ಠ)
+    
+    search.addListener('place_changed', function(){
+      var place = search.getPlace().geometry.location;
+      mapaLocal.setCenter(place);
+      mapaLocal.setZoom(14);
+
+      marcadorLocal.setPosition(place);
+      marcadorLocal.setMap(mapaLocal);
+    });                      
   }
 
 
