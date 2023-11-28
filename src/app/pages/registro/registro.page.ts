@@ -70,7 +70,6 @@ export class RegistroPage implements OnInit {
         this.mostrarToast("top", "Usuario Registrado!", 1000);
         this.fireService.agregar('usuarios', this.usuario.value);
         this.usuario.reset();
-        this.cargarUsuarios();
         this.redireccionar();
       } else {
         this.mostrarToast("top", "Error al registrar.", 3000);
@@ -85,7 +84,7 @@ export class RegistroPage implements OnInit {
       for (let usuario of data) {
         //console.log(usuario.payload.doc.data());
         let usu: any = usuario.payload.doc.data();
-        //usu['codigo_firebase'] = usuario.payload.doc.id;
+        usu['codigo_firebase'] = usuario.payload.doc.id;
         this.usuarios.push(usu);
       }
       console.log(this.usuarios);

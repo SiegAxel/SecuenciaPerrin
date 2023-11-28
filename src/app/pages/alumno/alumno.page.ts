@@ -5,6 +5,7 @@ import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 declare var google: any; 
 
@@ -18,13 +19,13 @@ export class AlumnoPage implements OnInit {
   map: any;
   marker: any;
 
-  constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
+  constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router, private fireService: FirebaseService) { }
 
   nombre_alumno: string = '';
   rut_alumno: string = '';
   ClassCode: string = '';
   KEYC: string = 'clases';
-  codigo: string = '';
+  codigo: any = '';
   clases: any[] = [];
   clasesFiltradas: any[] = [];
   url: string = ''
@@ -76,7 +77,10 @@ export class AlumnoPage implements OnInit {
   }
 
   async marcarAsistencia() {
+     
     this.codigo = await this.cService.buscarClase(this.ClassCode, this.KEYC);
+    console.log(this.codigo)
+    //sacar codigo desde firebase en vez de storag
     var separator = ' - ';
     if (this.codigo === undefined) {
       this.mostrarToast("top", "Código no encontrado.", 3000);
@@ -88,6 +92,7 @@ export class AlumnoPage implements OnInit {
       } else {
         claseEncontrada.asistencia.push(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut());
         await this.cService.actualizarClase(claseEncontrada, this.KEYC);
+      
         this.mostrarToast("top", "Asistencia marcada.", 3000);
         console.log(this.cService.listar(this.KEYC));
         this.filtrarClases();

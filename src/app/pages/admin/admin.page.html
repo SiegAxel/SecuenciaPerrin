@@ -29,7 +29,7 @@
                         name="menu"></ion-icon></ion-button>
             </h2>
             <div class="user-wrapper">
-                <img src="assets/images/favicon.png" width="40px" height="40px"
+                <img title="saleerror" src="assets/images/favicon.png" width="40px" height="40px"
                     (click)="logout()">
                 <div>
                     <h4>VerifyU</h4>
@@ -113,7 +113,7 @@
                                                             side="end">
                                                             <ion-item-option
                                                                 color="favorite"
-                                                                (click)="setOpen(true,usu.codigo_firebase)">Modificar</ion-item-option>
+                                                                (click)="setOpen(true,usu.codigo_firebase)" >Modificar</ion-item-option>
                                                             <ion-item-option
                                                                 color="danger"
                                                                 (click)="eliminar(usu.codigo_firebase,usu.rut)"
@@ -172,11 +172,8 @@
                                                             side="end">
                                                             <ion-item-option
                                                                 color="favorite"
-                                                                (click)="setOpenAsignatura(true, asig.codigo)">Modificar</ion-item-option>
-                                                            <ion-item-option
-                                                                color="danger"
-                                                                (click)="eliminarAsig(asig.codigo)"
-                                                                [disabled]="asig.codigo == rut_usuario">Eliminar</ion-item-option>
+                                                                (click)="setOpenAsignatura(true, asig.codigo)" (click)="buscarAsig(asig.codigo_firebase)">Modificar</ion-item-option>
+                                                            <ion-item-option color="danger" (click)="eliminarAsig(asig.codigo, asig.codigo_firebase)">Eliminar</ion-item-option>
                                                         </ion-item-options>
                                                     </ion-item-sliding>
                                                 </td>

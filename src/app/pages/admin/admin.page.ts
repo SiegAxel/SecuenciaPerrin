@@ -26,6 +26,7 @@ export class AdminPage implements OnInit {
     perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
     pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
+    codigo_firebase:new FormControl('',)
   });
 
   usuario = new FormGroup({
@@ -52,7 +53,8 @@ export class AdminPage implements OnInit {
   registroAsignatura = new FormGroup({
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)])
+    rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    codigo_firebase: new FormControl(''),
   })
 
   constructor(
@@ -160,8 +162,6 @@ export class AdminPage implements OnInit {
         this.mostrarToast("middle", "Usuario agregado!", 3000);
         this.fireService.agregar('usuarios', this.registroUsuario.value);
         this.registroUsuario.reset();
-        this.cargarUsuarios();
-      
         this.agreOpen = false;
       } else {
         this.mostrarToast("middle", "Error al agregar usuario.", 3000);
@@ -254,13 +254,12 @@ export class AdminPage implements OnInit {
     }
   }
 
-  async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
+  setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
     if (cod_modificar == '') {
       this.asigOpen = isOpen;
       this.registroAsignatura.reset();
     } else {
       this.isAsigOpen = isOpen;
-      await this.buscarAsig(cod_modificar);
     }
   }
 
@@ -316,32 +315,31 @@ export class AdminPage implements OnInit {
       this.mostrarToast('middle', 'Asignatura agregada!', 3000);
       this.fireService.agregar('asignaturas', this.registroAsignatura.value);
       this.registroAsignatura.reset();
-      this.cargarAsignaturas();
       this.asigOpen = false;
     } else {
       this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
     }
   }
 
-  async modificarAsig() {
-    console.log('Antes de modificar en modificarAsig:', this.registroAsignatura.value);
-
-    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA);
-
-    console.log('Respuesta de modificar en modificarAsig:', resp);
-    if (resp) {
-      this.mostrarToast('top', 'Asignatura modificada!', 3000);
-      await this.listarAsig();
-      this.registroAsignatura.reset();
-      this.boton_modificarAsig = true;
-      this.isAsigOpen = false;
-    } else {
-      this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
+  modificarFIRE(){
+    this.fireService.modificar('asignaturas', this.registroAsignatura.controls.codigo_firebase.value || '' , this.registroAsignatura.value)
+    return true;
+  }
+  
+  async modificarAsig(){
+    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA); //////aqui hay que preguntar
+    var resp: boolean = this.modificarFIRE();
+    if (resp == true) {
+      this.modificarFIRE();
+      this.mostrarToast("top","Asignatura modificado!", 3000);
+      this.isAsigOpen=false;
+      this.cargarAsignaturas();
+    }else{
+      this.mostrarToast("top","error!", 3000)
     }
   }
 
-
-  async eliminarAsig(codigo_eliminar: string) {
+  async eliminarAsig(codigo_eliminar: string, id: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que deseas eliminar esta asignatura?',
@@ -357,7 +355,8 @@ export class AdminPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await this.aService.eliminar(codigo_eliminar, this.KEYA);
-            await this.listarAsig();
+            this.fireService.eliminar('asignaturas', id);
+            this.cargarAsignaturas()
             this.mostrarToast('top', 'Asignatura eliminada!', 3000);
           }
         }
@@ -403,14 +402,15 @@ export class AdminPage implements OnInit {
   }
 
   cargarAsignaturas(){
-    this.fireService.getDatos('asignaturas')?.subscribe(data => {
+    this.fireService.getDatos('asignaturas')?.subscribe((data:any) => {
       //console.log(data);
       this.asignaturas = [];
       for (let asignatura of data) {
-        //console.log(usuario.payload.doc.data);
+        console.log(asignatura.payload.doc.data());
         let asig: any = asignatura.payload.doc.data();
+        console.log("ID del documento:", asignatura.payload.doc.id);
         asig['codigo_firebase'] = asignatura.payload.doc.id;
-        this.asignaturas.push(asig);
+       this.asignaturas.push(asig) 
       }
     });
   }
