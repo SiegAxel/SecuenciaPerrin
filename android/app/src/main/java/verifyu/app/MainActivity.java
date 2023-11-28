@@ -1,4 +1,4 @@
-package com.example.app;
+package verifyu.app;
 
 import com.getcapacitor.BridgeActivity;
 
