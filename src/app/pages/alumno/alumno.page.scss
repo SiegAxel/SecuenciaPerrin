@@ -111,3 +111,15 @@ table {
   width: 300px;
   height: 300px;
 }
+
+/* CSS MAPA */
+
+.mapanasa {
+  display: flex;
+}
+
+.mapanasa #map {
+   width: 300px;
+   height: 300px;
+   display: block;
+}

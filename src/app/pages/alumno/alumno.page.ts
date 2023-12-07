@@ -5,6 +5,9 @@ import { ToastController } from '@ionic/angular';
 import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
+
+declare var google: any; 
 
 @Component({
   selector: 'app-alumno',
@@ -13,13 +16,16 @@ import { UsuarioStorageService } from 'src/app/services/usuario-storage.service'
 })
 export class AlumnoPage implements OnInit {
 
-  constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router) { }
+  map: any;
+  marker: any;
+
+  constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router, private fireService: FirebaseService) { }
 
   nombre_alumno: string = '';
   rut_alumno: string = '';
   ClassCode: string = '';
   KEYC: string = 'clases';
-  codigo: string = '';
+  codigo: any = '';
   clases: any[] = [];
   clasesFiltradas: any[] = [];
   url: string = ''
@@ -55,6 +61,8 @@ export class AlumnoPage implements OnInit {
     this.obtenerDatos();
     console.log(this.obtenerDatos())
     console.log(this.clasesFiltradas);
+    await this.cargarMapa();
+    this.autoCompletarInput(this.map, this.marker);
   }
 
   async filtrarClases() {
@@ -69,7 +77,10 @@ export class AlumnoPage implements OnInit {
   }
 
   async marcarAsistencia() {
+     
     this.codigo = await this.cService.buscarClase(this.ClassCode, this.KEYC);
+    console.log(this.codigo)
+    //sacar codigo desde firebase en vez de storag
     var separator = ' - ';
     if (this.codigo === undefined) {
       this.mostrarToast("top", "Código no encontrado.", 3000);
@@ -81,6 +92,7 @@ export class AlumnoPage implements OnInit {
       } else {
         claseEncontrada.asistencia.push(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut());
         await this.cService.actualizarClase(claseEncontrada, this.KEYC);
+      
         this.mostrarToast("top", "Asistencia marcada.", 3000);
         console.log(this.cService.listar(this.KEYC));
         this.filtrarClases();
@@ -102,6 +114,36 @@ export class AlumnoPage implements OnInit {
 
   back() {
     this.router.navigate(['/login']);
+  }
+
+  async cargarMapa(){
+    const mapa: any = document.getElementById("map");
+    this.map = new google.maps.Map(mapa, {
+      center: {lat: -33.598595309477396, lng: -70.57906106437217},
+      zoom: 18
+    });
+
+    this.marker = new google.maps.Marker({
+      position: {lat: -33.598595309477396, lng: -70.57906106437217},
+      map: this.map,
+      title: '(งಠ_ಠ)ง'
+    });
+    
+  }
+
+  autoCompletarInput(mapaLocal: any, marcadorLocal: any){
+    var autocomplete: any = document.getElementById("autocomplete");
+    const search = new google.maps.Autocomplete(autocomplete); //( ಥ ʖ̯ ಥ)
+    search.bindTo('bounds', this.map); //( ಠ ʖ̯ ಠ)
+    
+    search.addListener('place_changed', function(){
+      var place = search.getPlace().geometry.location;
+      mapaLocal.setCenter(place);
+      mapaLocal.setZoom(14);
+
+      marcadorLocal.setPosition(place);
+      marcadorLocal.setMap(mapaLocal);
+    });                      
   }
 
 

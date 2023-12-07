@@ -4,6 +4,7 @@ import { ToastController } from '@ionic/angular';
 import { UsuarioService } from 'src/app/services/usuario.service';
 import { FormControl, FormGroup, Validators, ValidationErrors } from '@angular/forms';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
+import { FirebaseService } from 'src/app/services/firebase.service';
 
 @Component({
   selector: 'app-registro',
@@ -15,7 +16,8 @@ export class RegistroPage implements OnInit {
   constructor(
     private toastController: ToastController,
     private router: Router,
-    private uService : UsuarioStorageService 
+    private uService : UsuarioStorageService,
+    private fireService: FirebaseService
   ) {}
 
   usuario = new FormGroup({
@@ -42,7 +44,8 @@ export class RegistroPage implements OnInit {
   KEY: string = 'usuarios';
 
    async ngOnInit() {
-    this.usuarios = await this.listar_usuarios();
+    this.cargarUsuarios();
+    console.log(this.usuarios);
   }
 
   async redireccionar() {
@@ -59,16 +62,33 @@ export class RegistroPage implements OnInit {
     if (age < 17) {
       this.mostrarToast("middle", "Debe ser igual a o mayor de 17 años para registrarse.", 3000);
     } else {
-      const respuesta: boolean = await this.uService.agregar(this.usuario.value, this.KEY);
-      if (respuesta) {
+      console.log('Valor del formulario:', this.usuario.controls.nombre.value);
+      const respuesta: any= this.usuarios.find(user => user.nombre === this.usuario.controls.nombre.value);
+      console.log(respuesta);
+      
+      if (respuesta == undefined) {
         this.mostrarToast("top", "Usuario Registrado!", 1000);
+        this.fireService.agregar('usuarios', this.usuario.value);
         this.usuario.reset();
-        this.listar_usuarios();
         this.redireccionar();
       } else {
         this.mostrarToast("top", "Error al registrar.", 3000);
       }
     }
+  }
+
+  cargarUsuarios() {
+    this.fireService.getDatos('usuarios')?.subscribe((data:any) => {
+      
+      this.usuarios = [];
+      for (let usuario of data) {
+        //console.log(usuario.payload.doc.data());
+        let usu: any = usuario.payload.doc.data();
+        usu['codigo_firebase'] = usuario.payload.doc.id;
+        this.usuarios.push(usu);
+      }
+      console.log(this.usuarios);
+    });
   }
 
   async listar_usuarios() {

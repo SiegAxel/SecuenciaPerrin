@@ -26,7 +26,7 @@ export class AdminPage implements OnInit {
     perfil: new FormControl('Alumno', Validators.required),
     pass1: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
     pass2: new FormControl('', [Validators.required, Validators.minLength(6), Validators.maxLength(20), Validators.pattern('(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}')]),
-    codigo_firebase: new FormControl('', Validators.required),
+    codigo_firebase:new FormControl('',)
   });
 
   usuario = new FormGroup({
@@ -54,21 +54,22 @@ export class AdminPage implements OnInit {
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
     rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    codigo_firebase: new FormControl('')
   })
 
   constructor(
-    private cStorage: ClaseStorageService, 
-    private uStorage: UsuarioStorageService, 
+    private cStorage: ClaseStorageService,
+    private uStorage: UsuarioStorageService,
     private aRoute: ActivatedRoute,
     private uService: UsuarioService,
-    private menuCtrl: MenuController, 
+    private menuCtrl: MenuController,
     private toastController: ToastController,
-    private modalCtrl: ModalController, 
+    private modalCtrl: ModalController,
     private router: Router,
     private aService: AsignaturaStorageService,
     private alertController: AlertController,
     private fireService: FirebaseService
-    ) { }
+  ) { }
 
   boton_modificar: boolean = true;
 
@@ -112,12 +113,12 @@ export class AdminPage implements OnInit {
 
   async ngOnInit() {
     //await this.listar();
-    await this.listarAsig();
     this.nombre_usuario = this.aRoute.snapshot.paramMap.get('nombre') || "";
     this.cantidad_usuarios = this.usuarios.length;
     this.lista_usuarios = this.usuarios;
     this.contar();
     this.cargarUsuarios();
+    this.cargarAsignaturas();
 
     const loggedInUser = this.usuarios.find(user => user.nombre === this.nombre_usuario);
     if (loggedInUser) {
@@ -161,7 +162,6 @@ export class AdminPage implements OnInit {
         this.mostrarToast("middle", "Usuario agregado!", 3000);
         this.fireService.agregar('usuarios', this.registroUsuario.value);
         this.registroUsuario.reset();
-        this.cargarUsuarios();
         this.agreOpen = false;
       } else {
         this.mostrarToast("middle", "Error al agregar usuario.", 3000);
@@ -169,7 +169,7 @@ export class AdminPage implements OnInit {
     }
   }
 
-  /* async eliminar(rut_eliminar: string) {
+  async eliminar(id: string, rut_eliminar: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que deseas eliminar este usuario?',
@@ -185,20 +185,20 @@ export class AdminPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await this.uStorage.eliminar(rut_eliminar, this.KEY);
-            await this.listar();
+            this.fireService.eliminar('usuarios', id);
+            await this.cargarUsuarios();
             await this.contar();
             this.mostrarToast('middle', 'USUARIO ELIMINADO CON ÉXITO!', 3000);
           }
         }
       ]
     });
-  
+
     await alert.present();
-  } */
+  }
 
 
   async modificar() {
-    var rut: string = this.usuario.controls.rut.value || '';
     var perfil = this.usuario.controls.perfil.value || '';
     var usuName = this.usuario.controls.nombre.value || '';
     var correoNew = "";
@@ -217,7 +217,8 @@ export class AdminPage implements OnInit {
     var resp: boolean = await this.uStorage.modificar(this.usuario.value, this.KEY);
     if (resp) {
       this.mostrarToast("bottom", "Usuario modificado!", 3000);
-      await this.listar();
+      this.fireService.modificar('usuarios', this.usuario.controls.codigo_firebase.value || '', this.usuario.value)
+      await this.cargarUsuarios();
       await this.contar();
       this.boton_modificar = true;
       this.isModalOpen = false;
@@ -226,13 +227,13 @@ export class AdminPage implements OnInit {
 
   /////////////////////////////////////////////
 
-/*   async buscar(rut_modificar: string) {
-    var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
-    this.usuario.setValue(usuario_encontrado);
-    this.boton_modificar = false;
-    //vamos a bloquear el rut
-    document.getElementById("rut")?.setAttribute("disabled", "true");
-  } */
+  /*   async buscar(rut_modificar: string) {
+      var usuario_encontrado: any = await this.uStorage.buscar(rut_modificar, this.KEY)
+      this.usuario.setValue(usuario_encontrado);
+      this.boton_modificar = false;
+      //vamos a bloquear el rut
+      document.getElementById("rut")?.setAttribute("disabled", "true");
+    } */
 
   // async setOpen(isOpen: boolean, rut_modificar: string) {
   //   if (rut_modificar == '') {
@@ -245,21 +246,20 @@ export class AdminPage implements OnInit {
 
 
   async setOpen(isOpen: boolean, id: string) {
-  if (id == '') {
-    this.agreOpen = isOpen;
-   } else {
-    this.isModalOpen = isOpen;
-         await this.buscar(id);
-       }
-     }
+    if (id == '') {
+      this.agreOpen = isOpen;
+    } else {
+      this.isModalOpen = isOpen;
+      await this.buscar(id);
+    }
+  }
 
-  async setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
+  setOpenAsignatura(isOpen: boolean, cod_modificar: string) {
     if (cod_modificar == '') {
       this.asigOpen = isOpen;
       this.registroAsignatura.reset();
     } else {
       this.isAsigOpen = isOpen;
-      await this.buscarAsig(cod_modificar);
     }
   }
 
@@ -296,49 +296,50 @@ export class AdminPage implements OnInit {
     this.asignaturas = await this.aService.listar(this.KEYA);
   }
 
-  async buscarAsig(cod_modificar: string) {
-    var asignatura_encontrada: any = await this.aService.buscarAsig(cod_modificar, this.KEYA);
+  // async buscarAsig(cod_modificar: string) {
+  //   var asignatura_encontrada: any = await this.aService.buscarAsig(cod_modificar, this.KEYA);
 
-    if (asignatura_encontrada) {
-      this.registroAsignatura.setValue(asignatura_encontrada);
-      this.boton_modificarAsig = false;
-    } else {
-      console.log("La asignatura no fue encontrada.")
-    }
-  }
+  //   if (asignatura_encontrada) {
+  //     this.registroAsignatura.setValue(asignatura_encontrada);
+  //     this.boton_modificarAsig = false;
+  //   } else {
+  //     console.log("La asignatura no fue encontrada.")
+  //   }
+  // }
 
   async guardarAsig() {
+
     var resp: boolean = await this.aService.agregar(this.registroAsignatura.value, this.KEYA);
 
     if (resp) {
       this.mostrarToast('middle', 'Asignatura agregada!', 3000);
+      this.fireService.agregar('asignaturas', this.registroAsignatura.value);
       this.registroAsignatura.reset();
-      await this.listarAsig();
       this.asigOpen = false;
     } else {
       this.mostrarToast('middle', 'Error al agregar asignatura.', 3000);
     }
   }
 
-  async modificarAsig() {
-    console.log('Antes de modificar en modificarAsig:', this.registroAsignatura.value);
-
-    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA);
-
-    console.log('Respuesta de modificar en modificarAsig:', resp);
-    if (resp) {
-      this.mostrarToast('top', 'Asignatura modificada!', 3000);
-      await this.listarAsig();
-      this.registroAsignatura.reset();
-      this.boton_modificarAsig = true;
-      this.isAsigOpen = false;
-    } else {
-      this.mostrarToast('middle', 'Error al modificar asignatura.', 3000);
+  modificarFIRE(){
+    this.fireService.modificar('asignaturas', this.registroAsignatura.controls.codigo_firebase.value || '' , this.registroAsignatura.value)
+    return true;
+  }
+  
+  async modificarAsig(){
+    var resp: boolean = await this.aService.modificar(this.registroAsignatura.value, this.KEYA); //////aqui hay que preguntar
+    var resp: boolean = this.modificarFIRE();
+    if (resp == true) {
+      this.modificarFIRE();
+      this.mostrarToast("top","Asignatura modificado!", 3000);
+      this.isAsigOpen=false;
+      this.cargarAsignaturas();
+    }else{
+      this.mostrarToast("top","error!", 3000)
     }
   }
 
-
-  async eliminarAsig(codigo_eliminar: string) {
+  async eliminarAsig(codigo_eliminar: string, id: string) {
     const alert = await this.alertController.create({
       header: 'Confirmar eliminación',
       message: '¿Estás seguro de que deseas eliminar esta asignatura?',
@@ -354,67 +355,66 @@ export class AdminPage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await this.aService.eliminar(codigo_eliminar, this.KEYA);
-            await this.listarAsig();
+            this.fireService.eliminar('asignaturas', id);
+            this.cargarAsignaturas()
             this.mostrarToast('top', 'Asignatura eliminada!', 3000);
           }
         }
       ]
     });
-  
+
     await alert.present();
   }
 
   async logout() {
     this.uStorage.logout();
   }
-  
+
   // METODOS FIREBASE //
 
-agregar()
-{
-  this.fireService.agregar('usuarios', this.registroUsuario.value);
+  buscar(id: string) {
+    this.fireService.getDato('usuarios', id).subscribe(data => {
+      let usu: any = data.data()
+      usu['codigo_firebase'] = id;
+      this.usuario.setValue(usu);
+    });
+  }
+
+  buscarAsig(codigo: string) {
+    this.fireService.getDato('asignaturas', codigo).subscribe(data => {
+      let asig: any = data.data()
+      asig['codigo_firebase'] = codigo;
+      this.registroAsignatura.setValue(asig);
+    });
+  }
+
+  cargarUsuarios() {
+    this.fireService.getDatos('usuarios')?.subscribe(data => {
+      //console.log(data);
+      this.usuarios = [];
+      for (let usuario of data) {
+        //console.log(usuario.payload.doc.data);
+        let usu: any = usuario.payload.doc.data();
+        usu['codigo_firebase'] = usuario.payload.doc.id;
+        this.usuarios.push(usu);
+      }
+    });
+  }
+
+  cargarAsignaturas(){
+    this.fireService.getDatos('asignaturas')?.subscribe((data:any) => {
+      //console.log(data);
+      this.asignaturas = [];
+      for (let asignatura of data) {
+        console.log(asignatura.payload.doc.data());
+        let asig: any = asignatura.payload.doc.data();
+        console.log("ID del documento:", asignatura.payload.doc.id);
+        asig['codigo_firebase'] = asignatura.payload.doc.id;
+       this.asignaturas.push(asig) 
+      }
+    });
+  }
 }
-
-modificarFire()
-{
-  this.fireService.modificar('usuarios', this.usuario.controls.codigo_firebase.value || '', this.usuario.value)
-}
-
-buscar(id: string)
-{
-  this.fireService.getDato('usuarios', id).subscribe(data=> {
-    let usu: any = data.data()
-    usu['codigo_firebase'] = id;
-    this.usuario.setValue(usu);
-  });
-}
-
-eliminar(id: string)
-{
-  this.fireService.eliminar('usuarios', id);
-}
-
-cargarUsuarios()
-{
-  this.fireService.getDatos('usuarios')?.subscribe(data => {
-    //console.log(data);
-    this.usuarios = [];
-    for(let usuario of data)
-    {
-      //console.log(usuario.payload.doc.data);
-      let usu: any = usuario.payload.doc.data();
-      usu['codigo_firebase'] = usuario.payload.doc.id;
-      this.usuarios.push(usu);
-
-    }
-  });
-}
-
-
-
-}
-
-
 
 function validarRut(rut: string): boolean {
   // Limpia el RUT de puntos y guión

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
 //1 LLamar a don google, se summonea:
-
 declare var google: any; 
 
 @Component({
@@ -34,7 +33,7 @@ export class MapaPage implements OnInit {
     this.marker = new google.maps.Marker({
       position: {lat: -33.598595309477396, lng: -70.57906106437217},
       map: this.map,
-      title: '(ﾉ◕ヮ◕)ﾉ*:･ﾟ✧Ubicación Σ(°△°|||)  ᕕ( ᐛ )ᕗ    ┬┴┬┴┬┴┬┴┤( ͡° ͜ʖ├┬┴┬┴   (งಠ_ಠ)ง　σ( •̀ ω •́ σ)  (つ◕౪◕)つ━☆ﾟ.*･｡ﾟ'
+      title: '(งಠ_ಠ)ง'
     });
     
   }
