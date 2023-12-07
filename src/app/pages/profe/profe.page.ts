@@ -52,7 +52,8 @@ export class ProfePage implements OnInit {
     asignatura: new FormControl(''),
     profesor: new FormControl(''),
     hora: new FormControl(''),
-    asistencia: new FormControl([])
+    asistencia: new FormControl([]),
+    codigo_firebase: new FormControl('')
   })
 
   constructor(private alertController: AlertController, private aService: AsignaturaStorageService, private cService: ClaseStorageService, private toastController: ToastController, private uService: UsuarioStorageService, private aRoute: ActivatedRoute, private cStorage: ClaseStorageService, private fireService: FirebaseService) { }

@@ -19,7 +19,8 @@ export class LoginPage implements OnInit {
   constructor(private loaderService: LoaderService, private router: Router, private uService: UsuarioStorageService, private toastController: ToastController, private fService: FirebaseService) { }
 
   admin: any = {
-    rut: '11.111.111-1',
+    codigo_firebase: 'ccoGIdrIgo2hUpEAyQwx',
+    rut: '21.293.773-8',
     nombre: 'ariel',
     email: 'ariel@duoc.cl',
     fechanac: '2003-05-09',
@@ -28,33 +29,7 @@ export class LoginPage implements OnInit {
     pass2: 'Judas123'
   }
 
-  profesor: any [] = [{
-    rut: '12.111.111-1',
-    nombre: 'felipe',
-    email: 'felipe@profesor.duoc.cl',
-    fechanac: '2003-05-09',
-    perfil: 'profesor',
-    pass1: 'Judas123',
-    pass2: 'Judas123'},
-    {
-      rut: '14.111.111-1',
-      nombre: 'felipe2',
-      email: 'felipe2@profesor.duoc.cl',
-      fechanac: '2003-05-09',
-      perfil: 'profesor',
-      pass1: 'Judas123',
-      pass2: 'Judas123'}
-    ]
-  
-  alumno: any = {
-    rut: '13.111.111-1',
-    nombre: 'manuel',
-    email: 'manuel@duocuc.cl',
-    fechanac: '2003-05-09',
-    perfil: 'alumno',
-    pass1: 'Judas123',
-    pass2: 'Judas123'
-  }
+
 
   usuario = new FormGroup({
     email: new FormControl('', [Validators.email,
@@ -144,9 +119,6 @@ export class LoginPage implements OnInit {
 
   async ngOnInit() {
     await this.uService.agregar(this.admin, this.KEY);
-    await this.uService.agregar(this.profesor[0], this.KEY);
-    await this.uService.agregar(this.profesor[1], this.KEY);
-    await this.uService.agregar(this.alumno, this.KEY);
     this.fService.getDatos('usuarios').subscribe(data => {
       this.lista_usuario = data.map(item => item.payload.doc.data());
       console.log(this.lista_usuario);

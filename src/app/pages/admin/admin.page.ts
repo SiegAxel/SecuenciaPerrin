@@ -54,7 +54,7 @@ export class AdminPage implements OnInit {
     codigo: new FormControl('', [Validators.required, Validators.minLength(7), Validators.pattern('^[A-Z]{3}[0-9]{4}$')]),
     nombre: new FormControl('', [Validators.required, Validators.minLength(6)]),
     rut_profesor: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    codigo_firebase: new FormControl(''),
+    codigo_firebase: new FormControl('')
   })
 
   constructor(
