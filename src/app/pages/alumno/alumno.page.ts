@@ -80,7 +80,7 @@ export class AlumnoPage implements OnInit {
      
     this.codigo = await this.cService.buscarClase(this.ClassCode, this.KEYC);
     console.log(this.codigo)
-    //sacar codigo desde firebase en vez de storag
+    //sacar codigo desde firebase en vez de storage
     var separator = ' - ';
     if (this.codigo === undefined) {
       this.mostrarToast("top", "Código no encontrado.", 3000);
