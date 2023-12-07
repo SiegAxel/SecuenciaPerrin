@@ -74,6 +74,7 @@ export class ProfePage implements OnInit {
       this.dato = clase.id;
       console.log(id);
       console.log(this.dato);
+      this.cargarClases();
     } else {
       this.mostrarToast('top', 'Clase no encontrada.', 2000);
     }
@@ -148,9 +149,10 @@ export class ProfePage implements OnInit {
 
     if (resp) {
       this.mostrarToast('middle', 'Clase creada!', 3000);
-      this.fireService.agregar('clases', this.registroClase.value);
+      this.fireService.agregar('clases', this.registroClase.value); 
       this.registroClase.reset();
       this.filtrarClases();
+      this.cargarClases();
       this.agreOpen = false;
     } else {
       this.mostrarToast('middle', 'Error al crear clase.', 3000);
@@ -177,7 +179,7 @@ export class ProfePage implements OnInit {
           text: 'Eliminar',
           handler: async () => {
             await this.cService.eliminar(id_eliminar, this.KEYC);
-            this.fireService.eliminar('usuarios', id);
+            this.fireService.eliminar('clases', id);
             this.filtrarClases();
             this.cargarClases();
             this.dato = '';

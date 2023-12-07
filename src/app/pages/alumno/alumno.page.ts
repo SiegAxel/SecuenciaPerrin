@@ -6,6 +6,8 @@ import { ApiService } from 'src/app/services/api.service';
 import { ClaseStorageService } from 'src/app/services/clase-storage.service';
 import { UsuarioStorageService } from 'src/app/services/usuario-storage.service';
 import { FirebaseService } from 'src/app/services/firebase.service';
+import { collection, query, where, getFirestore, getDocs, Firestore } from "firebase/firestore";
+import * as firebase from 'firebase/app';
 
 declare var google: any; 
 
@@ -21,9 +23,10 @@ export class AlumnoPage implements OnInit {
 
   constructor(private apiService: ApiService,private cService: ClaseStorageService,private uService:UsuarioStorageService ,private toastController: ToastController, private aRoute: ActivatedRoute, private router: Router, private fireService: FirebaseService) { }
 
+  ClassCode: string = '';
+  
   nombre_alumno: string = '';
   rut_alumno: string = '';
-  ClassCode: string = '';
   KEYC: string = 'clases';
   codigo: any = '';
   clases: any[] = [];
@@ -36,7 +39,9 @@ export class AlumnoPage implements OnInit {
     profesor: new FormControl(''),
     hora: new FormControl(''),
     asistencia: new FormControl([]),
+    codigo_firebase: new FormControl('')
   })
+
 
   /* METODOS DE API */
 
@@ -77,6 +82,8 @@ export class AlumnoPage implements OnInit {
   }
 
   async marcarAsistencia() {
+
+
      
     this.codigo = await this.cService.buscarClase(this.ClassCode, this.KEYC);
     console.log(this.codigo)
@@ -86,6 +93,7 @@ export class AlumnoPage implements OnInit {
       this.mostrarToast("top", "Código no encontrado.", 3000);
     } else {
       const claseEncontrada: any = this.codigo;
+   
   
       if (claseEncontrada.asistencia.includes(this.nombre_alumno.charAt(0).toUpperCase()+this.nombre_alumno.slice(1)+' - '+this.uService.getRut())) {
         this.mostrarToast("middle", "Ya se ha registrado la asistencia.", 2500);
@@ -97,7 +105,9 @@ export class AlumnoPage implements OnInit {
         console.log(this.cService.listar(this.KEYC));
         this.filtrarClases();
       }
+
     }
+    
   }
   
   async mostrarToast(position: 'top' | 'middle' | 'bottom',
