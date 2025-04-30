@@ -14,8 +14,8 @@ try:
         EC.presence_of_element_located((By.XPATH, "//input[@placeholder='Ingrese su correo']"))
     )
     password_input = driver.find_element(By.XPATH, "//input[@placeholder='Ingrese su contraseña']")
-    correo_input.send_keys("correo@falso.com")
-    password_input.send_keys("clavefalsa")
+    correo_input.send_keys("ariel@duoc.cl")
+    password_input.send_keys("Judas123")
 
     # Espera el componente ion-button que actúa como shadow host
     ion_btn = WebDriverWait(driver, 17).until(
