@@ -29,10 +29,10 @@ try:
         btn.click();
     """, ion_btn)
     time.sleep(5)
-    print("✅ Click sobre el botón enviado correctamente.")
+    print("✅ MTC 010: Login incorrecto Exitoso")
 
 except Exception as e:
-    print("❌ Error en la prueba:", e)
+    print("❌ Error en la prueba MTC 010:", e)
 
 finally:
     driver.quit()
